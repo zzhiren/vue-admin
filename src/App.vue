@@ -1,11 +1,35 @@
 <template lang="pug">
-  div.app
+  div.app(ref="app")
+    vue-particles(
+        color="#dedede"
+        :particleOpacity="0.7"
+        :particlesNumber="80"
+        shapeType="circle"
+        :particleSize="6"
+        linesColor="#dedede"
+        :linesWidth="1"
+        :lineLinked="true"
+        :lineOpacity="0.4"
+        :linesDistance="150"
+        :moveSpeed="3"
+        :hoverEffect="false"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push")
     router-view
+
 </template>
 
 <script >
 export default {
-  name: "app"
+  name: "app",
+  mounted(){
+    this.init()
+  },
+  methods:{
+    init(){
+    }
+  }
 };
 </script>
 
@@ -14,9 +38,23 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+#particles-js {
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+html{
+  height: 100%;
 }
 body {
   // background: white;
+  
   opacity: 1;
   background-size: cover;
   background-repeat: no-repeat;

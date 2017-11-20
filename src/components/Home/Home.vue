@@ -31,7 +31,7 @@ export default {
     display: flex;
     .slide{
       width: 200px;
-      background-color: #2c3942;
+      background: rgba(0, 0, 0, .8);
       .logo{
         width: 100%;
         height: 60px;
