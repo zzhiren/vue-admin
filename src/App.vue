@@ -23,12 +23,11 @@
 <script >
 export default {
   name: "app",
-  mounted(){
-    this.init()
+  mounted() {
+    this.init();
   },
-  methods:{
-    init(){
-    }
+  methods: {
+    init() {}
   }
 };
 </script>
@@ -41,20 +40,21 @@ export default {
   height: 100%;
 }
 #particles-js {
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-html{
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: #555555;
+}
+html {
   height: 100%;
 }
 body {
   // background: white;
-  
+
   opacity: 1;
   background-size: cover;
   background-repeat: no-repeat;
@@ -85,7 +85,42 @@ body {
     background-color: #555;
   }
 }
-
+.ivu-input {
+  height: 33px !important;
+  padding-left: 7px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-right: 0 !important;
+  border: 0 !important;
+  background: black !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px!important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.ivu-upload {
+  height: 33px!important;
+  padding-left: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-right: 0 !important;
+  border-left: 1px solid gray !important;
+  border-top: 0 !important;
+  border-right: 0!important;
+  border-bottom: 0 !important;
+  background: black !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0!important;
+  div{
+    padding: 0 0 0 0!important;
+  }
+  .ivu-icon-ios-cloud-upload{
+    font-size: 20px!important;
+    line-height: 33px!important;
+  }
+}
 body,
 h1,
 h2,
