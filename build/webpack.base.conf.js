@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -69,7 +69,12 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: "style!css!sass?sourceMap",
-      }
+      },
+      // {
+      //   test: /\.css$/,
+      //   loader: 'style-loader!css-loader!postcss-loader?importLoaders=1'
+        
+      // }
     ]
   }
 }

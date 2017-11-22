@@ -23,12 +23,11 @@
 <script >
 export default {
   name: "app",
-  mounted(){
-    this.init()
+  mounted() {
+    this.init();
   },
-  methods:{
-    init(){
-    }
+  methods: {
+    init() {}
   }
 };
 </script>
@@ -41,20 +40,23 @@ export default {
   height: 100%;
 }
 #particles-js {
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-html{
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
+  z-index: -1;
+  background: rgba(255,255,255,1);
+  // background: rgba(0,0,0,.5);
+}
+html {
+  height: 100%;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 body {
   // background: white;
-  
+
   opacity: 1;
   background-size: cover;
   background-repeat: no-repeat;
