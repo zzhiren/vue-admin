@@ -16,11 +16,12 @@ $transition: transform 0.5s linear;
 $bg-white: rgba(85,85,85,.8);
 $bg-dark-one: #282c34;
 $color-green: #42b983;
+$translateY-40:translateY(-40px);
 .red{
   color: red;
 }
-.blue{
-  color: #0088f5;
+.orange{
+  color: rgb(255,128,0);
 }
 .yellow{
   color: yellow;
@@ -28,4 +29,16 @@ $color-green: #42b983;
 .green{
   color:#42b983;
 }
+
+.blue{
+  color: #0088f5;
+}
+.purple{
+  color:rgb(128,0,255);
+}
+.white{
+  color:white;
+}
+
+
 

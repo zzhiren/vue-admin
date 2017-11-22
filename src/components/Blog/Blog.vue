@@ -25,7 +25,7 @@ export default {
       } else {
         this.$router.go(-1);
         this.state = state;
-        console.log(this.state)
+        console.log(this.state);
       }
     }
   }
@@ -100,7 +100,7 @@ export default {
       // background: red;
       text-align: center;
       transition: $transition;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.9);
       &:hover {
         transform: $transform-360;
         cursor: pointer;
@@ -123,6 +123,7 @@ export default {
     margin-top: 4px;
     border-radius: 2px;
     padding-top: 4px;
+    // padding-bottom: 4px;
   }
 }
 </style>

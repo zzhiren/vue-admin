@@ -3,15 +3,755 @@
     div.blog-item
       div.operation.green
         Icon.large-icon-font(type="checkmark")
-        span.span 已发布
+        p.p 已发布
       div.blog-preface
         h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
       div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
         Icon.large-icon-font(type="ios-compose")
-        span.span 编辑
-      div.operation.red.delete
+        p.p 编辑
+      div.operation.purple.delete
         Icon.large-icon-font(type="android-delete")
-        span.span 删除
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
+      //- div.edit-blog
+      //- div.delete-blog
+    div.blog-item
+      div.operation.green
+        Icon.large-icon-font(type="checkmark")
+        p.p 已发布
+      div.blog-preface
+        h4.title.blue 欢喜勇猛，向死而生
+      div.operation.orange.time
+        Icon.large-icon-font(type="ios-calendar")
+        p.p 2017/07/13
+      div.operation.yellow
+        Icon.large-icon-font(type="eye")
+        p.p 111
+      div.operation.blue
+        Icon.large-icon-font(type="chatbox-working")
+        p.p 66
+      div.operation.red
+        Icon.large-icon-font(type="heart")
+        p.p 10
+      div.operation.green
+        Icon.large-icon-font(type="ios-compose")
+        p.p 编辑
+      div.operation.purple.delete
+        Icon.large-icon-font(type="android-delete")
+        p.p 删除
       //- div.edit-blog
       //- div.delete-blog
 </template>
@@ -60,19 +800,19 @@ $blog-item-h: 40px;
     // padding: 7px;
     box-sizing: border-box;
     -webkit-transition: $hover-bg;
-      transition: $hover-bg;
-      &:hover {
-        background: rgba(28, 28, 28, 0.95);
-      }
-      &:hover #img {
-        transform: translateX(-10px);
-      }
-      &:hover .title {
-        text-decoration: underline;
-        transform: translateX(10px);
-        opacity: 1 !important;
-        // color: #42b983!important;
-      }
+    transition: $hover-bg;
+    &:hover {
+      background: rgba(28, 28, 28, 0.95);
+    }
+    &:hover #img {
+      transform: translateX(-10px);
+    }
+    &:hover .title {
+      text-decoration: underline;
+      transform: translateX(10px);
+      opacity: 1 !important;
+      // color: #42b983!important;
+    }
     .blog-pic {
       width: 100px;
       height: 100%;
@@ -115,36 +855,45 @@ $blog-item-h: 40px;
         &:hover {
           cursor: pointer;
         }
-      }}
+      }
+    }
 
-    .delete{
-        margin-right: 0!important;
+    .delete {
+      margin-right: 0 !important;
+    }
+    .time {
+      width: 70px !important;
     }
     .operation {
       width: $blog-item-h;
       // height: 119px;
       background: rgba(0, 0, 0, 0.8);
       text-align: center;
-      margin-right: 10px;
+      margin-right: 1px;
       transition: $transition;
+      // transition: transform 0.5s linear;
+      overflow: hidden;
       &:hover {
-        transform: $transform-360;
+        // transform: $transform-360;
         cursor: pointer;
       }
       &:hover .large-icon-font {
-        display: none;
+        // display: none;
+        transform: $translateY-40;
       }
-      &:hover .span {
-        display: block;
+      &:hover .p {
+        // display: block;
+        transform: $translateY-40;
       }
+
       .large-icon-font {
-        transition: display 0.5s linear;
+        transition: transform 0.25s linear;
         line-height: $blog-item-h;
         font-size: 20px;
       }
-      .span{
-        transition: display 0.5s linear;
-        display: none;
+      .p {
+        transition: transform 0.25s linear;
+        // display: none;
         line-height: $blog-item-h;
         font-size: 12px;
         font-family: "Sub Head";

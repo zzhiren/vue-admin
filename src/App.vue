@@ -23,11 +23,14 @@
 <script >
 export default {
   name: "app",
-  mounted() {
-    this.init();
+  mounted(){
+    this.init()
   },
-  methods: {
-    init() {}
+  methods:{
+    init() {
+      document.getElementById('particles-js').style.height = innerHeight-0.2+'px';
+      console.log(innerHeight-0.2)
+    }
   }
 };
 </script>
@@ -41,26 +44,33 @@ export default {
 }
 #particles-js {
   background-size: cover;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-<<<<<<< HEAD
-=======
   height: 100%;
   z-index: -1;
   background: #555555;
 }
-html {
->>>>>>> 1b662c9b03270ad9d6ece0a55057bda7d9d5151e
-  height: 100%;
-  z-index: -1;
-  background: rgba(255,255,255,1);
-  // background: rgba(0,0,0,.5);
+.v-note-op {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.v-note-panel {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.v-note-wrapper {
+  height: 100% !important;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 html {
   height: 100%;
+  z-index: -1;
+  background: rgba(255, 255, 255, 1);
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  // background: rgba(0,0,0,.5);
 }
 body {
   // background: white;
@@ -104,31 +114,31 @@ body {
   border: 0 !important;
   background: black !important;
   border-top-left-radius: 4px !important;
-  border-bottom-left-radius: 4px!important;
+  border-bottom-left-radius: 4px !important;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }
 .ivu-upload {
-  height: 33px!important;
+  height: 33px !important;
   padding-left: 0 !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   padding-right: 0 !important;
   border-left: 1px solid gray !important;
   border-top: 0 !important;
-  border-right: 0!important;
+  border-right: 0 !important;
   border-bottom: 0 !important;
   background: black !important;
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
   border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0!important;
-  div{
-    padding: 0 0 0 0!important;
+  border-bottom-left-radius: 0 !important;
+  div {
+    padding: 0 0 0 0 !important;
   }
-  .ivu-icon-ios-cloud-upload{
-    font-size: 20px!important;
-    line-height: 33px!important;
+  .ivu-icon-ios-cloud-upload {
+    font-size: 20px !important;
+    line-height: 33px !important;
   }
 }
 body,
