@@ -40,6 +40,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import 'src/components/common/scss/base.scss';
 .home {
   width: 100%;
   // height: 100%;
@@ -47,13 +48,13 @@ export default {
   .slide {
     width: 150px;
     // background: rgba(255,255,255, .9);
-    background: rgba(0, 0, 0, .8);
+    background: #21252b;
     display: flex;
     flex-direction: column;
     .logo {
       width: 100%;
       height: 60px;
-      background: rgba(255, 255, 255, 0.8);
+      background: $bg-white;
     }
     .nav-list {
       flex: 1;
@@ -102,7 +103,7 @@ export default {
     flex-direction: column;
     .top-header{
       height: 60px;
-      background: rgba(0,0,0,1);
+      background: $bg-white;
     }
     .main{
       flex:1;
