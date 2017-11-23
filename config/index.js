@@ -17,6 +17,13 @@ module.exports = {
           pathRewrite: {
             '^/login': '/login'
           }
+      },
+      '/img':{
+          target:'http://127.0.0.1:3000',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/img': '/img'
+          }
       }
     },
 
