@@ -124,13 +124,13 @@ body {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   padding-right: 0 !important;
-  border-left: 1px solid gray !important;
+  border-left: 0 solid gray !important;
+  border-right: 0 solid gray !important;
   border-top: 0 !important;
-  border-right: 0 !important;
   border-bottom: 0 !important;
   background: black !important;
-  border-top-right-radius: 4px !important;
-  border-bottom-right-radius: 4px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   div {
