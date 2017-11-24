@@ -1,6 +1,7 @@
 <template lang="pug">
     div.mavon-edit(ref="mavonedit")
       button(@click="uploadimg") upload
+      img(src="http://localhost:3000/blog/me.jpg")
       mavon-editor(ref="xxx" :ishljs="false" @imgAdd="$imgAdd" )
 </template>
 <script>
@@ -27,7 +28,7 @@ export default {
     $imgAdd(pos, $file) {
       this.img_file[pos] = $file;
       
-      console.log( this.img_file[pos])
+      console.log( this.img_file)
     },
     uploadimg($e) {
       // this.$refs.xxx.style.background = "red"
@@ -43,8 +44,8 @@ export default {
         data: formdata,
         headers: { "Content-Type": "multipart/form-data" }
       }).then(res => {
-        console.log(res);
-        vm.$refs.xxx.$imgAddByUrl(res.data.result.formdata[0],'xxxx')
+        console.log(res.data.result.formdata);
+        // vm.$refs.xxx.$imgAddByUrl(res.data.result.formdata[0],'xxxx')
       });
     }
   }
