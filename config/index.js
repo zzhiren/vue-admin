@@ -18,11 +18,18 @@ module.exports = {
             '^/login': '/login'
           }
       },
-      '/img':{
+      '/uplodimg':{
           target:'http://127.0.0.1:3000',
           changeOrigin: true,
           pathRewrite: {
             '^/img': '/img'
+          }
+      },
+      '/deleteimg':{
+          target:'http://127.0.0.1:3000',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/deleteimg': '/deleteimg'
           }
       }
     },

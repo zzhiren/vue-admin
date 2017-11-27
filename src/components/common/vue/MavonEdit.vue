@@ -1,7 +1,7 @@
 <template lang="pug">
     div.mavon-edit(ref="mavonedit")
-      button(@click="uploadimg") upload
-      mavon-editor(ref="xxx" :ishljs="false" @imgAdd="$imgAdd" )
+      //- button(@click="uploadImg") upload
+      mavon-editor(ref="mavonEdit" :ishljs="false" @imgAdd="$imgAdd" @imgDel="$imgDel")
 </template>
 <script>
 import { mavonEditor } from "mavon-editor";
@@ -10,7 +10,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      img_file: {}
+      img_file: {},
+      picObj: {}
     };
   },
   components: {
@@ -26,26 +27,47 @@ export default {
     },
     $imgAdd(pos, $file) {
       this.img_file[pos] = $file;
-      
-      console.log( this.img_file[pos])
+      console.log(pos);
+      this.uploadImg(pos);
     },
-    uploadimg($e) {
-      // this.$refs.xxx.style.background = "red"
-      console.log(this.img_file);      
-      var vm = this
+    $imgDel(pos) {
+      console.log(pos)
+      // delete this.img_file[this.picObj[pos].mdName]
+      var deletPath = this.picObj[pos].deletePath
+      this.deleteImg(pos)
+      console.log('111',this.picObj[pos].deletePath)
+    },
+    uploadImg(pos) {
+      var $vm = this;
       var formdata = new FormData();
       for (var _img in this.img_file) {
         formdata.append(_img, this.img_file[_img]);
       }
       this.$axios({
         method: "post",
-        url: "/img",
+        url: "/uplodimg",
         data: formdata,
         headers: { "Content-Type": "multipart/form-data" }
       }).then(res => {
-        console.log(res);
-        vm.$refs.xxx.$imgAddByUrl(res.data.result.formdata[0],'xxxx')
+        this.picObj = res.data.result.picObj
+        //批量修改图片名称
+        this.$refs.mavonEdit.$imglst2Url(res.data.result.picList)
+        //单个修改图片名称
+        // this.$refs.mavonEdit.$img2Url(pos, res.data.result.picList[0][1]);
+        console.log(this);
       });
+    },
+    deleteImg(pos) {
+      this.$axios({
+        method: "post",
+        url: "/deleteimg",
+        data: {
+          deletePath:this.picObj[pos].deletePath
+        }
+      }).then(res =>{
+        console.log(res.data)
+        // console.log(this.picObj[pos].deletPath)
+      })
     }
   }
 };
