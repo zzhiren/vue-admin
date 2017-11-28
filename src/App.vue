@@ -113,10 +113,11 @@ body {
   padding-right: 0 !important;
   border: 0 !important;
   background: black !important;
-  border-top-left-radius: 4px !important;
-  border-bottom-left-radius: 4px !important;
+  // border-top-left-radius: 4px;
+  // border-bottom-left-radius: 4px;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+  color: white;
 }
 .ivu-upload {
   height: 33px !important;

@@ -1,7 +1,7 @@
 <template lang="pug">
     div.mavon-edit(ref="mavonedit")
       //- button(@click="uploadImg") upload
-      mavon-editor(ref="mavonEdit" :ishljs="false" @imgAdd="$imgAdd" @imgDel="$imgDel")
+      mavon-editor(ref="mavonEditor" :ishljs="false" @imgAdd="$imgAdd" @imgDel="$imgDel" @change="$change")
 </template>
 <script>
 import { mavonEditor } from "mavon-editor";
@@ -11,7 +11,9 @@ export default {
   data() {
     return {
       img_file: {},
-      picObj: {}
+      picDelObj: [],
+      picList:[],
+      value: ''
     };
   },
   components: {
@@ -22,21 +24,33 @@ export default {
   },
   methods: {
     init() {
+      // 设置mavonedit控件高度
       this.$refs.mavonedit.style.height =
         innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 - 33 - 4 - 4 + "px";
     },
+    $change(value,render){
+      // console.log('render',render)
+      console.log('value',render)
+      this.value = render
+    },
+    // 添加图片
     $imgAdd(pos, $file) {
       this.img_file[pos] = $file;
-      console.log(pos);
+      // console.log(pos);
       this.uploadImg(pos);
+      // this.value = this.$refs.mavonEdit.d_render.toString()
     },
+    // 删除图片
     $imgDel(pos) {
-      console.log(pos)
-      // delete this.img_file[this.picObj[pos].mdName]
-      var deletPath = this.picObj[pos].deletePath
-      this.deleteImg(pos)
-      console.log('111',this.picObj[pos].deletePath)
+      console.log('pos',pos);
+      delete this.img_file[pos];
+      this.$refs.mavonEditor.d_history = [];
+      console.log('d_history',this.$refs.mavonEditor.d_history);
+      // console.log('this.picList[0][1]',this.picList[0][1])
+      var deletPath = this.picDelObj[pos].deletePath;
+      this.deleteImg(pos);
     },
+    // 上传图片
     uploadImg(pos) {
       var $vm = this;
       var formdata = new FormData();
@@ -49,23 +63,28 @@ export default {
         data: formdata,
         headers: { "Content-Type": "multipart/form-data" }
       }).then(res => {
-        this.picObj = res.data.result.picObj
+        // this.picDelObj = res.data.result.picDelObj
+        for(var i in res.data.result.picDelObj){
+          this.picDelObj.push(res.data.result.picDelObj[i])
+        }
+        this.picList = res.data.result.picList
         //批量修改图片名称
-        this.$refs.mavonEdit.$imglst2Url(res.data.result.picList)
+        this.$refs.mavonEditor.$imglst2Url(res.data.result.picList)
         //单个修改图片名称
         // this.$refs.mavonEdit.$img2Url(pos, res.data.result.picList[0][1]);
-        console.log(this);
       });
     },
+    // 删除上传的图片
     deleteImg(pos) {
       this.$axios({
         method: "post",
         url: "/deleteimg",
         data: {
-          deletePath:this.picObj[pos].deletePath
-        }
+          deletePath:this.picDelObj[pos].deletePath
+        },
+        headers:{"Content-type":"application/json; charset=utf-8"}
       }).then(res =>{
-        console.log(res.data)
+        // console.log(res.data)
         // console.log(this.picObj[pos].deletPath)
       })
     }

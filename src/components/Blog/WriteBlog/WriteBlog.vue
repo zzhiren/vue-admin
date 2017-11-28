@@ -2,30 +2,53 @@
   div.write-blog
     div.title
       Input.title-input(v-model="title" placeholder="Enter title...")
+      Input.tag-input(v-model="tag" placeholder="Enter tag...")
       div.options
-        div.upload
-          Upload(
-            multiple
-            type="drag"
-            action="//jsonplaceholder.typicode.com/posts/")
-                div(style="padding: 20px 0")
-                    Icon(type="ios-cloud-upload" size="52" style="color: #3399ff")
         div.save.transition-Y
           Icon.icon(type="android-globe")
           p.p 发布
-        div.release.transition-Y
+        div.release.transition-Y(@click="saveBlog()")
           Icon.icon(type="android-radio-button-on")
           p.p 保存
     div.mark-down
-      mavon-edit
+      mavon-edit(ref="mavonedit")
 </template>
 <script>
 import MavonEdit from "../../common/vue/MavonEdit";
+import axios from "axios";
+
 export default {
   data() {
     return {
-      title: ""
+      title: "",
+      tag: ""
     };
+  },
+  mounted() {},
+  methods: {
+    saveBlog(){
+      this.content = this.$refs.mavonedit.value;
+      var blog = {}
+      var date = new Date()
+      var start = document.cookie.indexOf('userName')
+      var end = document.cookie.indexOf(";",start);
+      var userName = document.cookie.slice(start+9);
+      blog.author = userName
+      blog.title=this.title
+      blog.tag=this.tag.split('/')
+      blog.content=this.$refs.mavonedit.value
+      blog.picDelObj = this.$refs.mavonedit.picDelObj
+      blog.creationTime = date.toLocaleDateString()
+      
+      this.$axios({
+        method: 'post',
+        url: '/saveblog',
+        data: blog,
+        headers:{"Content-type":"application/json; charset=utf-8"}
+      }).then(res=>{
+        console.log(res)
+      })
+    }
   },
   components: {
     MavonEdit
@@ -39,29 +62,27 @@ $button-width: 50px;
   flex-direction: column;
   color: white;
   height: 100%;
-  // padding-bottom: 4px;
-
   .title {
     width: 100%;
-    // height: 22px;
     display: flex;
     margin-bottom: 7px;
+    .title-input {
+      flex: 1;
+      input {
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+      }
+    }
+    .tag-input {
+      flex: 0.4;
+      margin-left: 1px;
+      margin-right: 1px;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
     .options {
       display: flex;
       text-align: center;
-      .title-input {
-        flex: 1;
-      }
-      .upload {
-        width: 100px;
-        height: 33px;
-        margin-left: 1px;
-        margin-right: 1px;
-        &:hover{
-          background: rgba(0,0,0,0.5);
-        }
-        
-      }
       .save {
         width: $button-width;
         background: black;
@@ -69,19 +90,26 @@ $button-width: 50px;
         font-size: 18px;
         line-height: 33px;
         height: 33px;
-        &:hover{
-          background: rgba(0,0,0,0.5);
+        &:hover {
+          cursor: pointer;
+        }
+        &:active{
+          background: rgba(0, 0, 0, 0.5);          
         }
       }
       .release {
         height: 33px;
         width: $button-width;
         background: black;
-        line-height: 34px;
+        line-height: 33px;
+        font-size: 18px;
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
-        &:hover{
-          background: rgba(0,0,0,0.5);
+        &:hover {
+          cursor: pointer;
+        }
+        &:active{
+          background: rgba(0, 0, 0, 0.5);          
         }
       }
       .transition-Y {

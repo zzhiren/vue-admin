@@ -4,8 +4,7 @@ import router from './router'
 import axios from 'axios'
 import iView from 'iview'
 import VueParticles from 'vue-particles'
-import 'iview/dist/styles/iview.css';
-
+import './components/common/css/iview.css';
 
 Vue.use(iView)
 Vue.use(VueParticles)
