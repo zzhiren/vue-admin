@@ -13,7 +13,8 @@ export default {
       img_file: {},
       picDelObj: [],
       picList:[],
-      value: ''
+      value: '',
+      firstPic: ''
     };
   },
   components: {
@@ -30,7 +31,6 @@ export default {
     },
     $change(value,render){
       // console.log('render',render)
-      console.log('value',render)
       this.value = render
     },
     // 添加图片
@@ -45,8 +45,6 @@ export default {
       console.log('pos',pos);
       delete this.img_file[pos];
       this.$refs.mavonEditor.d_history = [];
-      console.log('d_history',this.$refs.mavonEditor.d_history);
-      // console.log('this.picList[0][1]',this.picList[0][1])
       var deletPath = this.picDelObj[pos].deletePath;
       this.deleteImg(pos);
     },
@@ -63,11 +61,13 @@ export default {
         data: formdata,
         headers: { "Content-Type": "multipart/form-data" }
       }).then(res => {
-        // this.picDelObj = res.data.result.picDelObj
         for(var i in res.data.result.picDelObj){
           this.picDelObj.push(res.data.result.picDelObj[i])
         }
         this.picList = res.data.result.picList
+        this.firstPic = res.data.result.picList[0][1]
+        console.log( res.data.result.picList[0][1])
+
         //批量修改图片名称
         this.$refs.mavonEditor.$imglst2Url(res.data.result.picList)
         //单个修改图片名称

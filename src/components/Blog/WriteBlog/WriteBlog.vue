@@ -26,28 +26,60 @@ export default {
   },
   mounted() {},
   methods: {
-    saveBlog(){
-      this.content = this.$refs.mavonedit.value;
-      var blog = {}
-      var date = new Date()
-      var start = document.cookie.indexOf('userName')
-      var end = document.cookie.indexOf(";",start);
-      var userName = document.cookie.slice(start+9);
-      blog.author = userName
-      blog.title=this.title
-      blog.tag=this.tag.split('/')
-      blog.content=this.$refs.mavonedit.value
-      blog.picDelObj = this.$refs.mavonedit.picDelObj
-      blog.creationTime = date.toLocaleDateString()
-      
-      this.$axios({
-        method: 'post',
-        url: '/saveblog',
-        data: blog,
-        headers:{"Content-type":"application/json; charset=utf-8"}
-      }).then(res=>{
-        console.log(res)
-      })
+    success(nodesc) {
+      this.$Notice.success({
+        title: nodesc
+      });
+    },
+    info(nodesc) {
+      this.$Notice.info({
+        title: nodesc
+      });
+    },
+    warning(nodesc) {
+      this.$Notice.warning({
+        title: nodesc
+      });
+    },
+    error(nodesc) {
+      this.$Notice.error({
+        title: nodesc
+      });
+    },
+    saveBlog() {
+      if (this.title === "" || this.$refs.mavonedit.value === "") {
+        var nodesc = '请输入博客标题和内容(→_→)！'
+        this.warning(nodesc)
+      } else {
+        this.content = this.$refs.mavonedit.value;
+        var blog = {};
+        var date = new Date();
+        var start = document.cookie.indexOf("userName");
+        var end = document.cookie.indexOf(";", start);
+        var userName = document.cookie.slice(start + 9);
+        blog.author = userName;
+        blog.title = this.title;
+        blog.tag = this.tag.split("/");
+        blog.content = this.$refs.mavonedit.value;
+        blog.picDelObj = this.$refs.mavonedit.picDelObj;
+        blog.firstPic = this.$refs.mavonedit.firstPic;
+        blog.creationTime = date.toLocaleDateString();
+
+        this.$axios({
+          method: "post",
+          url: "/saveblog",
+          data: blog,
+          headers: { "Content-type": "application/json; charset=utf-8" }
+        }).then(res => {
+          if (res.data.status == "0") {
+            var nodesc = "保存成功=￣ω￣=!";
+            this.success(nodesc);
+          } else if (res.data.status == "1") {
+            var nodesc = "保存失败(⊙o⊙)？!";
+            this.error(nodesc);
+          }
+        });
+      }
     }
   },
   components: {
@@ -93,8 +125,8 @@ $button-width: 50px;
         &:hover {
           cursor: pointer;
         }
-        &:active{
-          background: rgba(0, 0, 0, 0.5);          
+        &:active {
+          background: rgba(0, 0, 0, 0.5);
         }
       }
       .release {
@@ -108,8 +140,8 @@ $button-width: 50px;
         &:hover {
           cursor: pointer;
         }
-        &:active{
-          background: rgba(0, 0, 0, 0.5);          
+        &:active {
+          background: rgba(0, 0, 0, 0.5);
         }
       }
       .transition-Y {

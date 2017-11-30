@@ -38,6 +38,13 @@ module.exports = {
           pathRewrite: {
             '^/saveblog': '/saveblog'
           }
+      },
+      '/getbloglist':{
+          target:'http://127.0.0.1:3000',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/getbloglist': '/getbloglist'
+          }
       }
     },
 

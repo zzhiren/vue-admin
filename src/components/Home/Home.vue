@@ -48,7 +48,7 @@ export default {
   .slide {
     width: 150px;
     // background: rgba(255,255,255, .9);
-    background: #21252b;
+    background: #191b1f;
     display: flex;
     flex-direction: column;
     .logo {
@@ -61,33 +61,35 @@ export default {
       width: 100%;
       .nav-item {
         display: flex;
+
         width: 100%;
         height: 38px;
         padding-left: 25px;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
+        border-right: 3px solid #b82525;
         // background: gray;
         &:hover {
           cursor: pointer;
-          background: rgba(0, 0, 0, 1);
+          background: #26282c;
         }
         .icon{
           font-size: 22px;
-          color: white;
+          color: #cccdd3;
           line-height: 38px;
           margin-right: 10px;
         }
         .icon-name{
           line-height: 40px;
-          color: white;
+          color: #cccdd3;
           font-size: 14px;
           // margin-top: 1px;
           letter-spacing: 5px;
         }
       }
       .active{
-        background:rgba(0, 0, 0, 1);
+        background:#26282c;
       }
     }
   }
