@@ -10,6 +10,8 @@
         div.release.transition-Y(@click="saveBlog()")
           Icon.icon(type="android-radio-button-on")
           p.p 保存
+    Input.tag-input(v-model="preface" placeholder="Enter preface...")
+      
     div.mark-down
       mavon-edit(ref="mavonedit")
 </template>
@@ -21,7 +23,8 @@ export default {
   data() {
     return {
       title: "",
-      tag: ""
+      tag: "",
+      preface: ""
     };
   },
   mounted() {},
@@ -47,9 +50,9 @@ export default {
       });
     },
     saveBlog() {
-      if (this.title === "" || this.$refs.mavonedit.value === "") {
-        var nodesc = '请输入博客标题和内容(→_→)！'
-        this.warning(nodesc)
+      if (this.title === "" || this.$refs.mavonedit.value === "" || this.preface === "") {
+        var nodesc = "标题 && 前言 && 正文 !== null (→_→)！";
+        this.warning(nodesc);
       } else {
         this.content = this.$refs.mavonedit.value;
         var blog = {};
@@ -59,6 +62,7 @@ export default {
         var userName = document.cookie.slice(start + 9);
         blog.author = userName;
         blog.title = this.title;
+        blog.preface = this.preface;
         blog.tag = this.tag.split("/");
         blog.content = this.$refs.mavonedit.value;
         blog.picDelObj = this.$refs.mavonedit.picDelObj;

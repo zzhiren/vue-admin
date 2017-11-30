@@ -1,23 +1,23 @@
 <template lang="pug">
   div.blog-list(ref="bloglistH")
-    div.blog-item
+    div.blog-item(v-for="(item,index) in blogs")
       div.operation.green
         Icon.large-icon-font(type="checkmark")
         p.p 已发布
       div.blog-preface
-        h4.title.blue 欢喜勇猛，向死而生
+        h4.title.blue(v-html="item.title")
       div.operation.orange.time
         Icon.large-icon-font(type="ios-calendar")
-        p.p 2017/07/13
+        p.p {{item.creationTime}}
       div.operation.yellow
         Icon.large-icon-font(type="eye")
-        p.p 111
+        p.p {{item.eyes}}
       div.operation.blue
         Icon.large-icon-font(type="chatbox-working")
-        p.p 66
+        p.p {{item.comment.length}}
       div.operation.red
         Icon.large-icon-font(type="heart")
-        p.p 10
+        p.p {{item.love}}
       div.operation.green
         Icon.large-icon-font(type="ios-compose")
         p.p 编辑
@@ -31,6 +31,11 @@
 import axios from "axios";
 
 export default {
+  data(){
+    return{
+      blogs:[]
+    }
+  },
   mounted() {
     this.init();
   },
@@ -46,7 +51,8 @@ export default {
         method: 'get',
         url: '/getbloglist?t=' + timer,
       }).then(res=>{
-        console.log(res.data)
+        this.blogs = res.data.data
+        console.log(this.blogs)
       })
     }
   }
