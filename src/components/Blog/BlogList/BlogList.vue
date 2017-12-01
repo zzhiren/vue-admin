@@ -21,7 +21,7 @@
       div.operation.green
         Icon.large-icon-font(type="ios-compose")
         p.p 编辑
-      div.operation.purple.delete
+      div.operation.purple.delete(@click="deleteBlog(item._id)")
         Icon.large-icon-font(type="android-delete")
         p.p 删除
       //- div.edit-blog
@@ -40,6 +40,26 @@ export default {
     this.init();
   },
   methods: {
+    success(nodesc) {
+      this.$Notice.success({
+        title: nodesc
+      });
+    },
+    // info(nodesc) {
+    //   this.$Notice.info({
+    //     title: nodesc
+    //   });
+    // },
+    // warning(nodesc) {
+    //   this.$Notice.warning({
+    //     title: nodesc
+    //   });
+    // },
+    error(nodesc) {
+      this.$Notice.error({
+        title: nodesc
+      });
+    },
     init() {
       this.$refs.bloglistH.style.height = innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 + "px";
       this.getBlogList()
@@ -54,6 +74,33 @@ export default {
         this.blogs = res.data.data
         console.log(this.blogs)
       })
+    },
+    deleteBlog(id){
+
+      // this.$axios({
+      //   method: 'post',
+      //   url: '/deleteblog',
+      //   data: {
+      //     id:id
+      //   }
+      // }).then(res => {
+      //   if (res.data.status == "0") {
+      //       var nodesc = "删除成功=￣ω￣=!";
+      //       for(var i in this.blogs){
+      //         if(this.blogs[i]._id = id){
+      //           this.blogs.splice(i,1)
+      //           console.log(this.blogs[i])
+      //           break
+      //         }else{
+      //           continue
+      //         }
+      //       }
+      //       this.success(nodesc);
+      //     } else if (res.data.status == "1") {
+      //       var nodesc = "删除失败(⊙o⊙)？!";
+      //       this.error(nodesc);
+      //     }
+      // })
     }
   }
 };

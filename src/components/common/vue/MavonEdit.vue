@@ -27,7 +27,7 @@ export default {
     init() {
       // 设置mavonedit控件高度
       this.$refs.mavonedit.style.height =
-        innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 - 33 - 4 - 4 + "px";
+        innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 - 33 - 4 - 4 + - 33 +"px";
     },
     $change(value,render){
       // console.log('render',render)
