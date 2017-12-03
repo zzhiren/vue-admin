@@ -77,30 +77,30 @@ export default {
     },
     deleteBlog(id){
 
-      // this.$axios({
-      //   method: 'post',
-      //   url: '/deleteblog',
-      //   data: {
-      //     id:id
-      //   }
-      // }).then(res => {
-      //   if (res.data.status == "0") {
-      //       var nodesc = "删除成功=￣ω￣=!";
-      //       for(var i in this.blogs){
-      //         if(this.blogs[i]._id = id){
-      //           this.blogs.splice(i,1)
-      //           console.log(this.blogs[i])
-      //           break
-      //         }else{
-      //           continue
-      //         }
-      //       }
-      //       this.success(nodesc);
-      //     } else if (res.data.status == "1") {
-      //       var nodesc = "删除失败(⊙o⊙)？!";
-      //       this.error(nodesc);
-      //     }
-      // })
+      this.$axios({
+        method: 'post',
+        url: '/deleteblog',
+        data: {
+          id:id
+        }
+      }).then(res => {
+        if (res.data.status == "0") {
+            var nodesc = "删除成功=￣ω￣=!";
+            for(var i in this.blogs){
+              if(this.blogs[i]._id = id){
+                this.blogs.splice(i,1)
+                console.log(this.blogs[i])
+                break
+              }else{
+                continue
+              }
+            }
+            this.success(nodesc);
+          } else if (res.data.status == "1") {
+            var nodesc = "删除失败(⊙o⊙)？!";
+            this.error(nodesc);
+          }
+      })
     }
   }
 };

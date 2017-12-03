@@ -31,7 +31,7 @@ export default {
     },
     $change(value,render){
       // console.log('render',render)
-      this.value = render
+      this.value = value
     },
     // 添加图片
     $imgAdd(pos, $file) {
