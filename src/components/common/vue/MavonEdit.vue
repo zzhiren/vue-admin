@@ -52,6 +52,7 @@ export default {
     uploadImg(pos) {
       var $vm = this;
       var formdata = new FormData();
+      // this.img_file = []
       for (var _img in this.img_file) {
         formdata.append(_img, this.img_file[_img]);
       }
@@ -70,6 +71,7 @@ export default {
 
         //批量修改图片名称
         this.$refs.mavonEditor.$imglst2Url(res.data.result.picList)
+        this.img_file = []
         //单个修改图片名称
         // this.$refs.mavonEdit.$img2Url(pos, res.data.result.picList[0][1]);
       });
