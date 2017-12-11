@@ -3,11 +3,9 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import iView from 'iview'
-import VueParticles from 'vue-particles'
 import './components/common/css/iview.css';
 
 Vue.use(iView)
-Vue.use(VueParticles)
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios

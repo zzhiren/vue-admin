@@ -34,25 +34,20 @@ export default {
 <style lang="scss" scoped>
 @import "src/components/common/scss/base.scss";
 .blog {
-  background: rgba(255, 255, 255, 0.3);
+  // background-color: #282c34;
   // background: rgba(255,255,255,.4);
   width: 100%;
   height: 100%;
-  border-radius: 4px;
   display: flex;
   flex-direction: column;
-  padding: 4px;
   box-sizing: border-box;
   .header {
     height: 40px;
-    // background: rgba(0, 0, 0, 0.75);
-    border-radius: 4px;
     display: flex;
+    background: $main-bg;
     .earth {
       width: 40px;
-      background: black;
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
+      background: $main-bg;
       font-size: 24px;
       line-height: 40px;
       text-align: center;
@@ -72,9 +67,7 @@ export default {
       width: 40px;
       border-right: 1px solid black;
       width: 40px;
-      background: black;
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
+      // background: black;
       font-size: 24px;
       line-height: 40px;
       text-align: center;
@@ -93,7 +86,7 @@ export default {
     }
     .other {
       flex: 1;
-      background: rgba(0, 0, 0, 0.75);
+      background: $main-bg;
     }
     .write-blog {
       width: 40px;
@@ -109,21 +102,13 @@ export default {
         line-height: 40px;
         font-size: 24px;
         color: white;
-        // transition: transform 0.5s linear;
-        // &:hover {
-        //   transform: rotate(360deg);
-        //   cursor: pointer;
-        // }
       }
     }
   }
   .content {
     flex: 1;
-    // background: rgba(0, 0, 0, 0.75);
     margin-top: 4px;
-    border-radius: 2px;
     padding-top: 4px;
-    // padding-bottom: 4px;
   }
 }
 </style>

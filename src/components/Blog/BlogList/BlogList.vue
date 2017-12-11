@@ -1,29 +1,29 @@
 <template lang="pug">
   div.blog-list(ref="bloglistH")
     div.blog-item(v-for="(item,index) in blogs")
-      div.operation.green
+      div.button.green
         Icon.large-icon-font(type="checkmark")
-        p.p 已发布
+        //- p.p 已发布
       div.blog-preface
         h4.title.blue(v-html="item.title")
-      div.operation.orange.time
-        Icon.large-icon-font(type="ios-calendar")
-        p.p {{item.creationTime}}
-      div.operation.yellow
-        Icon.large-icon-font(type="eye")
-        p.p {{item.eyes}}
-      div.operation.blue
-        Icon.large-icon-font(type="chatbox-working")
-        p.p {{item.comment.length}}
-      div.operation.red
-        Icon.large-icon-font(type="heart")
-        p.p {{item.love}}
-      div.operation.green
+      p.operation.time
+        //- Icon.large-icon-font(type="ios-calendar")
+        span.p {{item.creationTime}}
+      p.operation
+        //- Icon.large-icon-font(type="eye")
+        span.p {{item.eyes}}人阅读
+      p.operation
+        //- Icon.large-icon-font(type="chatbox-working")
+        span.p {{item.comment.length}}人评论
+      p.operation
+        //- Icon.large-icon-font(type="heart")
+        span.p {{item.love}}人喜欢
+      div.button.green
         Icon.large-icon-font(type="ios-compose")
-        p.p 编辑
-      div.operation.purple.delete(@click="deleteBlog(item._id)")
+        //- p.p 编辑
+      div.button.red.delete(@click="deleteBlog(item._id)")
         Icon.large-icon-font(type="android-delete")
-        p.p 删除
+        //- p.p 删除
       //- div.edit-blog
       //- div.delete-blog
 </template>
@@ -31,10 +31,10 @@
 import axios from "axios";
 
 export default {
-  data(){
-    return{
-      blogs:[]
-    }
+  data() {
+    return {
+      blogs: []
+    };
   },
   mounted() {
     this.init();
@@ -61,46 +61,45 @@ export default {
       });
     },
     init() {
-      this.$refs.bloglistH.style.height = innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 + "px";
-      this.getBlogList()
+      // this.$refs.bloglistH.style.height = innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 + "px";
+      this.getBlogList();
     },
-    getBlogList(){
-      var date = new Date()
-      var timer = date.getTime().toString()
+    getBlogList() {
+      var date = new Date();
+      var timer = date.getTime().toString();
       this.$axios({
-        method: 'get',
-        url: '/getbloglist?t=' + timer,
-      }).then(res=>{
-        this.blogs = res.data.data
-        console.log(this.blogs)
-      })
+        method: "get",
+        url: "/getbloglist?t=" + timer
+      }).then(res => {
+        this.blogs = res.data.data;
+        console.log(this.blogs);
+      });
     },
-    deleteBlog(id){
-
+    deleteBlog(id) {
       this.$axios({
-        method: 'post',
-        url: '/deleteblog',
+        method: "post",
+        url: "/deleteblog",
         data: {
-          id:id
+          id: id
         }
       }).then(res => {
         if (res.data.status == "0") {
-            var nodesc = "删除成功=￣ω￣=!";
-            for(var i in this.blogs){
-              if(this.blogs[i]._id = id){
-                this.blogs.splice(i,1)
-                console.log(this.blogs[i])
-                break
-              }else{
-                continue
-              }
+          var nodesc = "删除成功=￣ω￣=!";
+          for (var i in this.blogs) {
+            if ((this.blogs[i]._id = id)) {
+              this.blogs.splice(i, 1);
+              console.log(this.blogs[i]);
+              break;
+            } else {
+              continue;
             }
-            this.success(nodesc);
-          } else if (res.data.status == "1") {
-            var nodesc = "删除失败(⊙o⊙)？!";
-            this.error(nodesc);
           }
-      })
+          this.success(nodesc);
+        } else if (res.data.status == "1") {
+          var nodesc = "删除失败(⊙o⊙)？!";
+          this.error(nodesc);
+        }
+      });
     }
   }
 };
@@ -110,6 +109,7 @@ export default {
 $blog-item-h: 40px;
 .blog-list {
   overflow: auto;
+  height: 100%;
   &::-webkit-scrollbar {
     width: 5px;
     height: 16px;
@@ -129,25 +129,28 @@ $blog-item-h: 40px;
   .blog-item {
     width: 100%;
     height: $blog-item-h;
-    margin-bottom: 4px;
+    // margin-bottom: 4px;
     // background: rgba(255,255,255,.9);
-    background: $bg-dark-one;
-    border-radius: 2px;
+    background: #393d41;
+    // border-radius: 2px;
     display: flex;
     // padding: 7px;
     box-sizing: border-box;
     -webkit-transition: $hover-bg;
     transition: $hover-bg;
+    &:nth-child(2n) {
+      background: #3f4347;
+    }
     &:hover {
-      background: rgba(28, 28, 28, 0.95);
+      background: $main-bg;
     }
     &:hover #img {
       transform: translateX(-10px);
     }
     &:hover .title {
       text-decoration: underline;
-      transform: translateX(10px);
-      opacity: 1 !important;
+      // transform: translateX(10px);
+      // opacity: 1 !important;
       // color: #42b983!important;
     }
     .blog-pic {
@@ -168,20 +171,6 @@ $blog-item-h: 40px;
       margin-left: 7px;
       padding-left: 4px;
       box-sizing: border-box;
-      // -webkit-transition: $hover-bg;
-      // transition: $hover-bg;
-      // &:hover {
-      //   background: rgba(28, 28, 28, 0.95);
-      // }
-      // &:hover #img {
-      //   transform: translateX(-10px);
-      // }
-      // &:hover .title {
-      //   text-decoration: underline;
-      //   transform: translateX(10px);
-      //   opacity: 1 !important;
-      //   // color: #42b983!important;
-      // }
       .title {
         letter-spacing: 1px;
         line-height: $blog-item-h;
@@ -189,39 +178,59 @@ $blog-item-h: 40px;
         -webkit-transition: $hover-bg;
         -webkit-transition: $hover-bg;
         transition: $hover-bg;
-        &:hover {
-          cursor: pointer;
-        }
+
       }
     }
 
     .delete {
       margin-right: 0 !important;
+      &:hover{
+        cursor: pointer;
+      }
     }
     .time {
-      width: 70px !important;
+      width: 100px !important;
     }
-    .operation {
-      width: $blog-item-h;
+    .button {
+      // background: rgba(0, 0, 0, 1)!important;
+      width: 40px;
       // height: 119px;
-      background: rgba(0, 0, 0, 0.8);
+      // background: $main-bg;
       text-align: center;
       margin-right: 1px;
       transition: $transition;
+      .large-icon-font {
+        transition: transform 0.25s linear;
+        line-height: $blog-item-h;
+        font-size: 20px;
+      }
+      &:hover{
+        cursor: pointer;
+      }
+      
+    }
+    .operation {
+      // width: 100px;
+      // height: 119px;
+      // background: $main-bg;
+      color: #e4e5e5;
+      text-align: center;
+      margin-right: 40px;
+      transition: $transition;
       // transition: transform 0.5s linear;
-      overflow: hidden;
+      // overflow: hidden;
       &:hover {
         // transform: $transform-360;
         cursor: pointer;
       }
-      &:hover .large-icon-font {
-        // display: none;
-        transform: $translateY-40;
-      }
-      &:hover .p {
-        // display: block;
-        transform: $translateY-40;
-      }
+      // &:hover .large-icon-font {
+      //   // display: none;
+      //   transform: $translateY-40;
+      // }
+      // &:hover .p {
+      //   // display: block;
+      //   transform: $translateY-40;
+      // }
 
       .large-icon-font {
         transition: transform 0.25s linear;

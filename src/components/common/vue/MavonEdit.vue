@@ -26,7 +26,9 @@ export default {
   methods: {
     init() {
       // 设置mavonedit控件高度
-      this.$refs.mavonedit.style.height =
+      // this.$refs.mavonedit.style.height = 780 + 'px';
+      // // 设置mavonedit控件高度
+      this.$refs.mavonEditor.style.height =
         innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 - 33 - 4 - 4 + - 33 +"px";
     },
     $change(value,render){
@@ -96,6 +98,5 @@ export default {
 <style lang="scss" scoped>
 .mavon-edit {
   height: 100%;
-  border-radius: 3px;
 }
 </style>

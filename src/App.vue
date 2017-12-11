@@ -1,21 +1,5 @@
 <template lang="pug">
   div.app(ref="app")
-    vue-particles(
-        color="#dedede"
-        :particleOpacity="0.7"
-        :particlesNumber="80"
-        shapeType="circle"
-        :particleSize="6"
-        linesColor="#dedede"
-        :linesWidth="1"
-        :lineLinked="true"
-        :lineOpacity="0.4"
-        :linesDistance="150"
-        :moveSpeed="3"
-        :hoverEffect="false"
-        hoverMode="grab"
-        :clickEffect="true"
-        clickMode="push")
     router-view
 
 </template>
@@ -23,15 +7,8 @@
 <script >
 export default {
   name: "app",
-  mounted(){
-    this.init()
-  },
-  methods:{
-    init() {
-      document.getElementById('particles-js').style.height = innerHeight-0.2+'px';
-      console.log(innerHeight-0.2)
-    }
-  }
+  mounted() {},
+  methods: {}
 };
 </script>
 
@@ -41,29 +18,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
-}
-#particles-js {
-  background-size: cover;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: #555555;
-}
-.v-note-op {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-.v-note-panel {
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-.v-note-wrapper {
-  height: 100% !important;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  background-color: #282c34;
 }
 html {
   height: 100%;
@@ -72,8 +27,11 @@ html {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   // background: rgba(0,0,0,.5);
 }
+.v-note-wrapper {
+  height: 985px !important;
+}
 body {
-  // background: white;
+  background: #32373d;
 
   opacity: 1;
   background-size: cover;
@@ -115,9 +73,19 @@ body {
   background: black !important;
   // border-top-left-radius: 4px;
   // border-bottom-left-radius: 4px;
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  // border-top-right-radius: 0 !important;
+  // border-bottom-right-radius: 0 !important;
   color: white;
+  outline-color: rgba(255, 255, 255, 0);
+  border: 0 !important;
+  transition: background-color 0.25s linear;
+  caret-color: red;
+  &::placeholder {
+    color: #777;
+  }
+  &:hover {
+    background-color: hsla(0, 0%, 57%, 0.4);
+  }
 }
 .ivu-upload {
   height: 33px !important;

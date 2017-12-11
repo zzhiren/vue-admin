@@ -104,10 +104,7 @@ $button-width: 50px;
     margin-bottom: 7px;
     .title-input {
       flex: 1;
-      input {
-        border-top-left-radius: 4px !important;
-        border-bottom-left-radius: 4px !important;
-      }
+
     }
     .tag-input {
       flex: 0.4;
@@ -139,8 +136,6 @@ $button-width: 50px;
         background: black;
         line-height: 33px;
         font-size: 18px;
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
         &:hover {
           cursor: pointer;
         }
