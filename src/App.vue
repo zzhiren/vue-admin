@@ -31,8 +31,8 @@ html {
   height: 985px !important;
 }
 body {
+  letter-spacing: 1px;
   background: #32373d;
-
   opacity: 1;
   background-size: cover;
   background-repeat: no-repeat;
@@ -40,7 +40,6 @@ body {
   background-position: center;
   // filter: blur(0.8px);
   // margin: -30px;
-  background-size: cover;
   position: absolute;
   height: 100%;
   width: 100%;
