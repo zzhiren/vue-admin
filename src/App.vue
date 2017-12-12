@@ -28,8 +28,12 @@ html {
   // background: rgba(0,0,0,.5);
 }
 .v-note-wrapper {
-  height: 985px !important;
+  height: 820px !important;
 }
+// 全局消息提醒
+// .ivu-message-notice-content{
+//   margin-top: 25px;
+// }
 body {
   letter-spacing: 1px;
   background: #32373d;

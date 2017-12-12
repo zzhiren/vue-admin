@@ -130,7 +130,7 @@ $item-height: 34px;
       display: flex;
       flex-direction: column;
       background: $vice-bg;
-      padding: 7px;
+      padding: 14px;
       .main{
         flex:1;
         width: 100%;

@@ -13,18 +13,37 @@
     div.blog-item(v-for="(item,index) in blogs")
       div.blog-state.release
         Icon.large-icon-font.green(type="checkmark")
-      div.blog-id ID
+      div.blog-id 
+        span.span ID
       div.blog-title.item-title
         div#font-family.content(v-bind:style="'background-image:url('+item.firstPic+');'")
           div.desc 
             p.title(v-html="item.title")
             p.preface(v-html="item.preface")
-      div.blog-tag.center-color {{item.tag[0]}}
-      div.blog-date.center-color {{item.creationTime}}
-      div.blog-read.center-color {{item.eyes}}人阅读
-      div.blog-comment.center-color {{item.comment.length}}人评论
-      div.blog-love.center-color {{item.love}}人喜欢
-      div.blog-operation 操作
+      div.blog-tag.center-color
+        div.tag
+          ul
+            li(v-for="(tag,index) in item.tag")
+              Icon.tag-icon(type="ios-pricetag")
+              span {{tag}}
+          
+      div.blog-date.center-color 
+        span.span {{item.creationTime}}
+      div.blog-read.center-color 
+        span.span {{item.eyes}}人阅读
+      div.blog-comment.center-color 
+        span.span {{item.comment.length}}人评论
+      div.blog-love.center-color 
+        span.span {{item.love}}人喜欢
+      div.blog-operation.operation-div 
+        div.operation
+          span 发布文章
+        div.operation
+          span 编辑文章
+        div.operation
+          span 移到草稿
+        div.operation
+          span 删除文章
       //- div.release.green
       //-   Icon.large-icon-font(type="checkmark")
       //-   //- p.p 已发布
@@ -64,11 +83,11 @@ export default {
     this.init();
   },
   methods: {
-    success(nodesc) {
-      this.$Notice.success({
-        title: nodesc
-      });
-    },
+    // success(nodesc) {
+    //   this.$Notice.success({
+    //     title: nodesc
+    //   });
+    // },
     // info(nodesc) {
     //   this.$Notice.info({
     //     title: nodesc
@@ -79,11 +98,11 @@ export default {
     //     title: nodesc
     //   });
     // },
-    error(nodesc) {
-      this.$Notice.error({
-        title: nodesc
-      });
-    },
+    // error(nodesc) {
+    //   this.$Notice.error({
+    //     title: nodesc
+    //   });
+    // },
     init() {
       // this.$refs.bloglistH.style.height = innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 + "px";
       this.getBlogList();
@@ -172,6 +191,22 @@ $blog-item-h: 150px;
   }
   .blog-tag {
     flex: 1;
+    // text-align: left;
+    .tag {
+      display: table;
+      height: 100%;
+      width: 100%;
+      padding-left: 30%;
+      ul {
+        vertical-align: middle;
+        display: table-cell;
+        text-align: left;
+        width: 100%;
+        .tag-icon {
+          margin-right: 5px;
+        }
+      }
+    }
   }
   .blog-date {
     flex: 1;
@@ -185,13 +220,52 @@ $blog-item-h: 150px;
   .blog-love {
     flex: 1;
   }
-  .blog-operation {
+  .blog-operation{
     flex: 1;
+    text-align: center;
+    
+  }
+  .operation-div{
+    display: flex;
+    flex-direction: column;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    .operation{
+      flex: 1;
+      margin: 0 auto;
+      border-radius: 2px;
+      margin-bottom: 4px;
+      line-height: 31.5px;
+      color: white;
+      opacity: .9;
+      width: 80px;
+      &:hover{
+        opacity: 1!important;
+        cursor: pointer;
+      }
+      &:active{
+        // background: black!important;
+        opacity: .7!important;
+      }
+      &:nth-child(1){
+        background: #42b983;
+      }
+      &:nth-child(2){
+        background: red;
+      }
+      &:nth-child(3){
+        background: #0088f5;
+      }
+      &:nth-child(4){
+        background: black;
+      }
+    }
   }
   .blog-item {
     width: 100%;
     height: $blog-item-h;
-    line-height: $blog-item-h;
+    // line-height: $blog-item-h;
+
     background: #393d41;
     display: flex;
     box-sizing: border-box;
@@ -213,12 +287,15 @@ $blog-item-h: 150px;
       // opacity: 1 !important;
       // color: #42b983!important;
     }
-    .center-color{
-          text-align: center;
-          color: white;
-          opacity: .8;;
-          font-size: 11px!important;
-        }
+    .span{
+      line-height: $blog-item-h;
+    }
+    .center-color {
+      text-align: center;
+      color: white;
+      opacity: 0.8;
+      font-size: 11px !important;
+    }
     .item-title {
       padding: 14px 14px;
       // background: red;
@@ -259,7 +336,6 @@ $blog-item-h: 150px;
             -webkit-line-clamp: 3;
           }
         }
-        
       }
     }
 
