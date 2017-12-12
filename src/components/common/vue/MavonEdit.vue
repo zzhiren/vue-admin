@@ -1,13 +1,19 @@
 <template lang="pug">
     div.mavon-edit(ref="mavonedit")
       //- button(@click="uploadImg") upload
-      mavon-editor(ref="mavonEditor" :ishljs="false" @imgAdd="$imgAdd" @imgDel="$imgDel" @change="$change")
+      mavon-editor(ref="mavonEditor" :editable="editable" :ishljs="false" @imgAdd="$imgAdd" @imgDel="$imgDel" @change="$change")
 </template>
 <script>
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import axios from "axios";
 export default {
+  props: {
+    editable:{
+      type: Boolean,
+      default : true
+    }
+  },
   data() {
     return {
       img_file: {},
@@ -28,8 +34,8 @@ export default {
       // 设置mavonedit控件高度
       // this.$refs.mavonedit.style.height = 780 + 'px';
       // // 设置mavonedit控件高度
-      this.$refs.mavonEditor.style.height =
-        innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 - 33 - 4 - 4 + - 33 +"px";
+      // this.$refs.mavonEditor.style.height =
+      //   innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 - 33 - 4 - 4 + - 33 +"px";
     },
     $change(value,render){
       // console.log('render',render)
