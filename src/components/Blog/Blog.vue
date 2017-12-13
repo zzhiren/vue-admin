@@ -45,6 +45,8 @@ export default {
     height: 40px;
     display: flex;
     background: $main-bg;
+    // position: fixed;
+    width: 100%;
     .earth {
       width: 40px;
       background: $main-bg;
@@ -107,8 +109,8 @@ export default {
   }
   .content {
     flex: 1;
-    margin-top: 4px;
-    padding-top: 4px;
+    // margin-top: 4px;
+    // padding-top: 4px;
   }
 }
 </style>

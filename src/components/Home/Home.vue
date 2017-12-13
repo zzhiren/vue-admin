@@ -92,7 +92,7 @@ $item-height: 34px;
           box-sizing: border-box;
           -moz-box-sizing: border-box;
           -webkit-box-sizing: border-box;
-          border-right: 3px solid #b82525;
+          // border-right: 3px solid #b82525;
           // background: gray;
           &:hover {
             cursor: pointer;
@@ -131,6 +131,7 @@ $item-height: 34px;
       flex-direction: column;
       background: $vice-bg;
       padding: 14px;
+      padding-bottom: 0!important;
       .main{
         flex:1;
         width: 100%;

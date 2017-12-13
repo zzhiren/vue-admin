@@ -125,4 +125,61 @@ p {
 h4 {
   font-size: 14px;
 }
+// markdown
+.v-note-op{
+  background: #282c34!important;
+
+}
+.op-icon:hover{
+background: rgba(0,0,0,.3)!important;
+color: gray!important;
+}
+.divarea-wrapper{
+  background: rgba(0,0,0,.85);
+}
+.auto-textarea-input{
+background: rgba(0,0,0,0);
+color: white!important;
+}
+.mu-list{
+  background: rgba(0,0,0,.9)!important;
+  padding: 0!important;
+}
+.mu-item {
+    min-height: 33px!important;
+    display: flex;
+    padding: 7px 14px!important;
+    color: rgba(0, 0, 0, 0.87);
+    position: relative;
+}
+.mu-item-title{
+  color: white!important;
+  line-height: 30px!important;
+  font-size: 14px!important;
+
+}
+.v-note-wrapper.fullscreen{
+  top: 33px!important;
+  height: 100%!important;
+}
+// .v-note-wrapper{
+//   height: 100%!important;
+//   min-height: 100%!important;
+// }
+.op-icon.selected{
+  background: rgba(0,0,0,.3)!important;
+  color: gray!important;
+}
+.op-icon{
+  color: gray!important;
+}
+.auto-textarea-input.no-resize{
+  background: rgba(0,0,0,0)!important;
+}
+
+// iview-msg
+.ivu-message-notice-content{
+  background: rgba(0, 0, 0, .9);
+  color: rgba(255, 255, 255, .8);
+}
 </style>

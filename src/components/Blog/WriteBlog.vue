@@ -1,18 +1,25 @@
 <template lang="pug">
   div.write-blog
     div.header
-        div.back
-          Icon.back-icon(type="ios-arrow-back")
+        //- div.back
+        //-   Icon.back-icon(type="ios-arrow-back")
+        span 撰写新文章
+        //- input.input.title-input(v-model="title" v-bind:disabled="disabled" placeholder="Enter title...")
+        //- div.button
+        //-   div.release.btn-hover(@click="_editBlog()") 编辑文章
+        //-   div.release.btn-hover(@click="_saveBlog(0)") 发布文章
+        //-   div.save.btn-hover(@click="_saveBlog(1)") 存至草稿
+    div.content
+      div.header.blog-title
         span 文章标题
         input.input.title-input(v-model="title" v-bind:disabled="disabled" placeholder="Enter title...")
         div.button
-          div.release.btn-hover(@click="_editBlog()") 编辑文章
-          div.release.btn-hover(@click="_saveBlog(0)") 发布文章
-          div.save.btn-hover(@click="_saveBlog(1)") 存至草稿
-    div.content
+          div.release.btn-hover.green(@click="_editBlog()") 编辑文章
+          div.release.btn-hover.blue(@click="_saveBlog(0)") 发布文章
+          div.save.btn-hover.red(@click="_saveBlog(1)") 存至草稿
       div.header
         span 前言
-        input.input.perface(v-model="preface" v-bind:disabled="disabled" placeholder="Enter title...")
+        input.input.perface(v-model="preface" v-bind:disabled="disabled" placeholder="Enter preface...")
         span 标签
         input.input.tag(v-model="tag" v-bind:disabled="disabled" placeholder="Enter tag...")
       div.mark-down
@@ -83,8 +90,8 @@ export default {
     },
     _saveBlog(state) {
       var $vm = this;
-      if ( this.title === "" || this.$refs.mavonedit.value === "" || this.preface === "" ) {
-        var nodesc = "标题 && 前言 && 正文 !== ' ' 😆！";
+      if ( this.title === "" || this.$refs.mavonedit.value === "" || this.preface === "" || this.tag === "") {
+        var nodesc = "标题 && 前言 && 正文 && 标签 !== ' ' 😆！";
         this._info(nodesc);
       } else {
         this.disabled = true
@@ -152,11 +159,12 @@ $button-width: 50px;
   color: rgba(255, 255, 255, 0.8);
   height: 100%;
   .input {
+    border-radius: 2px;
     height: 100%;
-    padding: 0 !important;
+    // padding: 0 !important;
     background-color: $main-bg;
-    // background-color: hsla(0, 0%, 77%, 0.4);
     outline-color: rgba(255, 255, 255, 0);
+    padding-left: 5px;
     border: 0 !important;
     transition: background-color 0.25s linear;
     caret-color: red;
@@ -169,6 +177,10 @@ $button-width: 50px;
       background-color: hsla(0, 0%, 57%, 0.1);
     }
   }
+  .blog-title{
+    padding-right: 5px;
+    margin-bottom: 7px;
+  }
   .header {
     $height: 34px;
     width: 100%;
@@ -178,7 +190,8 @@ $button-width: 50px;
     padding-top: 2px;
     padding-bottom: 2px;
     display: flex;
-    line-height: 28px;
+    line-height: 30px;
+    // margin-bottom: 7px;
     // box-sizing: border-box;
     .back {
       float: left;
@@ -186,7 +199,7 @@ $button-width: 50px;
       margin-left: -10px;
       height: 100%;
       font-size: 24px;
-      line-height: $height;
+      line-height: 30px;
       text-align: center;
       color: white;
       &:hover {
@@ -215,6 +228,7 @@ $button-width: 50px;
       padding: 1px;
       text-align: right;
       line-height: 28px;
+      
       .btn-hover {
         &:hover {
           cursor: pointer;
@@ -231,7 +245,7 @@ $button-width: 50px;
         text-align: center;
       }
       .save {
-        margin-right: 5px;
+        margin-right: 0px;
         text-align: center;
         border-radius: 2px;
         width: 80px;
@@ -249,6 +263,7 @@ $button-width: 50px;
     .tag {
       flex: 1;
       margin-left: 15px;
+      margin-right: 5px;
       line-height: 34px;
       &:before {
         content: "标签";
@@ -278,6 +293,7 @@ $button-width: 50px;
   }
   .mark-down {
     flex: 1;
+    margin-top: 7px;
   }
 }
 </style>

@@ -1,74 +1,92 @@
 <template lang="pug">
   div.blog-list(ref="bloglistH")
-    div.list-header
-      div.blog-state 状态
-      div.blog-id ID
-      div.blog-title 文章
-      div.blog-tag 标签
-      div.blog-date 日期
-      div.blog-read 阅读
-      div.blog-comment 评论
-      div.blog-love 喜欢
-      div.blog-operation 操作
-    div.blog-item(v-for="(item,index) in blogs")
-      div.blog-state.release
-        Icon.large-icon-font.green(type="checkmark")
-      div.blog-id 
-        span.span ID
-      div.blog-title.item-title
-        div#font-family.content(v-bind:style="'background-image:url('+item.firstPic+');'")
-          div.desc 
-            p.title(v-html="item.title")
-            p.preface(v-html="item.preface")
-      div.blog-tag.center-color
-        div.tag
-          ul
-            li(v-for="(tag,index) in item.tag")
-              Icon.tag-icon(type="ios-pricetag")
-              span {{tag}}
-          
-      div.blog-date.center-color 
-        span.span {{item.creationTime}}
-      div.blog-read.center-color 
-        span.span {{item.eyes}}人阅读
-      div.blog-comment.center-color 
-        span.span {{item.comment.length}}人评论
-      div.blog-love.center-color 
-        span.span {{item.love}}人喜欢
-      div.blog-operation.operation-div 
-        div.operation
-          span 发布文章
-        div.operation
-          span 编辑文章
-        div.operation
-          span 移到草稿
-        div.operation
-          span 删除文章
-      //- div.release.green
-      //-   Icon.large-icon-font(type="checkmark")
-      //-   //- p.p 已发布
-      //- div.blog-preface
-      //-   h4.title.blue(v-html="item.title")
-      //- p.operation.time
-      //-   //- Icon.large-icon-font(type="ios-calendar")
-      //-   span.p {{item.creationTime}}
-      //- p.operation
-      //-   //- Icon.large-icon-font(type="eye")
-      //-   span.p {{item.eyes}}人阅读
-      //- p.operation
-      //-   //- Icon.large-icon-font(type="chatbox-working")
-      //-   span.p {{item.comment.length}}人评论
-      //- p.operation
-      //-   //- Icon.large-icon-font(type="heart")
-      //-   span.p {{item.love}}人喜欢
-      //- div.button.green
-      //-   Icon.large-icon-font(type="ios-compose")
-      //-   //- p.p 编辑
-      //- div.button.red.delete(@click="deleteBlog(item._id)")
-      //-   Icon.large-icon-font(type="android-delete")
-        //- p.p 删除
-      //- div.edit-blog
-      //- div.delete-blog
+    div.main
+      div.bar
+        div.left
+          div.all 全部
+          div.release-true 已发布
+          div.draft 草稿
+          div.refresh 刷新是
+          div.clear 清空搜索条件
+          div.batch 批量操作
+        div.right
+      div.list-header
+        div.blog-id ID
+        div.blog-title 文章
+        div.blog-tag 标签
+        div.blog-date 日期
+        div.blog-read 阅读
+        div.blog-comment 评论
+        div.blog-love 喜欢
+        div.blog-love 状态
+        //- div.blog-state 状态
+        div.blog-operation 操作
+      div.blogs.scroll(ref="blogs")
+        div.blog-item(v-for="(item,index) in blogs")
+          //- div.blog-state.release
+          //-   Icon.large-icon-font.green(type="checkmark")
+          div.blog-id 
+            span.span ID
+          div.blog-title.item-title
+            div#font-family.content(v-bind:style="'background-image:url('+item.firstPic+');'")
+              div.desc 
+                p.title
+                  span(v-html="item.title")
+                  Icon.icon-font.green(type="checkmark")
+                p.preface(v-html="item.preface")
+          div.blog-tag.center-color
+            div.tag
+              ul
+                li(v-for="(tag,index) in item.tag")
+                  Icon.tag-icon(type="ios-pricetag")
+                  span {{tag}}
+          div.blog-date.center-color 
+            span.span {{item.creationTime}}
+          div.blog-read.center-color 
+            span.span {{item.eyes}}人阅读
+          div.blog-comment.center-color 
+            span.span {{item.comment.length}}人评论
+          div.blog-love.center-color 
+            span.span {{item.love}}人喜欢
+          div.blog-love.center-color 
+            span.span(v-if="item.state == 0") 已发布
+            span.span(v-if="item.state == 1") 未发布
+          //- div.blog-state.release
+          //-   span.span {{itme.state}}
+          div.blog-operation.operation-div 
+            div.operation(@click="changeReleaseState()")
+              span 发布文章
+            div.operation
+              span 移到草稿
+            div.operation
+              span 编辑文章
+            div.operation(@click="_deleteBlog(item._id)")
+              span 删除文章
+          //- div.release.green
+          //-   Icon.large-icon-font(type="checkmark")
+          //-   //- p.p 已发布
+          //- div.blog-preface
+          //-   h4.title.blue(v-html="item.title")
+          //- p.operation.time
+          //-   //- Icon.large-icon-font(type="ios-calendar")
+          //-   span.p {{item.creationTime}}
+          //- p.operation
+          //-   //- Icon.large-icon-font(type="eye")
+          //-   span.p {{item.eyes}}人阅读
+          //- p.operation
+          //-   //- Icon.large-icon-font(type="chatbox-working")
+          //-   span.p {{item.comment.length}}人评论
+          //- p.operation
+          //-   //- Icon.large-icon-font(type="heart")
+          //-   span.p {{item.love}}人喜欢
+          //- div.button.green
+          //-   Icon.large-icon-font(type="ios-compose")
+          //-   //- p.p 编辑
+          //- div.button.red.delete(@click="deleteBlog(item._id)")
+          //-   Icon.large-icon-font(type="android-delete")
+            //- p.p 删除
+          //- div.edit-blog
+          //- div.delete-blog
 </template>
 <script>
 import axios from "axios";
@@ -104,7 +122,8 @@ export default {
     //   });
     // },
     init() {
-      // this.$refs.bloglistH.style.height = innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 + "px";
+      this.$refs.blogs.style.height =
+        innerHeight - 34 - 40 - 30 - 28 - 14 - 14 - 23 + "px";
       this.getBlogList();
     },
     getBlogList() {
@@ -118,7 +137,7 @@ export default {
         console.log(this.blogs);
       });
     },
-    deleteBlog(id) {
+    _deleteBlog(id) {
       this.$axios({
         method: "post",
         url: "/deleteblog",
@@ -128,15 +147,16 @@ export default {
       }).then(res => {
         if (res.data.status == "0") {
           var nodesc = "删除成功=￣ω￣=!";
-          for (var i in this.blogs) {
-            if ((this.blogs[i]._id = id)) {
-              this.blogs.splice(i, 1);
-              console.log(this.blogs[i]);
-              break;
-            } else {
-              continue;
-            }
-          }
+          // for (var i in this.blogs) {
+          //   if ((this.blogs[i]._id = id)) {
+          //     this.blogs.splice(i, 1);
+          //     console.log(this.blogs[i]);
+          //     break;
+          //   } else {
+          //     continue;
+          //   }
+          // }
+          this.getBlogList();
           this.success(nodesc);
         } else if (res.data.status == "1") {
           var nodesc = "删除失败(⊙o⊙)？!";
@@ -153,6 +173,54 @@ $blog-item-h: 150px;
 .blog-list {
   overflow: auto;
   height: 100%;
+
+  .main {
+    padding: 14px 20px 0 20px;
+    background: #474b51;
+    box-sizing: border-box;
+    .bar {
+      width: 100%;
+      height: 30px;
+      background: black;
+      margin-bottom: 14px;
+      display: flex;
+      .left {
+        flex: 1;
+        background: blue;
+        display: flex;
+        line-height: 26px;
+        $padding: 2px 4px 2px 4px;
+        .all{
+          padding: $padding;
+          height: 100%;
+        }
+        .release-true{
+          padding: $padding;
+          height: 100%;
+        }
+        .draft{
+          padding: $padding;
+          height: 100%;
+        }
+        .refresh{
+          padding: $padding;
+          height: 100%;
+        }
+        .clear{
+          padding: $padding;
+          height: 100%;
+        }
+        .batch{
+          padding: $padding;
+          height: 100%;
+        }
+      }
+      .right {
+        flex: 1;
+        background: green;
+      }
+    }
+  }
   &::-webkit-scrollbar {
     width: 5px;
     height: 16px;
@@ -175,8 +243,9 @@ $blog-item-h: 150px;
     display: flex;
     text-align: center;
     line-height: 30px;
-    color: gray;
+    color: white;
     background: #393d41;
+    // position: fixed;
   }
   .blog-state {
     width: 40px;
@@ -220,120 +289,130 @@ $blog-item-h: 150px;
   .blog-love {
     flex: 1;
   }
-  .blog-operation{
+  .blog-operation {
     flex: 1;
     text-align: center;
-    
   }
-  .operation-div{
+  .operation-div {
     display: flex;
     flex-direction: column;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    .operation{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    .operation {
       flex: 1;
       margin: 0 auto;
       border-radius: 2px;
-      margin-bottom: 4px;
-      line-height: 31.5px;
+      margin-bottom: 6px;
+      line-height: 28.5px;
       color: white;
-      opacity: .9;
-      width: 80px;
-      &:hover{
-        opacity: 1!important;
+      opacity: 0.95;
+      width: 65px;
+      font-size: 12px;
+      &:hover {
+        opacity: 1 !important;
         cursor: pointer;
       }
-      &:active{
+      &:active {
         // background: black!important;
-        opacity: .7!important;
+        opacity: 0.7 !important;
       }
-      &:nth-child(1){
+      &:nth-child(1) {
         background: #42b983;
       }
-      &:nth-child(2){
-        background: red;
+      &:nth-child(2) {
+        background: orange;
       }
-      &:nth-child(3){
+      &:nth-child(3) {
         background: #0088f5;
       }
-      &:nth-child(4){
-        background: black;
+      &:nth-child(4) {
+        background: #e64c3c;
       }
     }
   }
-  .blog-item {
-    width: 100%;
-    height: $blog-item-h;
-    // line-height: $blog-item-h;
-
-    background: #393d41;
-    display: flex;
-    box-sizing: border-box;
-    -webkit-transition: $hover-bg;
-    transition: $hover-bg;
+  .blogs {
+    overflow-y: auto;
     overflow-x: hidden;
-    &:nth-child(2n) {
+    height: 1000px;
+    // width: 100%;
+    .blog-item {
+      width: 100%;
+      height: $blog-item-h;
+      // line-height: $blog-item-h;
       background: #3f4347;
-    }
-    &:hover {
-      background: $main-bg;
-    }
-    &:hover #img {
-      transform: translateX(-10px);
-    }
-    &:hover .title {
-      text-decoration: underline;
-      // transform: translateX(10px);
-      // opacity: 1 !important;
-      // color: #42b983!important;
-    }
-    .span{
-      line-height: $blog-item-h;
-    }
-    .center-color {
-      text-align: center;
-      color: white;
-      opacity: 0.8;
-      font-size: 11px !important;
-    }
-    .item-title {
-      padding: 14px 14px;
-      // background: red;
-      .content {
-        width: 100%;
-        height: 100%;
-        border-radius: 2px;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        .desc {
+      display: flex;
+      box-sizing: border-box;
+      -webkit-transition: $hover-bg;
+      transition: $hover-bg;
+      overflow-x: hidden;
+      &:nth-child(2n) {
+        background: #393d41;
+      }
+      // &:hover {
+      //   background: $main-bg;
+      // }
+      &:hover #img {
+        transform: translateX(-10px);
+      }
+      &:hover .title {
+        text-decoration: underline;
+        // transform: translateX(10px);
+        // opacity: 1 !important;
+        // color: #42b983!important;
+      }
+      .span {
+        line-height: $blog-item-h;
+      }
+      .center-color {
+        text-align: center;
+        color: white;
+        opacity: 0.8;
+        font-size: 11px !important;
+      }
+      .item-title {
+        padding: 14px 14px;
+        // background: red;
+        .content {
           width: 100%;
           height: 100%;
-          padding: 8px 9px;
-          box-sizing: border-box;
-          background: rgba(0, 0, 0, 0.65);
-          .title {
-            line-height: 20px;
-            color: white;
-            font-size: 14px;
-            opacity: 0.9;
-            letter-spacing: 1px;
-            &:hover {
-              cursor: pointer;
+          border-radius: 2px;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-color: inherit;
+          .desc {
+            width: 100%;
+            height: 100%;
+            padding: 8px 9px;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.65);
+            .title {
+              line-height: 20px;
+              color: white;
+              font-size: 14px;
+              opacity: 0.9;
+              letter-spacing: 1px;
+              &:hover {
+                cursor: pointer;
+              }
+              .icon-font {
+                margin-left: 3px;
+              }
             }
-          }
-          .preface {
-            text-align: justify;
-            margin-top: 6px;
-            height: 76%;
-            line-height: 20px;
-            color: white;
-            opacity: 0.7;
-            font-size: 12px;
-            letter-spacing: 1px;
-            overflow: hidden;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
+            .preface {
+              text-align: justify;
+              margin-top: 6px;
+              height: 76%;
+              line-height: 20px;
+              color: white;
+              opacity: 0.7;
+              font-size: 12px;
+              letter-spacing: 1px;
+              overflow: hidden;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 3;
+            }
           }
         }
       }
@@ -382,11 +461,6 @@ $blog-item-h: 150px;
       text-align: center;
       margin-right: 1px;
       transition: $transition;
-      .large-icon-font {
-        transition: transform 0.25s linear;
-        line-height: $blog-item-h;
-        font-size: 14px;
-      }
     }
     // .button {
     //   // background: rgba(0, 0, 0, 1)!important;
