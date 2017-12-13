@@ -2,14 +2,29 @@
   div.blog-list(ref="bloglistH")
     div.main
       div.bar
-        div.left
-          div.all 全部
-          div.release-true 已发布
-          div.draft 草稿
-          div.refresh 刷新是
-          div.clear 清空搜索条件
-          div.batch 批量操作
-        div.right
+        div.one
+          div.common 全部[{{blogs.length}}]
+          div.common 已发布
+          div.common 草稿
+          
+        div.two.one
+          div.common 
+            Icon.icon(type="android-refresh")
+            span 刷新
+          div.common 
+            Icon.icon(type="trash-b")
+            span 清空搜索条件
+          div.common 
+            Icon.icon(type="ios-list")
+            span 批量操作
+        div.other
+        div.three.one
+          div.common.all-types 
+            span.span 所有分类
+              //- img(src="../../../assets/down_up.svg" height="22")
+            div.item
+          div.common 所有标签
+          div.common 
       div.list-header
         div.blog-id ID
         div.blog-title 文章
@@ -94,33 +109,15 @@ import axios from "axios";
 export default {
   data() {
     return {
-      blogs: []
+      blogs: [],
+      state: "",
+      xxx: "1"
     };
   },
   mounted() {
     this.init();
   },
   methods: {
-    // success(nodesc) {
-    //   this.$Notice.success({
-    //     title: nodesc
-    //   });
-    // },
-    // info(nodesc) {
-    //   this.$Notice.info({
-    //     title: nodesc
-    //   });
-    // },
-    // warning(nodesc) {
-    //   this.$Notice.warning({
-    //     title: nodesc
-    //   });
-    // },
-    // error(nodesc) {
-    //   this.$Notice.error({
-    //     title: nodesc
-    //   });
-    // },
     init() {
       this.$refs.blogs.style.height =
         innerHeight - 34 - 40 - 30 - 28 - 14 - 14 - 23 + "px";
@@ -147,15 +144,6 @@ export default {
       }).then(res => {
         if (res.data.status == "0") {
           var nodesc = "删除成功=￣ω￣=!";
-          // for (var i in this.blogs) {
-          //   if ((this.blogs[i]._id = id)) {
-          //     this.blogs.splice(i, 1);
-          //     console.log(this.blogs[i]);
-          //     break;
-          //   } else {
-          //     continue;
-          //   }
-          // }
           this.getBlogList();
           this.success(nodesc);
         } else if (res.data.status == "1") {
@@ -179,45 +167,82 @@ $blog-item-h: 150px;
     background: #474b51;
     box-sizing: border-box;
     .bar {
-      width: 100%;
+      // width: 100%;
+      // background: blue;
       height: 30px;
-      background: black;
       margin-bottom: 14px;
       display: flex;
-      .left {
-        flex: 1;
-        background: blue;
+      $padding-l: 3px 0 0 3px;
+      $padding-r: 0 3px 3px 0;
+      $border: 0.5px solid rgba(0, 0, 0, 0.65);
+      $padding: 2px 14px;
+      .icon {
+        font-size: 13px;
+        margin-right: 10px;
+      }
+      .one {
+        border: $border;
+        border-radius: 3px;
         display: flex;
-        line-height: 26px;
-        $padding: 2px 4px 2px 4px;
-        .all{
-          padding: $padding;
-          height: 100%;
+        line-height: 24px;
+        background: $main-bg;
+        font-size: 12px;
+        color: white;
+        opacity: 0.9;
+        div {
+          &:hover {
+            cursor: pointer;
+          }
         }
-        .release-true{
+        .common {
           padding: $padding;
-          height: 100%;
-        }
-        .draft{
-          padding: $padding;
-          height: 100%;
-        }
-        .refresh{
-          padding: $padding;
-          height: 100%;
-        }
-        .clear{
-          padding: $padding;
-          height: 100%;
-        }
-        .batch{
-          padding: $padding;
-          height: 100%;
+          // box-sizing: border-box;
+          float: left;
+          vertical-align: middle;
+          &:nth-child(2) {
+            border-left: $border;
+            border-right: $border;
+          }
         }
       }
-      .right {
+      .two {
+        margin-left: 20px;
+      }
+      .other {
         flex: 1;
-        background: green;
+        height: 10px;
+      }
+
+      .three {
+        float: right;
+        .all-types {
+          padding-left: 8px;
+          padding-right: 4px;
+          &:hover .item{
+            height: 100px;
+          }
+          .span{
+            &:after{
+              content: url(../../../assets/down_up.svg);
+              // margin-top: -10px;
+              vertical-align: middle;
+              display: inline-block;
+              margin-top: -1px;
+              line-height: 12px;
+              color: white;
+              // margin-right: 23px;
+            }
+          }
+          .item {
+            height: 0;
+            width: 80px;
+            margin-left: -9px;
+            border-radius: 4px;
+            position: fixed;
+            background: $main-bg;
+            transition: height 0.25s linear;
+          }
+        }
       }
     }
   }
