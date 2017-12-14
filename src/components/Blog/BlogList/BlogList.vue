@@ -3,12 +3,12 @@
     div.main
       div.bar
         div.one
-          div.common(@click="_screening('all')" v-bind:class="{one_active: condition == 'all'}") 全部[{{all_blogs.length}}]
-          div.common(@click="_screening('0')" v-bind:class="{one_active: condition == '0'}") 已发布[{{posted_length}}]
-          div.common(@click="_screening('1')" v-bind:class="{one_active: condition == '1'}") 草稿[{{draft_length}}]
+          div.common(@click="_screening('all')" v-bind:class="{one_active: state == 'all'}") 全部[{{allBlogs.length}}]
+          div.common(@click="_screening('0')" v-bind:class="{one_active: state == '0'}") 已发布[{{postedBlogs.length}}]
+          div.common(@click="_screening('1')" v-bind:class="{one_active: state == '1'}") 草稿[{{draftBlogs.length}}]
           
         div.two.one
-          div.common.click(@click="getBlogList(condition)" v-model="condition")
+          div.common.click(@click="_refreshList(state)" v-model="state")
             Icon.icon(type="android-refresh")
             span 刷新
           div.common.click 
@@ -41,7 +41,7 @@
         //- div.blog-state 状态
         div.blog-operation 操作
       div.blogs.scroll(ref="blogs")
-        div.blog-item(v-for="(item,index) in all_blogs")
+        div.blog-item(v-for="(item,index) in blogs")
           //- div.blog-state.release
           //-   Icon.large-icon-font.green(type="checkmark")
           div.blog-id 
@@ -88,41 +88,77 @@ import axios from "axios";
 export default {
   data() {
     return {
-      all_blogs: [],
-      posted_length: 0,
-      draft_length: 0,
-      state: "",
-      condition: "all"
+      allBlogs: [],
+      postedBlogs: [],
+      draftBlogs: [],
+      blogs: [],
+      state: "all",
+      condition: ""
     };
   },
   mounted() {
-    this.init();
+    this._init();
   },
   methods: {
-    init() {
+    _init() {
       this.$refs.blogs.style.height =
         innerHeight - 34 - 40 - 30 - 28 - 14 - 14 - 23 + "px";
-      this.getBlogList("all");
+      // this._getAllBlogs();
+      this._getAllBlogs();
+      this._getPostedBlogs();
+      this._getDraftBlogs();
     },
-    getBlogList(value) {
+    _refreshList(state) {
+      if (state == "all") {
+        this._getAllBlogs();
+      } else if (state == "0") {
+        this._getPostedBlogs();
+      } else if (state == "1") {
+        this._getDraftBlogs();
+      }
+    },
+    _getAllBlogs() {
       var date = new Date();
       var timer = date.getTime().toString();
       this.$axios({
         method: "get",
-        url: "/getbloglist?t=" + timer,
-        params: {
-          state: value
-        }
+        url: "/getallblogs?t=" + timer
       }).then(res => {
-        this.all_blogs = res.data.all_blogs;
-        this.posted_length = res.data.posted_length;
-        this.draft_length = res.data.draft_length;
-        // console.log(this.blogs);
+        this.allBlogs = res.data.data;
+        this.blogs = res.data.data;
+      });
+    },
+    _getPostedBlogs() {
+      var date = new Date();
+      var timer = date.getTime().toString();
+      // console.log(value)
+      this.$axios({
+        method: "get",
+        url: "/getpostedblogs?t=" + timer
+      }).then(res => {
+        this.postedBlogs = res.data.data;
+      });
+    },
+    _getDraftBlogs() {
+      var date = new Date();
+      var timer = date.getTime().toString();
+      // console.log(value)
+      this.$axios({
+        method: "get",
+        url: "/getdraftblogs?t=" + timer
+      }).then(res => {
+        this.draftBlogs = res.data.data;
       });
     },
     _screening(value) {
-      this.condition = value;
-      this.getBlogList(value);
+      this.state = value;
+      if (value == "all") {
+        this.blogs = this.allBlogs;
+      } else if (value == "0") {
+        this.blogs = this.postedBlogs;
+      } else if (value == "1") {
+        this.blogs = this.draftBlogs;
+      }
     },
     _deleteBlog(id) {
       this.$axios({
@@ -134,7 +170,7 @@ export default {
       }).then(res => {
         if (res.data.status == "0") {
           var nodesc = "删除成功=￣ω￣=!";
-          this.getBlogList();
+          this._init();
           this.success(nodesc);
         } else if (res.data.status == "1") {
           var nodesc = "删除失败(⊙o⊙)？!";

@@ -3,11 +3,14 @@
     div.top-header
     div.container
       div.slide(ref="slide")
-        div.logo
-          img(src="")
-          span 121
+        router-link.user(tag="div" to="/user" @click.native="_checked('user')" v-bind:class="{active: active === 'user'}")
+          div.me-pic
+            img(src="../../assets/me960x960.jpg")
+          p.name Zzhiren
+          p.motto
+            marquee(scrollamount="4") To improve is to change; to be perfect is to change often！
         div.nav-list
-          router-link.nav-item(to="/home/blog" tag="div" @click.native="checked('blog')" v-bind:class="{active: active === 'blog'}")
+          router-link.nav-item(to="/home/blog" tag="div" @click.native="_checked('blog')" v-bind:class="{active: active === 'blog'}")
             div.icon
               Icon.icon(type="ios-compose")        
             div.icon-name
@@ -20,40 +23,40 @@
 export default {
   data() {
     return {
-      active:'blog'
+      active: "blog"
     };
   },
   mounted() {
-    this.init();
+    this._init();
   },
   methods: {
-    init() {
+    _init() {
       // this.$refs.slide.style.height = window.innerHeight + "px";
       console.log(this.$refs.slide.style.height);
     },
-    checked(state){
-      if(state === 'blog') {
-        this.active = state
-        console.log(this.active)
-      }
+    _checked(state) {
+      // if (state === "blog") {
+      this.active = state;
+      console.log(this.active);
+      // }
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-@import 'src/components/common/scss/base.scss';
+@import "src/components/common/scss/base.scss";
 $item-height: 34px;
-.home{
-  width:100%;
+.home {
+  width: 100%;
   display: flex;
   flex-direction: column;
   background: $vice-bg;
-  height: 100%;;
-  .top-header{
+  height: 100%;
+  .top-header {
     width: 100%;
     height: $item-height;
     background: $main-bg;
-    box-shadow: $box-shadow;
+    box-shadow: $box-bottom-shadow;
     z-index: 9999;
     position: fixed;
   }
@@ -61,6 +64,9 @@ $item-height: 34px;
     width: 100%;
     height: 100%;
     flex: 1;
+    .active {
+      background: $nav-item-checked !important;
+    }
     .slide {
       width: 140px;
       // background: rgba(255,255,255, .9);
@@ -72,20 +78,63 @@ $item-height: 34px;
       top: $item-height;
       position: fixed;
       height: 100%;
-      .logo {
+      .user {
         width: 100%;
-        height: 35px;
+        // height: 120px;
         background: $main-bg;
+        padding-top: 14px;
+        user-select: none;
+        font-family: "Kite One";
+        // box-shadow: 0 0 2px 0 red inset;
+        border-bottom: 1px solid #e64c3c;
+        transition: background 0.25s linear;
+        &:active {
+          background: $vice-bg;
+        }
+        &:hover {
+          cursor: pointer;
+          background: $nav-item-checked;
+          cursor: pointer;
+        }
+        .me-pic {
+          width: 78px;
+          height: 78px;
+          border-radius: 42px;
+          overflow: hidden;
+          // background: red;
+          border: 3px solid rgba(255, 255, 255, 0.2);
+          margin: 0 auto;
+          &:hover img {
+            opacity: 0.8;
+          }
+          img {
+            width: 74px;
+            width: 74px;
+            transition: opacity 0.5s linear;
+          }
+        }
+        .name {
+          margin-top: 12px;
+          font-size: 16px;
+          font-weight: bold;
+          color: white;
+        }
+        .motto {
+          color: white;
+          opacity: 0.4;
+          margin-top: 8px;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
       }
       .nav-list {
         flex: 1;
         z-index: 99;
         width: 100%;
         background: $main-bg;
-        // box-shadow:$box-shadow;       
+        // box-shadow:$box-shadow;
         .nav-item {
           display: flex;
-
           width: 100%;
           height: $item-height;
           padding-left: 25px;
@@ -94,26 +143,24 @@ $item-height: 34px;
           -webkit-box-sizing: border-box;
           // border-right: 3px solid #b82525;
           // background: gray;
+          transition: background 0.25s linear;
           &:hover {
             cursor: pointer;
             background: $nav-item-checked;
           }
-          .icon{
+          .icon {
             font-size: 22px;
             color: #cccdd3;
             line-height: $item-height;
             margin-right: 5px;
           }
-          .icon-name{
+          .icon-name {
             line-height: $item-height;
             color: #cccdd3;
             font-size: 14px;
             // margin-top: 1px;
             letter-spacing: 5px;
           }
-        }
-        .active{
-          background:$nav-item-checked;
         }
       }
     }
@@ -131,9 +178,9 @@ $item-height: 34px;
       flex-direction: column;
       background: $vice-bg;
       padding: 14px;
-      padding-bottom: 0!important;
-      .main{
-        flex:1;
+      padding-bottom: 0 !important;
+      .main {
+        flex: 1;
         width: 100%;
         // padding: 7px;
         box-sizing: border-box;
@@ -141,5 +188,4 @@ $item-height: 34px;
     }
   }
 }
-
 </style>

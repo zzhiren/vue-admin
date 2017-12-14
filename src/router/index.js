@@ -5,6 +5,7 @@ import Home from '@/components/Home/Home'
 import Blog from '@/components/Blog/Blog'
 import BlogList from '@/components/Blog/BlogList/BlogList'
 import WriteBlog from '@/components/Blog//WriteBlog'
+import User from '@/components/User//User'
 
 Vue.use(Router)
 
@@ -39,8 +40,14 @@ export default new Router({
           path: 'writeblog',
           name:'writeblog',
           component:WriteBlog
+        },
+        {
+          path: '/user',
+          name: 'User',
+          component: User,
         }
       ]
-    }
+    },
+    
   ]
 })

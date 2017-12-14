@@ -39,11 +39,25 @@ module.exports = {
             '^/saveblog': '/saveblog'
           }
       },
-      '/getbloglist':{
+      '/getallblogs':{
           target:'http://127.0.0.1:3000',
           changeOrigin: true,
           pathRewrite: {
-            '^/getbloglist': '/getbloglist'
+            '^/getallblogs': '/getallblogs'
+          }
+      },
+      '/getpostedblogs':{
+          target:'http://127.0.0.1:3000',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/getpostedblogs': '/getpostedblogs'
+          }
+      },
+      '/getdraftblogs':{
+          target:'http://127.0.0.1:3000',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/getdraftblogs': '/getdraftblogs'
           }
       },
       '/deleteblog':{
