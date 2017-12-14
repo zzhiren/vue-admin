@@ -12,16 +12,20 @@
     div.content
       div.header.blog-title
         span 文章标题
-        input.input.title-input(v-model="title" v-bind:disabled="disabled" placeholder="Enter title...")
+        input.input.title-input(v-model="title" v-bind:disabled="disabled" placeholder="输入标题...")
         div.button
           div.release.btn-hover.green(@click="_editBlog()") 编辑文章
           div.release.btn-hover.blue(@click="_saveBlog(0)") 发布文章
           div.save.btn-hover.red(@click="_saveBlog(1)") 存至草稿
       div.header
-        span 前言
-        input.input.perface(v-model="preface" v-bind:disabled="disabled" placeholder="Enter preface...")
-        span 标签
-        input.input.tag(v-model="tag" v-bind:disabled="disabled" placeholder="Enter tag...")
+        span 文章前言
+        input.input.perface(v-model="preface" v-bind:disabled="disabled" placeholder="输入前言...")
+        //- input.input.tag(v-model="tag" v-bind:disabled="disabled" placeholder="Enter tag...")
+      div.tags
+        span 文章标签  
+        div.tag(v-bind:class="{tag_active: checkedId.indexOf(index) >= 0}" v-for="(item,index) in tags" @click="_checked(item,index)" v-bind:key="index") {{item}}
+    
+
       div.mark-down
         mavon-edit(ref="mavonedit" :editable="editable")
 </template>
@@ -33,10 +37,31 @@ export default {
   data() {
     return {
       title: "",
-      tag: "",
+      // tag: "",
       preface: "",
       disabled: false,
-      editable: true
+      editable: true,
+      tags: [
+        "算法",
+        "工作",
+        "生活",
+        "思考",
+        "计算机",
+        "Web开发",
+        "Vue",
+        "Node",
+        "JavaSc",
+        "Git",
+        "Chrome",
+        "Http",
+        "HTML",
+        "CSS",
+        "Linux",
+        "Python",
+        "es6"
+      ],
+      checkedList:[],
+      checkedId: []
     };
   },
   mounted() {
@@ -46,6 +71,18 @@ export default {
     });
   },
   methods: {
+    _checked(value,id){
+      var index = this.checkedList.indexOf(value)
+      if(index >= 0){
+        this.checkedList.splice(index,1)
+        this.checkedId.splice(index,1)
+      }else{
+        this.checkedList.push(value)
+        this.checkedId.push(id)
+      }
+        console.log(this.checkedList)
+        console.log(this.checkedId)
+    },
     _destroy(state) {
       this.$Message.destroy();
       if (state == 0) {
@@ -84,18 +121,23 @@ export default {
         duration: 4
       });
     },
-    _editBlog(){
-      this.disabled = false
-      this.editable = true
+    _editBlog() {
+      this.disabled = false;
+      this.editable = true;
     },
     _saveBlog(state) {
       var $vm = this;
-      if ( this.title === "" || this.$refs.mavonedit.value === "" || this.preface === "" || this.tag === "") {
+      if (
+        this.title === "" ||
+        this.$refs.mavonedit.value === "" ||
+        this.preface === "" ||
+        this.checkedList.length === 0
+      ) {
         var nodesc = "标题 && 前言 && 正文 && 标签 !== ' ' 😆！";
         this._info(nodesc);
       } else {
-        this.disabled = true
-        this.editable = false
+        this.disabled = true;
+        this.editable = false;
         this._loading();
         this.content = this.$refs.mavonedit.value;
         var blog = {};
@@ -107,7 +149,7 @@ export default {
         blog.title = this.title;
         blog.state = state;
         blog.preface = this.preface;
-        blog.tag = this.tag.split("/");
+        blog.tag = this.checkedList
         blog.content = this.$refs.mavonedit.value;
         blog.picDelObj = this.$refs.mavonedit.picDelObj;
         blog.firstPic = this.$refs.mavonedit.firstPic;
@@ -177,7 +219,7 @@ $button-width: 50px;
       background-color: hsla(0, 0%, 57%, 0.1);
     }
   }
-  .blog-title{
+  .blog-title {
     padding-right: 5px;
     margin-bottom: 7px;
   }
@@ -217,7 +259,7 @@ $button-width: 50px;
     .title-input {
       flex: 1;
       height: 100%;
-      margin-left: 15px;
+      margin-left: 10px;
     }
     .button {
       width: 300px;
@@ -228,7 +270,7 @@ $button-width: 50px;
       padding: 1px;
       text-align: right;
       line-height: 28px;
-      
+
       .btn-hover {
         &:hover {
           cursor: pointer;
@@ -257,18 +299,41 @@ $button-width: 50px;
     }
     .perface {
       flex: 3.5;
-      margin-left: 15px;
-      margin-right: 15px;
-    }
-    .tag {
-      flex: 1;
-      margin-left: 15px;
+      margin-left: 10px;
       margin-right: 5px;
-      line-height: 34px;
-      &:before {
-        content: "标签";
-        font-size: 14px;
+    }
+  }
+  .tags {
+    $height: 34px;
+    overflow: hidden;
+    width: 100%;
+    height: $height;
+    background: $main-bg;
+    padding-left: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    display: flex;
+    line-height: 26px;
+    margin-top: 7px;
+
+    .tag {
+      margin-right: 0px;
+      text-align: center;
+      border-radius: 2px;
+      // width: 80px;
+      padding-left: 10px;
+      padding-right: 10px;
+      height: 100%;
+      margin-left: 10px;
+      background: $vice-bg;
+      display: inline-block;
+      background: rgba(80, 80, 80, 0.8);
+      &:hover {
+        cursor: pointer;
       }
+    }
+    .tag_active{
+      background: #0088f5!important;
     }
   }
   .content {

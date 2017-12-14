@@ -3,18 +3,18 @@
     div.main
       div.bar
         div.one
-          div.common 全部[{{blogs.length}}]
-          div.common 已发布
-          div.common 草稿
+          div.common(@click="_screening('all')" v-bind:class="{one_active: condition == 'all'}") 全部[{{all_blogs.length}}]
+          div.common(@click="_screening('0')" v-bind:class="{one_active: condition == '0'}") 已发布[{{posted_length}}]
+          div.common(@click="_screening('1')" v-bind:class="{one_active: condition == '1'}") 草稿[{{draft_length}}]
           
         div.two.one
-          div.common 
+          div.common.click(@click="getBlogList(condition)" v-model="condition")
             Icon.icon(type="android-refresh")
             span 刷新
-          div.common 
+          div.common.click 
             Icon.icon(type="trash-b")
             span 清空搜索条件
-          div.common 
+          div.common.click 
             Icon.icon(type="ios-list")
             span 批量操作
         div.other
@@ -23,8 +23,12 @@
             span.span 所有分类
               //- img(src="../../../assets/down_up.svg" height="22")
             div.item
-          div.common 所有标签
-          div.common 
+          div.common.all-types
+            span.span 所有标签
+            div.item
+          //- div.common 
+          input.search-input(v-model="condition" placeholder="文章标题、描述...")
+          button.search-btn 搜索
       div.list-header
         div.blog-id ID
         div.blog-title 文章
@@ -37,7 +41,7 @@
         //- div.blog-state 状态
         div.blog-operation 操作
       div.blogs.scroll(ref="blogs")
-        div.blog-item(v-for="(item,index) in blogs")
+        div.blog-item(v-for="(item,index) in all_blogs")
           //- div.blog-state.release
           //-   Icon.large-icon-font.green(type="checkmark")
           div.blog-id 
@@ -77,31 +81,6 @@
               span 编辑文章
             div.operation(@click="_deleteBlog(item._id)")
               span 删除文章
-          //- div.release.green
-          //-   Icon.large-icon-font(type="checkmark")
-          //-   //- p.p 已发布
-          //- div.blog-preface
-          //-   h4.title.blue(v-html="item.title")
-          //- p.operation.time
-          //-   //- Icon.large-icon-font(type="ios-calendar")
-          //-   span.p {{item.creationTime}}
-          //- p.operation
-          //-   //- Icon.large-icon-font(type="eye")
-          //-   span.p {{item.eyes}}人阅读
-          //- p.operation
-          //-   //- Icon.large-icon-font(type="chatbox-working")
-          //-   span.p {{item.comment.length}}人评论
-          //- p.operation
-          //-   //- Icon.large-icon-font(type="heart")
-          //-   span.p {{item.love}}人喜欢
-          //- div.button.green
-          //-   Icon.large-icon-font(type="ios-compose")
-          //-   //- p.p 编辑
-          //- div.button.red.delete(@click="deleteBlog(item._id)")
-          //-   Icon.large-icon-font(type="android-delete")
-            //- p.p 删除
-          //- div.edit-blog
-          //- div.delete-blog
 </template>
 <script>
 import axios from "axios";
@@ -109,9 +88,11 @@ import axios from "axios";
 export default {
   data() {
     return {
-      blogs: [],
+      all_blogs: [],
+      posted_length: 0,
+      draft_length: 0,
       state: "",
-      xxx: "1"
+      condition: "all"
     };
   },
   mounted() {
@@ -121,18 +102,27 @@ export default {
     init() {
       this.$refs.blogs.style.height =
         innerHeight - 34 - 40 - 30 - 28 - 14 - 14 - 23 + "px";
-      this.getBlogList();
+      this.getBlogList("all");
     },
-    getBlogList() {
+    getBlogList(value) {
       var date = new Date();
       var timer = date.getTime().toString();
       this.$axios({
         method: "get",
-        url: "/getbloglist?t=" + timer
+        url: "/getbloglist?t=" + timer,
+        params: {
+          state: value
+        }
       }).then(res => {
-        this.blogs = res.data.data;
-        console.log(this.blogs);
+        this.all_blogs = res.data.all_blogs;
+        this.posted_length = res.data.posted_length;
+        this.draft_length = res.data.draft_length;
+        // console.log(this.blogs);
       });
+    },
+    _screening(value) {
+      this.condition = value;
+      this.getBlogList(value);
     },
     _deleteBlog(id) {
       this.$axios({
@@ -167,28 +157,42 @@ $blog-item-h: 150px;
     background: #474b51;
     box-sizing: border-box;
     .bar {
-      // width: 100%;
+      // width: 202px;
       // background: blue;
       height: 30px;
       margin-bottom: 14px;
       display: flex;
       $padding-l: 3px 0 0 3px;
       $padding-r: 0 3px 3px 0;
-      $border: 0.5px solid rgba(0, 0, 0, 0.65);
+      $border: 1px solid rgba(0, 0, 0, 0.65);
       $padding: 2px 14px;
       .icon {
         font-size: 13px;
         margin-right: 10px;
+        // transition: transform 0.5s linear;
       }
       .one {
+        user-select: none;
         border: $border;
         border-radius: 3px;
         display: flex;
         line-height: 24px;
-        background: $main-bg;
         font-size: 12px;
         color: white;
         opacity: 0.9;
+        .one_active {
+          background: #393d41 !important;
+          // border-left: $border!important;
+          // border-right: $border!important;
+        }
+        .click {
+          &:active {
+            background: #0088f5;
+          }
+          // &:hover .icon{
+          //   transform: rotate(360deg);
+          // }
+        }
         div {
           &:hover {
             cursor: pointer;
@@ -196,11 +200,16 @@ $blog-item-h: 150px;
         }
         .common {
           padding: $padding;
-          // box-sizing: border-box;
+          box-sizing: border-box;
+          background: $main-bg;
+          height: 28px;
           float: left;
           vertical-align: middle;
+          &:nth-child(1) {
+            z-index: 9;
+          }
           &:nth-child(2) {
-            border-left: $border;
+            border-left: $border !important;
             border-right: $border;
           }
         }
@@ -215,14 +224,63 @@ $blog-item-h: 150px;
 
       .three {
         float: right;
+        border: 0 !important;
+        z-index: 2;
+
+        .search-input {
+          // border-radius: 2px;
+          width: 300px;
+          height: 100%;
+          // padding: 0 !important;
+          background-color: hsla(0, 0%, 57%, 0.1);
+          outline-color: rgba(255, 255, 255, 0);
+          padding-left: 10px;
+          border: $border;
+          border-top-left-radius: 2px;
+          border-bottom-left-radius: 2px;
+          border-right: 0 !important;
+          transition: background-color 0.25s linear;
+          caret-color: red;
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 14px;
+          &:hover {
+            background-color: hsla(0, 0%, 57%, 0.2);
+          }
+          &:focus {
+            background-color: hsla(0, 0%, 57%, 0.1);
+          }
+        }
+        .search-btn {
+          width: 80px;
+          border: $border;
+          border-left: 0 !important;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-size: 14px;
+          background: $main-bg;
+          color: white;
+          border-top-right-radius: 2px;
+          border-bottom-right-radius: 2px;
+          outline-color: $main-bg;
+          &:hover {
+            cursor: pointer;
+          }
+          &:active {
+            background: #0088f5;
+          }
+        }
+
         .all-types {
-          padding-left: 8px;
-          padding-right: 4px;
-          &:hover .item{
+          padding-left: 13px;
+          padding-right: 6px;
+          margin-right: 10px;
+          border: $border;
+          border-radius: 3px;
+          &:hover .item {
             height: 100px;
           }
-          .span{
-            &:after{
+          .span {
+            &:after {
               content: url(../../../assets/down_up.svg);
               // margin-top: -10px;
               vertical-align: middle;
@@ -235,12 +293,15 @@ $blog-item-h: 150px;
           }
           .item {
             height: 0;
-            width: 80px;
-            margin-left: -9px;
-            border-radius: 4px;
+            width: 88px;
+            margin-left: -14px;
+            border-radius: 0 0 4px 4px;
             position: fixed;
             background: $main-bg;
             transition: height 0.25s linear;
+            // border-left: $border;
+            // border-right: $border;
+            // border-bottom: $border;
           }
         }
       }
@@ -271,6 +332,7 @@ $blog-item-h: 150px;
     color: white;
     background: #393d41;
     // position: fixed;
+    padding-right: 4px;
   }
   .blog-state {
     width: 40px;
@@ -401,7 +463,7 @@ $blog-item-h: 150px;
         .content {
           width: 100%;
           height: 100%;
-          border-radius: 2px;
+          border-radius: 3px;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -412,6 +474,7 @@ $blog-item-h: 150px;
             padding: 8px 9px;
             box-sizing: border-box;
             background: rgba(0, 0, 0, 0.65);
+            border-radius: inherit;
             .title {
               line-height: 20px;
               color: white;
