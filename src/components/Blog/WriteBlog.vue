@@ -1,6 +1,6 @@
 <template lang="pug">
   div.write-blog
-    div.header
+    div.header.new
         //- div.back
         //-   Icon.back-icon(type="ios-arrow-back")
         span 撰写新文章
@@ -223,6 +223,14 @@ $button-width: 50px;
     padding-right: 5px;
     margin-bottom: 7px;
   }
+  .new{
+    height: 40px!important;
+    line-height: 40px!important;
+    font-size: 17px;
+    padding-top: 0!important;
+    padding-left: 15px;
+    color: rgba(255 , 255,255, .5);
+  }
   .header {
     $height: 34px;
     width: 100%;
@@ -327,9 +335,10 @@ $button-width: 50px;
       margin-left: 10px;
       background: $vice-bg;
       display: inline-block;
-      background: rgba(80, 80, 80, 0.8);
+      background: rgba(80, 80, 80, .8);
       &:hover {
         cursor: pointer;
+        background: rgba(255, 255, 255, .2);
       }
     }
     .tag_active{

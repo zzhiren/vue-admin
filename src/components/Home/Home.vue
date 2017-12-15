@@ -27,10 +27,10 @@ export default {
     };
   },
   mounted() {
-    this._init();
+    this.init();
   },
   methods: {
-    _init() {
+    init() {
       // this.$refs.slide.style.height = window.innerHeight + "px";
       console.log(this.$refs.slide.style.height);
     },

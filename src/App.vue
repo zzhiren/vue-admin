@@ -19,35 +19,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   background-color: #282c34;
-}
-html {
-  height: 100%;
-  z-index: -1;
-  background: rgba(255, 255, 255, 1);
-  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  // background: rgba(0,0,0,.5);
-}
-.v-note-wrapper {
-  height: 820px !important;
-}
-// 全局消息提醒
-// .ivu-message-notice-content{
-//   margin-top: 25px;
-// }
-body {
-  letter-spacing: 1px;
-  background: #32373d;
-  opacity: 1;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  // filter: blur(0.8px);
-  // margin: -30px;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 5px;
@@ -63,8 +34,36 @@ body {
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(54, 54, 54, 0.3);
-    background-color: #555;
+    background-color: red;
   }
+}
+html {
+  height: 100%;
+  z-index: -1;
+  background: rgba(255, 255, 255, 1);
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  // background: rgba(0,0,0,.5);
+  
+}
+.v-note-wrapper {
+  height: 820px !important;
+}
+
+body {
+  letter-spacing: 1px;
+  background: #32373d;
+  opacity: 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  // filter: blur(0.8px);
+  // margin: -30px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  
 }
 .ivu-input {
   height: 33px !important;

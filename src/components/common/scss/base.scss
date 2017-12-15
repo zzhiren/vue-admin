@@ -1,5 +1,6 @@
 $main-bg:#23282e;
 $vice-bg:#32373d;
+$three-bg: #474b51;
 $nav-item-checked: rgba(0,0,0,.3);
 $box-bottom-shadow: 0 2px 1px #0f1921;      
 $width:1050px;
@@ -21,6 +22,7 @@ $bg-white: rgba(85,85,85,.8);
 $bg-dark-one: #282c34;
 $color-green: #42b983;
 $translateY-40:translateY(-40px);
+$blue: #0088f5;
 .red{
   color: #e64c3c;
 }
@@ -68,8 +70,9 @@ $translateY-40:translateY(-40px);
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(54, 54, 54, 0.3);
-    background-color: #555;
+    background-color: rgba(255, 255, 255, .8);
     &:hover{
+      // background-color: #e64c3c;
       background-color: #0088f5;
     }
   }
