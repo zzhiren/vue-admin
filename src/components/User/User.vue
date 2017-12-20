@@ -1,5 +1,6 @@
 <template lang="pug">
   div.user
+    alert(ref="alert" @closeAlert="_showUploadDiv")
     div.bar
       p 全局设置
     div.main(ref="content")
@@ -22,7 +23,7 @@
           p.item
             span.title 黑名单-IP
             textarea.textarea.scroll
-          p.item.item-email
+          p.item
             span.title 黑名单-邮箱
             textarea.textarea.scroll
         div.footer
@@ -33,38 +34,52 @@
           p 个人设置
         div.settings
           p.item
-            span.title 上传头像
-            input.input
-          p.item
-            span.title 站点地址
-            input.input
-          p.item
-            span.title 电子邮件地址
-            input.input
-          p.item
-            span.title IPC备案号
-            input.input
-          p.item
-            span.title 黑名单-IP
-            textarea.textarea.scroll
-          p.item.item-email
-            span.title 黑名单-邮箱
-            textarea.textarea.scroll
+            div.me
+              div.me-span 我的头像
+              div.upload(@click="_showUploadDiv()")
+                img.me-pic
+          //- div.pic
+          //- p.item
+          //-   span.title 站点地址
+          //-   input.input
+          //- p.item
+          //-   span.title 电子邮件地址
+          //-   input.input
+          //- p.item
+          //-   span.title IPC备案号
+          //-   input.input
+          //- p.item
+          //-   span.title 黑名单-IP
+          //-   textarea.textarea.scroll
+          //- p.item.item-email
+          //-   span.title 黑名单-邮箱
+          //-   textarea.textarea.scroll
         div.footer
           button.button 编辑
           button.button 保存
+        
 
         
 </template>
 <script scoped>
+import Alert from '../common/vue/Alert'
+
 export default {
+  data(){
+    return {
+      show: false
+    }
+  },
+  components:{
+    Alert
+  },
   mounted() {
-    this.init();
   },
   methods: {
-    init() {
-      this.$refs.content.style.height = innerHeight - 68 - 24 + "px";
-    }
+    _showUploadDiv(){
+      this.$refs.alert._showAlert()
+    },
+
   }
 };
 </script>
@@ -108,6 +123,7 @@ export default {
     background: $three-bg;
     padding: 14px;
     display: flex;
+    height: 100%;
     // box-sizing: border-box;
     .bar {
       height: 34px;
@@ -125,17 +141,15 @@ export default {
     }
     .settings {
       flex: 1;
-      .item-email {
-        margin-top: 188px !important;
-      }
       .item {
         margin-bottom: 20px;
-        height: 34px;
+        // height: 34px;
         color: white;
         display: flex;
+        position: relative;
         .title {
           // width: 100px;
-          flex: .15;
+          flex: 0.15;
           font-size: 14px;
           margin-right: 10px;
           margin-left: 30px;
@@ -200,6 +214,43 @@ export default {
       display: flex;
       flex-direction: column;
       background: $vice-bg;
+      .me{
+        width: 100%;
+        display: flex;
+        height: 74px;
+        margin-left: 30px;
+        font-size: 14px;
+        color: white;
+        // background: green;
+        .me-span{
+          width: 80px;
+          height: 100%;
+          // flex: 0.15;
+          line-height: 100px;
+          // background: red;
+        }
+        .upload{
+          width: 100px;
+          height: 100px;
+          background: blue;
+          .upload-input{
+            width: 74px;
+            height: 74px;
+            opacity: 0;
+            
+          }
+          .upload-btn{
+            width: 74px;
+            height: 100%;
+            background: yellow;
+            margin-top: -74px;
+            .me-pic{
+              width: 74px;
+              height: 100%;
+            }
+          }
+        }
+      }
     }
   }
 }

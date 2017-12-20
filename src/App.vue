@@ -181,4 +181,9 @@ color: white!important;
   background: rgba(0, 0, 0, .9);
   color: rgba(255, 255, 255, .8);
 }
+
+// 切图组件背景
+.cropper-bg{
+  background-image: none!important;
+}
 </style>
