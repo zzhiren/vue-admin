@@ -1,6 +1,6 @@
 <template lang="pug">
   div.user
-    alert(ref="alert" @closeAlert="_showUploadDiv")
+    alert(ref="alert" @closeAlert="_showUploadDiv" @_setHeadPortrait="_setHeadPortrait")
     div.bar
       p 全局设置
     div.main(ref="content")
@@ -37,28 +37,28 @@
           div.me
             div.me-span 我的头像
             div.upload(@click="_showUploadDiv()")
-              img.me-pic
+              img.me-pic(ref="headPortrait" style="width: 74px, height: 74px" v-bind:src="personalSet.headPortrait")
           p.item
             span.title 姓名
-            input.input
+            input.input(v-model="personalSet.userName")
           p.item
             span.title 个人签名
-            input.input
+            input.input(v-model="personalSet.motto")
           p.item
             span.title 个人描述
-            input.input
+            input.input(v-model="personalSet.dsc")
           p.item
             span.title 生日
-            input.input
+            input.input(v-model="personalSet.birthday")
           p.item
             span.title 喜欢的音乐
-            input.input
+            input.input(v-model="personalSet.music")
           p.item
             span.title 爱好
-            input.input
+            input.input(v-model="personalSet.love")
           p.item
             span.title Steam
-            input.input
+            input.input(v-model="personalSet.steam")
           p.line
           p.item
             span.title 旧密码
@@ -72,44 +72,81 @@
           p.line
         div.footer
           button.button 编辑
-          button.button 保存
+          button.button(v-on:click="_setUserInformation()") 保存
 </template>
 <script scoped>
 import Alert from "../common/vue/Alert";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      baseSet:{
-        "siteName":'',
-        "siteUrl":'',
-        "email": '',
-        "ipc":'',
-        "blackList":'',
-        "blackEmail":''
-
+      baseSet: {
+        siteName: "",
+        siteUrl: "",
+        email: "",
+        ipc: "",
+        blackList: "",
+        blackEmail: ""
       },
-      personalSet:{
-        "headPortrait":'',
-        "name":'',
-        "motto":'',
-        "dsc": '',
-        "birthday": '',
-        "music": '',
-        "love": '',
-        "steam": '',
-        "userPwd": ''
-
+      personalSet: {
+        userName: '',
+        userPwd: '',
+        motto: '',
+        headPortrait: '',
+        dsc: '',
+        music: '',
+        love: '',
+        email: '',
+        birthday: '',
+        steam: ''
       }
     };
   },
   components: {
     Alert
   },
-  mounted() {},
+  mounted() {
+    this._getUserInformation();
+    this._initWidth()
+  },
   methods: {
+    _initWidth(){
+      this.$refs.headPortrait.style.width=98 + 'px'
+    },
     _showUploadDiv() {
       this.$refs.alert._showAlert();
+    },
+    _setHeadPortrait(value){
+      this.personalSet.headPortrait = value
+      this.$refs.headPortrait.style.width=98 + 'px'
+      // this.$refs.headPortrait.style.height=98 + 'px'
+    },
+    _getUserInformation() {
+      var start = document.cookie.indexOf("userName");
+      var end = document.cookie.indexOf(";", start);
+      var userName = document.cookie.slice(start + 9);
+      this.$axios({
+        method: "post",
+        url: "/getuserinformation",
+        data: {
+          userName: userName
+        }
+      }).then(res => {
+        this.personalSet = res.data.data[0];
+      });
+    },
+    _setUserInformation() {
+      console.log(1111);
+      this.$axios({
+        method: "post",
+        url: "/setuserinformation",
+        data: {
+          personalSet: this.personalSet
+        }
+      }).then(res => {
+        console.log(res.data);
+      });
     }
   }
 };
@@ -260,6 +297,7 @@ export default {
           width: 100px;
           height: 100px;
           border: 2px solid rgba(255, 255, 255, 0.2);
+          overflow: hidden;
           .upload-input {
             width: 74px;
             height: 74px;
@@ -267,12 +305,12 @@ export default {
           }
           .upload-btn {
             width: 74px;
-            height: 100%;
+            // height: 100%;
             background: yellow;
             margin-top: -74px;
             .me-pic {
               width: 74px;
-              height: 100%;
+              // height: 100%;
             }
           }
         }

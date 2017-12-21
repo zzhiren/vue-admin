@@ -66,6 +66,20 @@ module.exports = {
           pathRewrite: {
             '^/deleteblog': '/deleteblog'
           }
+      },
+      '/setuserinformation':{
+          target:'http://127.0.0.1:3000',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/setuserinformation': '/setuserinformation'
+          }
+      },
+      '/getuserinformation':{
+          target:'http://127.0.0.1:3000',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/getuserinformation': '/getuserinformation'
+          }
       }
     },
 

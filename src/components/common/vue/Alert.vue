@@ -4,7 +4,7 @@
       input.set-pic(type="file" name="image" accept="image/*" @change="setImage($event)")
       div.btn
         Icon.icon(type="ios-upload")
-      div.btn
+      div.btn(@click="_setHeadPortrait()")
         Icon.icon(type="checkmark")
     div.original
       vue-cropper(
@@ -25,7 +25,6 @@
       img.img.border-radius(:src='this.cropImg' alt="Cropped Image")
     div.shear
       img.img(:src='this.cropImg' alt="Cropped Image")
-    
     div.close(@click="_closeAlert()")
       Icon.close-icon(type="chevron-up")
 </template>
@@ -97,6 +96,10 @@ export default {
     },
     _showAlert() {
       this.show = "alert-show";
+    },
+    _setHeadPortrait(){
+      this.$emit('_setHeadPortrait', this.cropImg)
+      this._closeAlert()
     }
   }
 };
