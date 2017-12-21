@@ -186,4 +186,8 @@ color: white!important;
 .cropper-bg{
   background-image: none!important;
 }
+.cropper-modal {
+    background-color: #32373d;
+    opacity: .5;
+}
 </style>

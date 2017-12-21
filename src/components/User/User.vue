@@ -33,53 +33,84 @@
         div.bar
           p 个人设置
         div.settings
+          //- p.item
+          div.me
+            div.me-span 我的头像
+            div.upload(@click="_showUploadDiv()")
+              img.me-pic
           p.item
-            div.me
-              div.me-span 我的头像
-              div.upload(@click="_showUploadDiv()")
-                img.me-pic
-          //- div.pic
-          //- p.item
-          //-   span.title 站点地址
-          //-   input.input
-          //- p.item
-          //-   span.title 电子邮件地址
-          //-   input.input
-          //- p.item
-          //-   span.title IPC备案号
-          //-   input.input
-          //- p.item
-          //-   span.title 黑名单-IP
-          //-   textarea.textarea.scroll
-          //- p.item.item-email
-          //-   span.title 黑名单-邮箱
-          //-   textarea.textarea.scroll
+            span.title 姓名
+            input.input
+          p.item
+            span.title 个人签名
+            input.input
+          p.item
+            span.title 个人描述
+            input.input
+          p.item
+            span.title 生日
+            input.input
+          p.item
+            span.title 喜欢的音乐
+            input.input
+          p.item
+            span.title 爱好
+            input.input
+          p.item
+            span.title Steam
+            input.input
+          p.line
+          p.item
+            span.title 旧密码
+            input.input
+          p.item
+            span.title 新密码
+            input.input
+          p.item.item-email
+            span.title 确认密码
+            input.input
+          p.line
         div.footer
           button.button 编辑
           button.button 保存
-        
-
-        
 </template>
 <script scoped>
-import Alert from '../common/vue/Alert'
+import Alert from "../common/vue/Alert";
 
 export default {
-  data(){
+  data() {
     return {
-      show: false
-    }
+      baseSet:{
+        "siteName":'',
+        "siteUrl":'',
+        "email": '',
+        "ipc":'',
+        "blackList":'',
+        "blackEmail":''
+
+      },
+      personalSet:{
+        "headPortrait":'',
+        "name":'',
+        "motto":'',
+        "dsc": '',
+        "birthday": '',
+        "music": '',
+        "love": '',
+        "steam": '',
+        "userPwd": ''
+
+      }
+    };
   },
-  components:{
+  components: {
     Alert
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
-    _showUploadDiv(){
-      this.$refs.alert._showAlert()
-    },
-
+    _showUploadDiv() {
+      this.$refs.alert._showAlert();
+    }
   }
 };
 </script>
@@ -87,12 +118,9 @@ export default {
 @import "src/components/common/scss/base.scss";
 
 .user {
-  // background: red;
   height: 100%;
   .input {
     border-radius: 2px;
-    // height: 34px;
-    // padding: 0 !important;
     background-color: hsla(0, 0%, 57%, 0.2);
     outline-color: rgba(255, 255, 255, 0);
     padding-left: 10px;
@@ -102,13 +130,12 @@ export default {
     caret-color: red;
     color: rgba(255, 255, 255, 0.5);
     font-size: 14px;
-    width: 700px;
     &:hover {
       background-color: hsla(0, 0%, 57%, 0.2);
     }
-    // &:focus {
-    //   background-color: hsla(0, 0%, 57%, 0.1);
-    // }
+    &:focus {
+      background-color: hsla(0, 0%, 57%, 0.1);
+    }
   }
   .bar {
     width: 100%;
@@ -124,7 +151,6 @@ export default {
     padding: 14px;
     display: flex;
     height: 100%;
-    // box-sizing: border-box;
     .bar {
       height: 34px;
       font-size: 14px;
@@ -133,7 +159,6 @@ export default {
     }
     .base-set {
       flex: 1;
-      // height: 300px;
       background: $vice-bg;
       margin-right: 14px;
       display: flex;
@@ -141,14 +166,19 @@ export default {
     }
     .settings {
       flex: 1;
+      .line {
+        height: 1px;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-bottom: 20px;
+        border: 0.5px dashed $main-bg;
+      }
       .item {
         margin-bottom: 20px;
-        // height: 34px;
         color: white;
         display: flex;
         position: relative;
         .title {
-          // width: 100px;
           flex: 0.15;
           font-size: 14px;
           margin-right: 10px;
@@ -164,8 +194,6 @@ export default {
           flex: 1;
           height: 200px !important;
           border-radius: 2px;
-          // height: 34px;
-          // padding: 0 !important;
           resize: none;
           background-color: hsla(0, 0%, 57%, 0.2);
           outline-color: rgba(255, 255, 255, 0);
@@ -177,6 +205,9 @@ export default {
           font-size: 14px;
           &:hover {
             background-color: hsla(0, 0%, 57%, 0.2);
+          }
+          &:focus {
+            background-color: hsla(0, 0%, 57%, 0.1);
           }
         }
       }
@@ -210,41 +241,36 @@ export default {
     }
     .personal-set {
       flex: 1;
-      // height: 300px;
       display: flex;
       flex-direction: column;
       background: $vice-bg;
-      .me{
-        width: 100%;
+      .me {
         display: flex;
         height: 74px;
         margin-left: 30px;
         font-size: 14px;
         color: white;
-        // background: green;
-        .me-span{
-          width: 80px;
+        margin-bottom: 45px;
+        .me-span {
+          flex: 0.15;
           height: 100%;
-          // flex: 0.15;
           line-height: 100px;
-          // background: red;
         }
-        .upload{
+        .upload {
           width: 100px;
           height: 100px;
-          background: blue;
-          .upload-input{
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          .upload-input {
             width: 74px;
             height: 74px;
             opacity: 0;
-            
           }
-          .upload-btn{
+          .upload-btn {
             width: 74px;
             height: 100%;
             background: yellow;
             margin-top: -74px;
-            .me-pic{
+            .me-pic {
               width: 74px;
               height: 100%;
             }
