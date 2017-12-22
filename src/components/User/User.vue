@@ -32,7 +32,7 @@
       div.personal-set
         div.bar
           p 个人设置
-        div.settings
+        div.settings(spellcheck="false")
           //- p.item
           div.me
             div.me-span 我的头像
