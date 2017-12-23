@@ -118,11 +118,15 @@ export default {
       }
     },
     _getAllBlogs() {
-      var date = new Date();
-      var timer = date.getTime().toString();
+      let date = new Date();
+      let timer = date.getTime().toString();
+      let token = document.cookie.split(';')[2]
       this.$axios({
         method: "get",
-        url: "/getallblogs?t=" + timer
+        url: "/getallblogs?t=" + timer,
+        headers:{
+          'access-token': token
+        }
       }).then(res => {
         this.allBlogs = res.data.data;
         this.blogs = res.data.data;

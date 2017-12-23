@@ -29,6 +29,8 @@ export default {
           .then((response) => {
             console.log(response)
             let res = response.data;
+            document.cookie = response.data.result.token;
+            console.log(document.cookie.split(';')[2])
             if (res.status == "0") {
               this.$router.push({ name: "Home" });
             }
