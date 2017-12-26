@@ -4,7 +4,7 @@ import store from '../store/index.js'
 import Login from '@/components/Login'
 import Home from '@/components/Home/Home'
 import Blog from '@/components/Blog/Blog'
-import BlogList from '@/components/Blog/BlogList/BlogList'
+import BlogList from '@/components/Blog/BlogList'
 import WriteBlog from '@/components/Blog//WriteBlog'
 import User from '@/components/User//User'
 

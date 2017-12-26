@@ -112,6 +112,41 @@ body {
     line-height: 33px !important;
   }
 }
+// iview page
+.ivu-page-item{
+  // width: 28px!important;
+  height: 28px!important;
+  background: black!important;
+  border: none!important;
+  line-height: 28px!important;
+  // border-radius: 3px!important;
+}
+.ivu-page-item-jump-next{
+  border: none!important;
+  line-height: 28px!important;
+  width: 28px!important;
+  height: 28px!important;
+}
+.ivu-page-item-jump-prev{
+  border: none!important;
+  line-height: 28px!important;
+  width: 28px!important;
+  height: 28px!important;
+}
+.ivu-page-prev{
+  width: 28px!important;
+  height: 28px!important;
+  background: black!important;
+  border: none!important;
+  line-height: 28px!important;
+}
+.ivu-page-next{
+  width: 28px!important;
+  height: 28px!important;
+  background: black!important;
+  border: none!important;
+  line-height: 28px!important;
+}
 body,
 h1,
 h2,

@@ -19,7 +19,7 @@
             span 批量操作
         div.other
         div.three.one
-          div.common.all-types 
+          div.common.all-types
             span.span 所有分类
               //- img(src="../../../assets/down_up.svg" height="22")
             div.item
@@ -81,9 +81,11 @@
               span 编辑文章
             div.operation(@click="_deleteBlog(item._id)")
               span 删除文章
+        page
 </template>
 <script>
-import axios from "axios";
+import axios from 'axios'
+import Page from '../common/vue/Page'
 
 export default {
   data() {
@@ -95,6 +97,9 @@ export default {
       state: "all",
       condition: ""
     };
+  },
+  components:{
+    Page
   },
   mounted() {
     this.init();
@@ -314,6 +319,7 @@ $blog-item-h: 150px;
         }
 
         .all-types {
+          height: 30px!important;
           padding-left: 13px;
           padding-right: 6px;
           margin-right: 10px;
@@ -324,7 +330,7 @@ $blog-item-h: 150px;
           }
           .span {
             &:after {
-              content: url(../../../assets/down_up.svg);
+              content: url(../../assets/down_up.svg);
               // margin-top: -10px;
               vertical-align: middle;
               display: inline-block;
