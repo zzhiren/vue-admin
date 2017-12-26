@@ -124,9 +124,9 @@ export default {
       this.$axios({
         method: "get",
         url: "/getallblogs?t=" + timer,
-        headers:{
-          'access-token': token
-        }
+        // headers:{
+        //   'access-token': token
+        // }
       }).then(res => {
         this.allBlogs = res.data.data;
         this.blogs = res.data.data;

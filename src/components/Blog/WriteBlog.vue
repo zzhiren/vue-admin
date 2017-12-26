@@ -50,7 +50,7 @@ export default {
         "Web开发",
         "Vue",
         "Node",
-        "JavaSc",
+        "JavaScript",
         "Git",
         "Chrome",
         "Http",

@@ -77,6 +77,7 @@
 <script scoped>
 import Alert from "../common/vue/Alert";
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -106,6 +107,11 @@ export default {
   components: {
     Alert
   },
+  computed:{
+    ...mapGetters({
+      userName:'userName'
+    })
+  },
   mounted() {
     this._getUserInformation();
     this._initWidth()
@@ -123,9 +129,10 @@ export default {
       // this.$refs.headPortrait.style.height=98 + 'px'
     },
     _getUserInformation() {
-      var start = document.cookie.indexOf("userName");
-      var end = document.cookie.indexOf(";", start);
-      var userName = document.cookie.slice(start + 9);
+      // var start = document.cookie.indexOf("userName");
+      // var end = document.cookie.indexOf(";", start);
+      let userName = this.userName;
+      console.log('111'+userName)
       this.$axios({
         method: "post",
         url: "/getuserinformation",
@@ -137,7 +144,6 @@ export default {
       });
     },
     _setUserInformation() {
-      console.log(1111);
       this.$axios({
         method: "post",
         url: "/setuserinformation",
