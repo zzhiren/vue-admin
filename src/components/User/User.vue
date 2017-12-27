@@ -132,7 +132,6 @@ export default {
       // var start = document.cookie.indexOf("userName");
       // var end = document.cookie.indexOf(";", start);
       let userName = this.userName;
-      console.log('111'+userName)
       this.$axios({
         method: "post",
         url: "/getuserinformation",
@@ -144,6 +143,7 @@ export default {
       });
     },
     _setUserInformation() {
+      this.$Notice._loading('Saving...',this)
       this.$axios({
         method: "post",
         url: "/setuserinformation",
@@ -152,6 +152,10 @@ export default {
         }
       }).then(res => {
         console.log(res.data);
+        if(res.data.status == '0'){
+          this.$Message.destroy();
+          this.$Notice._success('Save Success 😊',this)
+        }
       });
     }
   }

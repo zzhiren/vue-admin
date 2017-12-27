@@ -42,8 +42,6 @@
         div.blog-operation 操作
       div.blogs.scroll(ref="blogs")
         div.blog-item(v-for="(item,index) in blogs")
-          //- div.blog-state.release
-          //-   Icon.large-icon-font.green(type="checkmark")
           div.blog-id 
             span.span ID
           div.blog-title.item-title
@@ -71,12 +69,10 @@
           div.blog-love.center-color 
             span.span(v-if="item.state == 0") 已发布
             span.span(v-if="item.state == 1") 未发布
-          //- div.blog-state.release
-          //-   span.span {{itme.state}}
           div.blog-operation.operation-div 
-            div.operation(@click="changeReleaseState()")
+            div.operation(@click="_changeBlogState(item._id,'0')")
               span 发布文章
-            div.operation
+            div.operation(@click="_changeBlogState(item._id,'1')")
               span 移到草稿
             div.operation
               span 编辑文章
@@ -133,12 +129,13 @@ export default {
       this.blogs = [];
       this.page = 1;
       if (state == "all") {
-        this._getAllBlogs();
+        // this._getAllBlogs();
+        this._screening('all')
       } else if (state == "0") {
-        this._getPostedBlogs();
+        // this._getPostedBlogs();
         this._screening("0");
       } else if (state == "1") {
-        this._getDraftBlogs();
+        // this._getDraftBlogs();
         this._screening("1");
       }
     },
@@ -182,7 +179,6 @@ export default {
     _getPostedBlogs() {
       var date = new Date();
       var timer = date.getTime().toString();
-      // console.log(value)
       this.$axios({
         method: "get",
         url: "/getpostedblogs",
@@ -202,7 +198,6 @@ export default {
     _getDraftBlogs() {
       var date = new Date();
       var timer = date.getTime().toString();
-      // console.log(value)
       this.$axios({
         method: "get",
         url: "/getdraftblogs",
@@ -219,7 +214,20 @@ export default {
         this.draftTotal = res.data.total;
       });
     },
-
+    _changeBlogState(id,state){
+      this.$axios({
+        method: "post",
+        url: "/changeblogstate",
+        data:{
+          id: id,
+          state: state
+        }
+      }).then(res =>{
+        if(res.data.status == '0'){
+          this.init()
+        }
+      })
+    },
     _deleteBlog(id) {
       this.$axios({
         method: "post",

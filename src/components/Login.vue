@@ -34,12 +34,9 @@ export default {
             userPwd: this.userPwd
           })
           .then(response => {
-            console.log(response);
             let res = response.data;
-            // document.cookie = response.data.result.token;
             this.SET_TOKEN(response.data.result.token);
             this.SET_USERNAME(response.data.result.userName);
-            // console.log(document.cookie.split(";")[2]);
             if (res.status == "0") {
               this.$router.push({ name: "Home" });
             }

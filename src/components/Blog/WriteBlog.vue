@@ -32,7 +32,6 @@
 <script>
 import MavonEdit from "../common/vue/MavonEdit";
 import axios from "axios";
-import * as Message from "../../utils/Messages"
 
 export default {
   data() {
@@ -61,7 +60,7 @@ export default {
         "Python",
         "es6"
       ],
-      checkedList:[],
+      checkedList: [],
       checkedId: []
     };
   },
@@ -70,66 +69,33 @@ export default {
       top: 50,
       duration: 3
     });
-    _success()
   },
   methods: {
-    _checked(value,id){
-      var index = this.checkedList.indexOf(value)
-      if(index >= 0){
-        this.checkedList.splice(index,1)
-        this.checkedId.splice(index,1)
-      }else{
-        this.checkedList.push(value)
-        this.checkedId.push(id)
+    _checked(value, id) {
+      var index = this.checkedList.indexOf(value);
+      if (index >= 0) {
+        this.checkedList.splice(index, 1);
+        this.checkedId.splice(index, 1);
+      } else {
+        this.checkedList.push(value);
+        this.checkedId.push(id);
       }
-        console.log(this.checkedList)
-        console.log(this.checkedId)
     },
-    // _destroy(state){},
-    // _destroy(state) {
-    //   this.$Message.destroy();
-    //   if (state == 0) {
-    //     Message._success('111',this);
-    //   } else if (state == 1) {
-    //     Message._warning();
-    //   } else {
-    //     Message._error();
-    //   }
-    // },
-    // _loading() {
-    //   this.$Message.loading({
-    //     content: "saving...",
-    //     duration: 30,
-    //     closable: false
-    //   });
-    // },
-    // _success() {
-    //   this.$Message.success("Save Success 😊");
-    // },
-    // _warning() {
-    //   this.$Message.warning({
-    //     content: "Save Fail 🙁",
-    //     duration: 4
-    //   });
-    // },
-    // _error() {
-    //   this.$Message.error({
-    //     content: "Request Timeout 😐",
-    //     duration: 4
-    //   });
-    // },
-    // _info(nodesc) {
-    //   this.$Message.info({
-    //     content: nodesc,
-    //     duration: 4
-    //   });
-    // },
+    _destroy(state, value) {
+      this.$Message.destroy();
+      if (state == 0) {
+        this.$Notice._success(value, this);
+      } else if (state == 1) {
+        this.$Notice._warning(value, this);
+      } else if (state == 2) {
+        this.$Notice._error(value, this);
+      }
+    },
     _editBlog() {
       this.disabled = false;
       this.editable = true;
     },
     _saveBlog(state) {
-      // var $vm = this;
       if (
         this.title === "" ||
         this.$refs.mavonedit.value === "" ||
@@ -137,11 +103,11 @@ export default {
         this.checkedList.length === 0
       ) {
         var nodesc = "标题 && 前言 && 正文 && 标签 !== ' ' 😆！";
-        Message._info(nodesc,this);
+        this.$Notice._info(nodesc, this);
       } else {
         this.disabled = true;
         this.editable = false;
-        Message._loading('Saveing...',this);
+        this.$Notice._loading("Saveing...", this);
         this.content = this.$refs.mavonedit.value;
         var blog = {};
         var date = new Date();
@@ -152,7 +118,7 @@ export default {
         blog.title = this.title;
         blog.state = state;
         blog.preface = this.preface;
-        blog.tag = this.checkedList
+        blog.tag = this.checkedList;
         blog.content = this.$refs.mavonedit.value;
         blog.picDelObj = this.$refs.mavonedit.picDelObj;
         blog.firstPic = this.$refs.mavonedit.firstPic;
@@ -167,9 +133,9 @@ export default {
         })
           .then(res => {
             if (res.data.status == "0") {
-              Message._destroy(0,'Save Success 😊',this);
+              this._destroy(0, "Save Success 😊");
             } else if (res.data.status == "1") {
-              Message._destroy(1,'Save Fail 🙁',this);
+              this._destroy(1, "Save Fail 🙁");
             }
           })
           .catch(error => {
@@ -180,7 +146,7 @@ export default {
             } else if (error.request) {
               // 请求超时
               console.log(error.request);
-              this._destroy(2,"超时...",this);
+              this.$Notice._destroy(2, "超时...", this);
             } else {
               console.log("Error", error.message);
             }
@@ -226,13 +192,13 @@ $button-width: 50px;
     padding-right: 5px;
     margin-bottom: 7px;
   }
-  .new{
-    height: 40px!important;
-    line-height: 40px!important;
+  .new {
+    height: 40px !important;
+    line-height: 40px !important;
     font-size: 17px;
-    padding-top: 0!important;
+    padding-top: 0 !important;
     padding-left: 15px;
-    color: rgba(255 , 255,255, .5);
+    color: rgba(255, 255, 255, 0.5);
   }
   .header {
     $height: 34px;
@@ -338,14 +304,14 @@ $button-width: 50px;
       margin-left: 10px;
       background: $vice-bg;
       display: inline-block;
-      background: rgba(80, 80, 80, .8);
+      background: rgba(80, 80, 80, 0.8);
       &:hover {
         cursor: pointer;
-        background: rgba(255, 255, 255, .2);
+        background: rgba(255, 255, 255, 0.2);
       }
     }
-    .tag_active{
-      background: #0088f5!important;
+    .tag_active {
+      background: #0088f5 !important;
     }
   }
   .content {

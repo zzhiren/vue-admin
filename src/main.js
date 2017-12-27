@@ -5,10 +5,12 @@ import axios from 'axios'
 import iView from 'iview'
 import store from './store/'
 import './components/common/css/iview.css';
+import Notice from "./utils/Notice.js"
 Vue.use(iView)
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.$Notice = Notice
 // axios.defaults.headers['access-token'] = 'store.state.token '
 
 // const instance = axios.create();

@@ -25,7 +25,6 @@ export default {
       } else {
         this.$router.go(-1);
         this.state = state;
-        console.log(this.state);
       }
     }
   }
