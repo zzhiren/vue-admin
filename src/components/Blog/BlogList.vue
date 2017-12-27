@@ -3,9 +3,9 @@
     div.main
       div.bar
         div.one
-          div.common(@click="_screening('all')" v-bind:class="{one_active: state == 'all'}") 全部[{{allBlogs.length}}]
-          div.common(@click="_screening('0')" v-bind:class="{one_active: state == '0'}") 已发布[{{postedBlogs.length}}]
-          div.common(@click="_screening('1')" v-bind:class="{one_active: state == '1'}") 草稿[{{draftBlogs.length}}]
+          div.common(@click="_screening('all')" v-bind:class="{one_active: state == 'all'}") 全部[{{allTotal}}]
+          div.common(@click="_screening('0')" v-bind:class="{one_active: state == '0'}") 已发布[{{postTotal}}]
+          div.common(@click="_screening('1')" v-bind:class="{one_active: state == '1'}") 草稿[{{draftTotal}}]
           
         div.two.one
           div.common.click(@click="_refreshList(state)" v-model="state")
@@ -51,7 +51,8 @@
               div.desc 
                 p.title
                   span(v-html="item.title")
-                  Icon.icon-font.green(type="checkmark")
+                  Icon.icon-font.green(v-if="item.state == 0" type="checkmark-round")
+                  Icon.icon-font.yellow(v-if="item.state == 1" type="android-close")
                 p.preface(v-html="item.preface")
           div.blog-tag.center-color
             div.tag
@@ -81,11 +82,11 @@
               span 编辑文章
             div.operation(@click="_deleteBlog(item._id)")
               span 删除文章
-        page
+        page(ref="page" @_pageOnChange="_pageOnChange" :total="total" :page="page")
 </template>
 <script>
-import axios from 'axios'
-import Page from '../common/vue/Page'
+import axios from "axios";
+import Page from "../common/vue/Page";
 
 export default {
   data() {
@@ -95,10 +96,15 @@ export default {
       draftBlogs: [],
       blogs: [],
       state: "all",
-      condition: ""
+      condition: "",
+      page: 1,
+      total: 1,
+      allTotal: 0,
+      postTotal: 0,
+      draftTotal: 0
     };
   },
-  components:{
+  components: {
     Page
   },
   mounted() {
@@ -108,33 +114,69 @@ export default {
     init() {
       this.$refs.blogs.style.height =
         innerHeight - 34 - 40 - 30 - 28 - 14 - 14 - 23 + "px";
-      // this._getAllBlogs();
       this._getAllBlogs();
       this._getPostedBlogs();
       this._getDraftBlogs();
+      this._refreshList(this.state);
+    },
+    _pageOnChange(page) {
+      this.page = page;
+      if (this.state == "all") {
+        this._getAllBlogs();
+      } else if (this.state == "0") {
+        this._getPostedBlogs();
+      } else if (this.state == "1") {
+        this._getDraftBlogs();
+      }
     },
     _refreshList(state) {
+      this.blogs = [];
+      this.page = 1;
       if (state == "all") {
         this._getAllBlogs();
       } else if (state == "0") {
         this._getPostedBlogs();
+        this._screening("0");
       } else if (state == "1") {
         this._getDraftBlogs();
+        this._screening("1");
+      }
+    },
+    _screening(value) {
+      this.state = value;
+      this.page = 1;
+      if (value == "all") {
+        this._getAllBlogs();
+        this.blogs = this.allBlogs;
+        this.total = this.allTotal;
+      } else if (value == "0") {
+        this._getPostedBlogs();
+        this.blogs = this.postedBlogs;
+        this.total = this.postTotal;
+      } else if (value == "1") {
+        this._getDraftBlogs();
+        this.blogs = this.draftBlogs;
+        this.total = this.draftTotal;
       }
     },
     _getAllBlogs() {
       let date = new Date();
       let timer = date.getTime().toString();
-      let token = document.cookie.split(';')[2]
+      let token = document.cookie.split(";")[2];
       this.$axios({
         method: "get",
-        url: "/getallblogs?t=" + timer,
-        // headers:{
-        //   'access-token': token
-        // }
+        url: "/getallblogs",
+        params: {
+          t: timer,
+          page: this.page
+        }
       }).then(res => {
         this.allBlogs = res.data.data;
-        this.blogs = res.data.data;
+        if (this.state == "all") {
+          this.blogs = res.data.data;
+          this.total = res.data.total;
+        }
+        this.allTotal = res.data.total;
       });
     },
     _getPostedBlogs() {
@@ -143,9 +185,18 @@ export default {
       // console.log(value)
       this.$axios({
         method: "get",
-        url: "/getpostedblogs?t=" + timer
+        url: "/getpostedblogs",
+        params: {
+          t: timer,
+          page: this.page
+        }
       }).then(res => {
         this.postedBlogs = res.data.data;
+        if (this.state == "0") {
+          this.blogs = this.postedBlogs;
+          // this.postTotal = res.data.total;
+        }
+        this.postTotal = res.data.total;
       });
     },
     _getDraftBlogs() {
@@ -154,24 +205,21 @@ export default {
       // console.log(value)
       this.$axios({
         method: "get",
-        url: "/getdraftblogs?t=" + timer
+        url: "/getdraftblogs",
+        params: {
+          t: timer,
+          page: this.page
+        }
       }).then(res => {
         this.draftBlogs = res.data.data;
+        if (this.state == "1") {
+          this.blogs = this.draftBlogs;
+          // this.draftTotal = res.data.total;
+        }
+        this.draftTotal = res.data.total;
       });
     },
-    _screening(value) {
-      this.state = value;
-      if (value == "all") {
-        this._getAllBlogs();
-        this.blogs = this.allBlogs;
-      } else if (value == "0") {
-        this._getPostedBlogs();
-        this.blogs = this.postedBlogs;
-      } else if (value == "1") {
-        this._getDraftBlogs();
-        this.blogs = this.draftBlogs;
-      }
-    },
+
     _deleteBlog(id) {
       this.$axios({
         method: "post",
@@ -182,7 +230,7 @@ export default {
       }).then(res => {
         if (res.data.status == "0") {
           var nodesc = "删除成功=￣ω￣=!";
-          this._init();
+          this.init();
           this.success(nodesc);
         } else if (res.data.status == "1") {
           var nodesc = "删除失败(⊙o⊙)？!";
@@ -319,7 +367,7 @@ $blog-item-h: 150px;
         }
 
         .all-types {
-          height: 30px!important;
+          height: 30px !important;
           padding-left: 13px;
           padding-right: 6px;
           margin-right: 10px;
@@ -453,22 +501,6 @@ $blog-item-h: 150px;
     overflow-y: auto;
     overflow-x: hidden;
     height: 1000px;
-    // &::-webkit-scrollbar {
-    //   width: 5px;
-    //   height: 16px;
-    //   background-color: black;
-    //   opacity: 1;
-    // }
-    // &::-webkit-scrollbar-track {
-    //   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    //   border-radius: 10px;
-    //   // background-color: #f5f5f5;
-    // }
-    // &::-webkit-scrollbar-thumb {
-    //   border-radius: 10px;
-    //   -webkit-box-shadow: inset 0 0 6px rgba(54, 54, 54, 0.3);
-    //   background-color: rgba(255, 255, 255, 0.5);
-    // }
     .blog-item {
       width: 100%;
       height: $blog-item-h;

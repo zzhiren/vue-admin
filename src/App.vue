@@ -114,7 +114,7 @@ body {
 }
 // iview page
 .ivu-page-item{
-  // width: 28px!important;
+  width: 30px!important;
   height: 28px!important;
   background: black!important;
   border: none!important;

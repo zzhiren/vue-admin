@@ -1,9 +1,31 @@
 <template lang="pug">
   div.page
-    Page(:total="1000" size="small")
+    Page(ref="page" :current="page" :total="total" :page-size="10" size="small" @on-change="_pageOnChange")
 </template>
 <script>
-export default {};
+export default {
+  props:{
+    total:{
+      type: Number,
+      default: 0
+    },
+    page:{
+      type: Number,
+      default: 1
+    }
+  },
+  data(){
+    return {
+
+    }
+  },
+  methods:{
+    _pageOnChange(current){
+      this.$emit('_pageOnChange',current)
+      console.log(current)
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .page {
@@ -11,7 +33,7 @@ export default {};
   position: fixed;
   z-index: 40;
   bottom: 10px;
-  right: -330px;
+  right: -332px;
   height: 28px;
   background: rgba(0,0,0,.3);
   margin: auto;

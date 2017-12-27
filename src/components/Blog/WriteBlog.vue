@@ -32,6 +32,7 @@
 <script>
 import MavonEdit from "../common/vue/MavonEdit";
 import axios from "axios";
+import * as Message from "../../utils/Messages"
 
 export default {
   data() {
@@ -69,6 +70,7 @@ export default {
       top: 50,
       duration: 3
     });
+    _success()
   },
   methods: {
     _checked(value,id){
@@ -83,50 +85,51 @@ export default {
         console.log(this.checkedList)
         console.log(this.checkedId)
     },
-    _destroy(state) {
-      this.$Message.destroy();
-      if (state == 0) {
-        this._success();
-      } else if (state == 1) {
-        this._warning();
-      } else {
-        this._error();
-      }
-    },
-    _loading() {
-      this.$Message.loading({
-        content: "saving...",
-        duration: 30,
-        closable: false
-      });
-    },
-    _success() {
-      this.$Message.success("Save Success 😊");
-    },
-    _warning() {
-      this.$Message.warning({
-        content: "Save Fail 🙁",
-        duration: 4
-      });
-    },
-    _error() {
-      this.$Message.error({
-        content: "Request Timeout 😐",
-        duration: 4
-      });
-    },
-    _info(nodesc) {
-      this.$Message.info({
-        content: nodesc,
-        duration: 4
-      });
-    },
+    // _destroy(state){},
+    // _destroy(state) {
+    //   this.$Message.destroy();
+    //   if (state == 0) {
+    //     Message._success('111',this);
+    //   } else if (state == 1) {
+    //     Message._warning();
+    //   } else {
+    //     Message._error();
+    //   }
+    // },
+    // _loading() {
+    //   this.$Message.loading({
+    //     content: "saving...",
+    //     duration: 30,
+    //     closable: false
+    //   });
+    // },
+    // _success() {
+    //   this.$Message.success("Save Success 😊");
+    // },
+    // _warning() {
+    //   this.$Message.warning({
+    //     content: "Save Fail 🙁",
+    //     duration: 4
+    //   });
+    // },
+    // _error() {
+    //   this.$Message.error({
+    //     content: "Request Timeout 😐",
+    //     duration: 4
+    //   });
+    // },
+    // _info(nodesc) {
+    //   this.$Message.info({
+    //     content: nodesc,
+    //     duration: 4
+    //   });
+    // },
     _editBlog() {
       this.disabled = false;
       this.editable = true;
     },
     _saveBlog(state) {
-      var $vm = this;
+      // var $vm = this;
       if (
         this.title === "" ||
         this.$refs.mavonedit.value === "" ||
@@ -134,11 +137,11 @@ export default {
         this.checkedList.length === 0
       ) {
         var nodesc = "标题 && 前言 && 正文 && 标签 !== ' ' 😆！";
-        this._info(nodesc);
+        Message._info(nodesc,this);
       } else {
         this.disabled = true;
         this.editable = false;
-        this._loading();
+        Message._loading('Saveing...',this);
         this.content = this.$refs.mavonedit.value;
         var blog = {};
         var date = new Date();
@@ -164,9 +167,9 @@ export default {
         })
           .then(res => {
             if (res.data.status == "0") {
-              this._destroy(0);
+              Message._destroy(0,'Save Success 😊',this);
             } else if (res.data.status == "1") {
-              this._destroy(1);
+              Message._destroy(1,'Save Fail 🙁',this);
             }
           })
           .catch(error => {
@@ -177,7 +180,7 @@ export default {
             } else if (error.request) {
               // 请求超时
               console.log(error.request);
-              this._destroy("超时...");
+              this._destroy(2,"超时...",this);
             } else {
               console.log("Error", error.message);
             }
