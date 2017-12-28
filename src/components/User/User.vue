@@ -57,8 +57,8 @@
             span.title 爱好
             input.input(v-model="personalSet.love")
           p.item
-            span.title Steam
-            input.input(v-model="personalSet.steam")
+            span.title 定位
+            input.input(v-model="personalSet.location")
           p.line
           p.item
             span.title 旧密码
@@ -100,7 +100,7 @@ export default {
         love: '',
         email: '',
         birthday: '',
-        steam: ''
+        location: ''
       }
     };
   },

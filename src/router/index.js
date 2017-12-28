@@ -10,7 +10,7 @@ import User from '@/components/User//User'
 
 Vue.use(Router)
 
-const router =  new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -32,31 +32,31 @@ const router =  new Router({
       meta: {
         requiresAuth: true
       },
-      children:[
+      children: [
         {
-          path:'blog',
-          name:'blog',
+          path: 'blog',
+          name: 'blog',
           redirect: '/home/blog/bloglist',
-          component:Blog,
+          component: Blog,
           meta: {
             requiresAuth: true
           },
-          children:[
+          children: [
             {
               path: 'bloglist',
-              name:'bloglist',
-              component:BlogList,
+              name: 'bloglist',
+              component: BlogList,
               meta: {
                 requiresAuth: true
               },
             },
-            
+
           ]
         },
         {
           path: 'writeblog',
-          name:'writeblog',
-          component:WriteBlog,
+          name: 'writeblog',
+          component: WriteBlog,
           meta: {
             requiresAuth: true
           },
@@ -71,24 +71,24 @@ const router =  new Router({
         }
       ]
     },
-    
+
   ]
 });
 
 // 注册全局钩子用来拦截导航
-router.beforeEach((to,from,next)=>{
+router.beforeEach((to, from, next) => {
   // 获取store里面的token
   let token = store.state.token
-  if(to.meta.requiresAuth){
-    if(token){
+  if (to.meta.requiresAuth) {
+    if (token) {
       next();
-    }else{
+    } else {
       next({
         path: '/',
-        query:{redirect: to.fullPath}
+        query: { redirect: to.fullPath }
       })
     }
-  }else{
+  } else {
     next();
   }
 })
