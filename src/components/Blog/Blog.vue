@@ -33,8 +33,6 @@ export default {
 <style lang="scss" scoped>
 @import "src/components/common/scss/base.scss";
 .blog {
-  // background-color: #282c34;
-  // background: rgba(255,255,255,.4);
   width: 100%;
   height: 100%;
   display: flex;

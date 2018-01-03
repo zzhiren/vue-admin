@@ -215,6 +215,7 @@ color: white!important;
 .ivu-message-notice-content{
   background: rgba(0, 0, 0, .9);
   color: rgba(255, 255, 255, .8);
+  margin-top: 20px!important;
 }
 
 // 切图组件背景

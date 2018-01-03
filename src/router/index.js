@@ -7,6 +7,7 @@ import Blog from '@/components/Blog/Blog'
 import BlogList from '@/components/Blog/BlogList'
 import WriteBlog from '@/components/Blog//WriteBlog'
 import User from '@/components/User//User'
+import Project from '@/components/Project//Project'
 
 Vue.use(Router)
 
@@ -65,6 +66,14 @@ const router = new Router({
           path: '/user',
           name: 'User',
           component: User,
+          meta: {
+            requiresAuth: true
+          },
+        },
+        {
+          path: '/Project',
+          name: 'Project',
+          component: Project,
           meta: {
             requiresAuth: true
           },
