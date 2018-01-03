@@ -14,7 +14,17 @@
             div.icon
               Icon.icon(type="ios-compose")        
             div.icon-name
-              span 博客
+              span 博客管理
+          router-link.nav-item(to="/tags" tag="div" @click.native="_checked('tags')" v-bind:class="{active: active === 'tags'}")
+            div.icon
+              Icon.icon(type="ios-pricetags")        
+            div.icon-name
+              span 标签管理
+          router-link.nav-item(to="/project" tag="div" @click.native="_checked('project')" v-bind:class="{active: active === 'project'}")
+            div.icon
+              Icon.icon(type="ios-pricetags")        
+            div.icon-name
+              span 项目管理
       div.content
         div.main
           router-view
@@ -31,14 +41,11 @@ export default {
   },
   methods: {
     init() {
-      // this.$refs.slide.style.height = window.innerHeight + "px";
       console.log(this.$refs.slide.style.height);
     },
     _checked(state) {
-      // if (state === "blog") {
       this.active = state;
       console.log(this.active);
-      // }
     }
   }
 };
@@ -69,7 +76,6 @@ $item-height: 34px;
     }
     .slide {
       width: 140px;
-      // background: rgba(255,255,255, .9);
       background: $main-bg;
       text-align: center;
       display: flex;
@@ -80,12 +86,10 @@ $item-height: 34px;
       height: 100%;
       .user {
         width: 100%;
-        // height: 120px;
         background: $main-bg;
         padding-top: 14px;
         user-select: none;
         font-family: "Kite One";
-        // box-shadow: 0 0 2px 0 red inset;
         border-bottom: 1px solid #e64c3c;
         transition: background 0.25s linear;
         &:active {
@@ -101,7 +105,6 @@ $item-height: 34px;
           height: 78px;
           border-radius: 42px;
           overflow: hidden;
-          // background: red;
           border: 3px solid rgba(255, 255, 255, 0.2);
           margin: 0 auto;
           &:hover img {
@@ -132,33 +135,29 @@ $item-height: 34px;
         z-index: 99;
         width: 100%;
         background: $main-bg;
-        // box-shadow:$box-shadow;
         .nav-item {
           display: flex;
           width: 100%;
           height: $item-height;
-          padding-left: 25px;
+          padding-left: 16px;
           box-sizing: border-box;
           -moz-box-sizing: border-box;
           -webkit-box-sizing: border-box;
-          // border-right: 3px solid #b82525;
-          // background: gray;
           transition: background 0.25s linear;
           &:hover {
             cursor: pointer;
-            background: $nav-item-checked;
+            background: rgba(100, 100, 100, 0.2);
           }
           .icon {
-            font-size: 22px;
+            font-size: 14px!important;
             color: #cccdd3;
             line-height: $item-height;
-            margin-right: 5px;
+            margin-right: 8px;
           }
           .icon-name {
             line-height: $item-height;
             color: #cccdd3;
-            font-size: 14px;
-            // margin-top: 1px;
+            font-size: 12px;
             letter-spacing: 5px;
           }
         }
@@ -167,12 +166,9 @@ $item-height: 34px;
     .s-slide {
       width: 70px;
       height: 500px;
-      // background-color: red;
-      // background: red;
     }
     .content {
       margin-left: 140px;
-      // flex: 1;
       margin-top: $item-height;
       display: flex;
       flex-direction: column;
@@ -182,7 +178,6 @@ $item-height: 34px;
       .main {
         flex: 1;
         width: 100%;
-        // padding: 7px;
         box-sizing: border-box;
       }
     }

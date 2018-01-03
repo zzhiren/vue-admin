@@ -8,6 +8,7 @@ import BlogList from '@/components/Blog/BlogList'
 import WriteBlog from '@/components/Blog//WriteBlog'
 import User from '@/components/User//User'
 import Project from '@/components/Project//Project'
+import Tags from '@/components/Tags/Tags'
 
 Vue.use(Router)
 
@@ -71,15 +72,24 @@ const router = new Router({
           },
         },
         {
-          path: '/Project',
+          path: '/project',
           name: 'Project',
           component: Project,
+          meta: {
+            requiresAuth: true
+          },
+        },
+        {
+          path: '/tags',
+          name: 'Tags',
+          component: Tags,
           meta: {
             requiresAuth: true
           },
         }
       ]
     },
+    
 
   ]
 });

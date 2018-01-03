@@ -7,8 +7,10 @@
         div.main
           p.project-name 项目名称
           input.input(v-model="projectName")
-          //- p.project-name 地址
-          //- input.input(v-model="projectUrl")
+          p.project-name Icon
+          input.input(v-model="projectIcon")
+          p.project-name 地址
+          input.input(v-model="projectUrl")
           p.project-name 描述
           textarea.textarea.scroll(v-model="projectDsc")
         div.footer
@@ -23,7 +25,8 @@ export default {
     return {
       projectName: "",
       projectUrl: "",
-      // projectDsc: ""
+      projectDsc: "",
+      projectIcon:""
     };
   },
   methods: {
@@ -38,10 +41,17 @@ export default {
           data: {
             projectName: this.projectName,
             projectUrl: this.projectUrl,
-            // projectDsc: this.projectDsc
+            projectDsc: this.projectDsc,
+            projectIcon: this.projectIcon
           }
         }).then(res => {
-          console.log(res);
+          if(res.data.status == '0'){
+            this.$Notice._info("保存成功🙂!",this)
+            this.projectName = '';
+            this.projectUrl = '';
+            this.projectDsc = '';
+            this.projectIcon = ''
+          }
         });
       }
     }
@@ -117,7 +127,7 @@ export default {
       padding-left: 14px;
     }
     .create-project {
-      width: 600px;
+      width: 450px;
       background: $vice-bg;
 
       .main {

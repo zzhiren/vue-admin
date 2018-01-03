@@ -42,6 +42,9 @@ export default {
       disabled: false,
       editable: true,
       tags: [
+        "计算机",
+        "网络",
+        "互联网",
         "算法",
         "工作",
         "生活",
@@ -49,16 +52,17 @@ export default {
         "计算机",
         "Web开发",
         "Vue",
-        "Node",
+        "Nodejs",
         "JavaScript",
         "Git",
+        "GitHub",
         "Chrome",
         "Http",
         "HTML",
         "CSS",
         "Linux",
         "Python",
-        "es6"
+        "ES6"
       ],
       checkedList: [],
       checkedId: []
