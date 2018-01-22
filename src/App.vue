@@ -47,8 +47,11 @@ html {
 }
 .v-note-wrapper {
   height: 820px !important;
+  
 }
-
+.popup-dropdown{
+  background: rgba(0, 0, 0, .9)!important;
+}
 body {
   letter-spacing: 1px;
   background: #32373d;
@@ -196,10 +199,10 @@ color: white!important;
   top: 33px!important;
   height: 100%!important;
 }
-// .v-note-wrapper{
-//   height: 100%!important;
-//   min-height: 100%!important;
-// }
+.v-note-wrapper{
+  height:calc(100vh - 239px)!important;
+}
+
 .op-icon.selected{
   background: rgba(0,0,0,.3)!important;
   color: gray!important;
@@ -210,7 +213,22 @@ color: white!important;
 .auto-textarea-input.no-resize{
   background: rgba(0,0,0,0)!important;
 }
-
+.dropdown {
+    display: inline-block!important;
+    cursor: pointer;
+    height: 28px;
+    width: 28px;
+    font-size: 15px;
+    color: rgb(117, 117, 117);
+    text-align: center;
+    line-height: 1;
+    background: #282c34!important;
+    margin: 0px !important;
+    padding: 4.5px 6px 0px 3.5px !important;
+    border-radius: 5px !important;
+    border: none!important;
+    outline: none !important;
+}
 // iview-msg
 .ivu-message-notice-content{
   background: rgba(0, 0, 0, .9);

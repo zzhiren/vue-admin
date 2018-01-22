@@ -63,7 +63,7 @@
           div.blog-read.center-color 
             span.span {{item.eyes}}人阅读
           div.blog-comment.center-color 
-            span.span {{item.comment.length}}人评论
+            span.span {{item.comment}}人评论
           div.blog-love.center-color 
             span.span {{item.love}}人喜欢
           div.blog-love.center-color 

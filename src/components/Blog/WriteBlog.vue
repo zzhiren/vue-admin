@@ -1,31 +1,24 @@
 <template lang="pug">
   div.write-blog
     div.header.new
-        //- div.back
-        //-   Icon.back-icon(type="ios-arrow-back")
         span 撰写新文章
-        //- input.input.title-input(v-model="title" v-bind:disabled="disabled" placeholder="Enter title...")
-        //- div.button
-        //-   div.release.btn-hover(@click="_editBlog()") 编辑文章
-        //-   div.release.btn-hover(@click="_saveBlog(0)") 发布文章
-        //-   div.save.btn-hover(@click="_saveBlog(1)") 存至草稿
     div.content
       div.header.blog-title
         span 文章标题
         input.input.title-input(v-model="title" v-bind:disabled="disabled" placeholder="输入标题...")
         div.button
-          div.release.btn-hover.green(@click="_editBlog()") 编辑文章
-          div.release.btn-hover.blue(@click="_saveBlog(0)") 发布文章
-          div.save.btn-hover.red(@click="_saveBlog(1)") 存至草稿
+          div.release.btn-hover.green(@click="_editBlog()")
+            Icon.iview-icon(type="ios-compose")
+          div.release.btn-hover.blue(@click="_saveBlog(0)")
+            Icon.iview-icon(type="ios-paperplane")
+          div.save.btn-hover.red(@click="_saveBlog(1)")
+            Icon.iview-icon(type="ios-box")
       div.header
         span 文章前言
         input.input.perface(v-model="preface" v-bind:disabled="disabled" placeholder="输入前言...")
-        //- input.input.tag(v-model="tag" v-bind:disabled="disabled" placeholder="Enter tag...")
       div.tags
         span 文章标签  
-        div.tag(v-bind:class="{tag_active: checkedId.indexOf(index) >= 0}" v-for="(item,index) in tags" @click="_checked(item,index)" v-bind:key="index") {{item}}
-    
-
+        div.tag(v-bind:class="{tag_active: checkedId.indexOf(index) >= 0}" v-for="(item,index) in tags" @click="_checked(item.aliasName,index)" v-bind:key="index") {{item.aliasName}}
       div.mark-down
         mavon-edit(ref="mavonedit" :editable="editable")
 </template>
@@ -41,29 +34,7 @@ export default {
       preface: "",
       disabled: false,
       editable: true,
-      tags: [
-        "计算机",
-        "网络",
-        "互联网",
-        "算法",
-        "工作",
-        "生活",
-        "思考",
-        "计算机",
-        "Web开发",
-        "Vue",
-        "Nodejs",
-        "JavaScript",
-        "Git",
-        "GitHub",
-        "Chrome",
-        "Http",
-        "HTML",
-        "CSS",
-        "Linux",
-        "Python",
-        "ES6"
-      ],
+      tags: [],
       checkedList: [],
       checkedId: []
     };
@@ -73,8 +44,20 @@ export default {
       top: 50,
       duration: 3
     });
+    this._initTagData()
   },
   methods: {
+     _initTagData(){
+      this.$axios({
+        method:'get',
+        url:'/gettag',
+        params:{
+          name: 'all'
+        }
+      }).then(res=>{
+        this.tags = res.data.data
+      })
+    },
     _checked(value, id) {
       var index = this.checkedList.indexOf(value);
       if (index >= 0) {
@@ -106,18 +89,28 @@ export default {
         this.preface === "" ||
         this.checkedList.length === 0
       ) {
-        var nodesc = "标题 && 前言 && 正文 && 标签 !== ' ' 😆！";
+        let nodesc = "标题 && 前言 && 正文 && 标签 !== ' ' 😆！";
         this.$Notice._info(nodesc, this);
       } else {
         this.disabled = true;
         this.editable = false;
         this.$Notice._loading("Saveing...", this);
         this.content = this.$refs.mavonedit.value;
-        var blog = {};
-        var date = new Date();
-        var start = document.cookie.indexOf("userName");
-        var end = document.cookie.indexOf(";", start);
-        var userName = document.cookie.slice(start + 9);
+        let blog = {};
+        let myDate = new Date();
+        let year = myDate.getFullYear();
+        let month = myDate.getMonth() + 1;
+        let day = myDate.getDate();
+        let hours = myDate.getHours();
+        let creationTime = "";
+        if (hours <= 12) {
+          creationTime = year + "/" + month + "/" + day + " " + "上午";
+        } else if (hours > 12) {
+          creationTime = year + "/" + month + "/" + day + " " + "下午";
+        }
+        let start = document.cookie.indexOf("userName");
+        let end = document.cookie.indexOf(";", start);
+        let userName = document.cookie.slice(start + 9);
         blog.author = userName;
         blog.title = this.title;
         blog.state = state;
@@ -126,7 +119,7 @@ export default {
         blog.content = this.$refs.mavonedit.value;
         blog.picDelObj = this.$refs.mavonedit.picDelObj;
         blog.firstPic = this.$refs.mavonedit.firstPic;
-        blog.creationTime = date.toLocaleDateString();
+        blog.creationTime = creationTime;
 
         this.$axios({
           method: "post",
@@ -251,7 +244,11 @@ $button-width: 50px;
       padding: 1px;
       text-align: right;
       line-height: 28px;
-
+      .iview-icon{
+        font-size: 18px;
+        line-height: 28px;
+        
+      }
       .btn-hover {
         &:hover {
           cursor: pointer;
@@ -259,6 +256,7 @@ $button-width: 50px;
         }
       }
       .release {
+        
         border-radius: 2px;
         display: inline-block;
         width: 80px;
