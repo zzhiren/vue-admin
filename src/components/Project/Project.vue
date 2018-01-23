@@ -31,8 +31,8 @@ export default {
   },
   methods: {
     _addGitHubProject() {
-      if (this.projectName == "" || this.projectUrl == "" || this.projectDsc == "") {
-        let nodesc = "项目名称 && 地址 && 描述 !== ''🙂";
+      if (this.projectName == "") {
+        let nodesc = "项目名称 !== ''🙂";
         this.$Notice._info(nodesc, this);
       } else {
         this.$axios({
@@ -46,7 +46,7 @@ export default {
           }
         }).then(res => {
           if(res.data.status == '0'){
-            this.$Notice._info("保存成功🙂!",this)
+            this.$Notice._success("保存成功🙂!",this)
             this.projectName = '';
             this.projectUrl = '';
             this.projectDsc = '';
