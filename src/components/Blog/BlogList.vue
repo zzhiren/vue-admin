@@ -108,8 +108,8 @@ export default {
   },
   methods: {
     init() {
-      this.$refs.blogs.style.height =
-        innerHeight - 34 - 40 - 30 - 28 - 14 - 14 - 23 + "px";
+      // this.$refs.blogs.style.height =
+      //   innerHeight - 34 - 40 - 30 - 28 - 14 - 14 - 23 + "px";
       this._getAllBlogs();
       this._getPostedBlogs();
       this._getDraftBlogs();
@@ -508,7 +508,7 @@ $blog-item-h: 150px;
   .blogs {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 1000px;
+    height: calc(100vh - 176px);
     .blog-item {
       width: 100%;
       height: $blog-item-h;

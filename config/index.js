@@ -12,91 +12,91 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/login':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/login': '/login'
           }
       },
       '/uplodimg':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/img': '/img'
           }
       },
       '/deleteimg':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/deleteimg': '/deleteimg'
           }
       },
       '/saveblog':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/saveblog': '/saveblog'
           }
       },
       '/getallblogs':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/getallblogs': '/getallblogs'
           }
       },
       '/getpostedblogs':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/getpostedblogs': '/getpostedblogs'
           }
       },
       '/getdraftblogs':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/getdraftblogs': '/getdraftblogs'
           }
       },
       '/deleteblog':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/deleteblog': '/deleteblog'
           }
       },
       '/setuserinformation':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/setuserinformation': '/setuserinformation'
           }
       },
       '/getuserinformation':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/getuserinformation': '/getuserinformation'
           }
       },
       '/changeblogstate':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/changeblogstate': '/changeblogstate'
           }
       },
       '/addgithubproject':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/addgithubproject': '/addgithubproject'
           }
       },
       '/gettag':{
-          target:'http://127.0.0.1:3000',
+          target:'http://127.0.0.1:30003',
           changeOrigin: true,
           pathRewrite: {
             '^/gettag': '/gettag'
@@ -146,7 +146,7 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: 'admin',
     assetsPublicPath: '/',
 
     /**

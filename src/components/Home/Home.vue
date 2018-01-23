@@ -22,7 +22,7 @@
               span 标签管理
           router-link.nav-item(to="/project" tag="div" @click.native="_checked('project')" v-bind:class="{active: active === 'project'}")
             div.icon
-              Icon.icon(type="ios-pricetags")        
+              Icon.icon(type="folder")         
             div.icon-name
               span 项目管理
       div.content
