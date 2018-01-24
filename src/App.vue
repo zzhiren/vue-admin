@@ -54,7 +54,7 @@ html {
 }
 body {
   letter-spacing: 1px;
-  background: #32373d;
+  background: #32373d!important;
   opacity: 1;
   background-size: cover;
   background-repeat: no-repeat;
@@ -231,7 +231,7 @@ color: white!important;
 }
 // iview-msg
 .ivu-message-notice-content{
-  background: rgba(0, 0, 0, .9);
+  background: rgba(0, 0, 0, .9)!important;
   color: rgba(255, 255, 255, .8);
   margin-top: 20px!important;
 }
