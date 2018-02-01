@@ -41,7 +41,7 @@
         //- div.blog-state 状态
         div.blog-operation 操作
       div.blogs.scroll(ref="blogs")
-        div.blog-item(v-for="(item,index) in blogs")
+        div.blog-item(v-for="(item,index) in blogs" v-bind:key="item")
           div.blog-id 
             span.span ID
           div.blog-title.item-title
@@ -76,9 +76,11 @@
               span 移到草稿
             div.operation
               span 编辑文章
-            div.operation(@click="_deleteBlog(item._id)")
+            div.operation(@click="_deleteBlog(item._id)" v-if="deleting !== item._id")
               span 删除文章
-        page(ref="page" @_pageOnChange="_pageOnChange" :total="total" :page="page")
+            div.operation(v-if="deleting === item._id")
+              span 删除中...
+      page(ref="page" @_pageOnChange="_pageOnChange" :total="total" :page="page")
 </template>
 <script>
 import axios from "axios";
@@ -97,7 +99,8 @@ export default {
       total: 1,
       allTotal: 0,
       postTotal: 0,
-      draftTotal: 0
+      draftTotal: 0,
+      deleting: ''
     };
   },
   components: {
@@ -130,7 +133,7 @@ export default {
       this.page = 1;
       if (state == "all") {
         // this._getAllBlogs();
-        this._screening('all')
+        this._screening("all");
       } else if (state == "0") {
         // this._getPostedBlogs();
         this._screening("0");
@@ -214,21 +217,22 @@ export default {
         this.draftTotal = res.data.total;
       });
     },
-    _changeBlogState(id,state){
+    _changeBlogState(id, state) {
       this.$axios({
         method: "post",
         url: "/changeblogstate",
-        data:{
+        data: {
           id: id,
           state: state
         }
-      }).then(res =>{
-        if(res.data.status == '0'){
-          this.init()
+      }).then(res => {
+        if (res.data.status == "0") {
+          this.init();
         }
-      })
+      });
     },
     _deleteBlog(id) {
+      this.deleting = id
       this.$axios({
         method: "post",
         url: "/deleteblog",
@@ -252,10 +256,10 @@ export default {
 <style lang="scss" scoped>
 @import "src/components/common/scss/base.scss";
 $blog-item-h: 150px;
+
 .blog-list {
   overflow: auto;
   height: 100%;
-
   .main {
     padding: 14px 20px 0 20px;
     background: #474b51;
@@ -474,6 +478,7 @@ $blog-item-h: 150px;
     padding-bottom: 10px;
     box-sizing: border-box;
     .operation {
+      overflow: hidden;
       flex: 1;
       margin: 0 auto;
       border-radius: 2px;
@@ -510,7 +515,8 @@ $blog-item-h: 150px;
     overflow-x: hidden;
     height: calc(100vh - 176px);
     .blog-item {
-      width: 100%;
+      // width: 100%;
+      width: calc(100vw - 216px)!important;
       height: $blog-item-h;
       background: #3f4347;
       display: flex;
