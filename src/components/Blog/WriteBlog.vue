@@ -7,12 +7,12 @@
         span 文章标题
         input.input.title-input(v-model="title" v-bind:disabled="disabled" placeholder="输入标题...")
         div.button
-          div.release.btn-hover.green(@click="_editBlog()")
-            Icon.iview-icon(type="ios-compose")
-          div.release.btn-hover.blue(@click="_saveBlog(0)")
-            Icon.iview-icon(type="ios-paperplane")
-          div.save.btn-hover.red(@click="_saveBlog(1)")
-            Icon.iview-icon(type="ios-box")
+          div.release.btn-hover.green(@click="_editBlog()") 编辑文章
+            //- Icon.iview-icon(type="ios-compose")
+          div.release.btn-hover.blue(@click="_saveBlog(0)") 发布文章
+            //- Icon.iview-icon(type="ios-paperplane")
+          div.save.btn-hover.red(@click="_saveBlog(1)") 移至草稿
+            //- Icon.iview-icon(type="ios-box")
       div.header
         span 文章前言
         input.input.perface(v-model="preface" v-bind:disabled="disabled" placeholder="输入前言...")

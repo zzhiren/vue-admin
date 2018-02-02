@@ -40,7 +40,7 @@
         div.blog-love 状态
         //- div.blog-state 状态
         div.blog-operation 操作
-      div.blogs.scroll(ref="blogs")
+      div.blogs.scroll(ref='scroll')
         div.blog-item(v-for="(item,index) in blogs" v-bind:key="item")
           div.blog-id 
             span.span ID
@@ -100,7 +100,7 @@ export default {
       allTotal: 0,
       postTotal: 0,
       draftTotal: 0,
-      deleting: ''
+      deleting: ""
     };
   },
   components: {
@@ -111,13 +111,12 @@ export default {
   },
   methods: {
     init() {
-      // this.$refs.blogs.style.height =
-      //   innerHeight - 34 - 40 - 30 - 28 - 14 - 14 - 23 + "px";
       this._getAllBlogs();
       this._getPostedBlogs();
       this._getDraftBlogs();
       this._refreshList(this.state);
     },
+    // 翻页
     _pageOnChange(page) {
       this.page = page;
       if (this.state == "all") {
@@ -127,7 +126,9 @@ export default {
       } else if (this.state == "1") {
         this._getDraftBlogs();
       }
+      this.$refs.scroll.scrollTop = 0
     },
+    // 刷新列表
     _refreshList(state) {
       this.blogs = [];
       this.page = 1;
@@ -142,6 +143,7 @@ export default {
         this._screening("1");
       }
     },
+    // 切换全部、发布、草稿
     _screening(value) {
       this.state = value;
       this.page = 1;
@@ -159,6 +161,7 @@ export default {
         this.total = this.draftTotal;
       }
     },
+    // 获取所有博客
     _getAllBlogs() {
       let date = new Date();
       let timer = date.getTime().toString();
@@ -179,6 +182,7 @@ export default {
         this.allTotal = res.data.total;
       });
     },
+    // 获取发布博客
     _getPostedBlogs() {
       var date = new Date();
       var timer = date.getTime().toString();
@@ -198,6 +202,7 @@ export default {
         this.postTotal = res.data.total;
       });
     },
+    // 获取草稿博客
     _getDraftBlogs() {
       var date = new Date();
       var timer = date.getTime().toString();
@@ -217,6 +222,7 @@ export default {
         this.draftTotal = res.data.total;
       });
     },
+    // 修改博客发布状态
     _changeBlogState(id, state) {
       this.$axios({
         method: "post",
@@ -231,8 +237,9 @@ export default {
         }
       });
     },
+    // 删除博客
     _deleteBlog(id) {
-      this.deleting = id
+      this.deleting = id;
       this.$axios({
         method: "post",
         url: "/deleteblog",
@@ -256,7 +263,17 @@ export default {
 <style lang="scss" scoped>
 @import "src/components/common/scss/base.scss";
 $blog-item-h: 150px;
-
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-move {
+  transition: transform 1s;
+}
 .blog-list {
   overflow: auto;
   height: 100%;
@@ -516,13 +533,14 @@ $blog-item-h: 150px;
     height: calc(100vh - 176px);
     .blog-item {
       // width: 100%;
-      width: calc(100vw - 216px)!important;
+      width: calc(100vw - 214px) !important;
       height: $blog-item-h;
       background: #3f4347;
       display: flex;
       box-sizing: border-box;
       -webkit-transition: $hover-bg;
-      transition: $hover-bg;
+      // transition: $hover-bg;
+      // transition: all 1s;
       overflow-x: hidden;
       &:nth-child(2n) {
         background: #393d41;
