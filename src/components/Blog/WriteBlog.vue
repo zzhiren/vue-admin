@@ -20,23 +20,32 @@
         span 文章标签  
         div.tag(v-bind:class="{tag_active: checkedList.indexOf(item.aliasName) >= 0}" v-for="(item,index) in tags" @click="_checked(item.aliasName)" v-bind:key="index") {{item.aliasName}}
       div.mark-down
-        mavon-edit(ref="mavonedit" :editable="editable" :content="details.content" v-if="details.content")
+        //- mavon-edit(ref="mavonedit" :editable="editable" :content="details.content" v-if="details.content")
+        mavon-editor(ref="mavonEditor" :editable="editable" :ishljs="false" @imgAdd="$imgAdd" @imgDel="$imgDel" @change="$change")
 </template>
 <script>
 import MavonEdit from "../common/vue/MavonEdit";
 import axios from "axios";
+import { mavonEditor } from "mavon-editor";
+import "mavon-editor/dist/css/index.css";
 
 export default {
   data() {
     return {
+      id:'',
+      type: '',
       title: "",
-      // tag: "",
       preface: "",
       disabled: false,
       editable: true,
       tags: [],
       checkedList: [],
-      details:{}
+      details: {},
+      img_file: {},
+      picDelObj: [],
+      picList: [],
+      value: "",
+      firstPic: ""
     };
   },
   mounted() {
@@ -46,35 +55,106 @@ export default {
     });
     this._initTagData();
     this._initEditData();
+    this._initContent();
   },
   methods: {
-    // 如果时编辑博客，则根据_id获取博客信息
-    _initEditData(){
-      let type = this.$route.params.type;
-      let id = this.$route.params.id;
-      if(type === 'edit'){
-        this.$axios({
-        method:'post',
-        url:'/getblogdetils',
-        data:{
-          id: id
+    // 如果是编辑状态，就初始化文章内容
+    _initContent() {
+      if (this.$route.params.type === "edit") {
+        this.$refs.mavonEditor.d_value = this.details.content;
+      }
+    },
+    $change(value, render) {
+      this.value = value;
+    },
+    // 添加图片
+    $imgAdd(pos, $file) {
+      this.img_file[pos] = $file;
+      this.uploadImg(pos);
+    },
+    // 删除图片
+    $imgDel(pos) {
+      console.log("pos", pos);
+      delete this.img_file[pos];
+      this.$refs.mavonEditor.d_history = [];
+      var deletPath = this.picDelObj[pos].deletePath;
+      this.deleteImg(pos);
+    },
+    // 上传图片
+    uploadImg(pos) {
+      var $vm = this;
+      var formdata = new FormData();
+      // this.img_file = []
+      for (var _img in this.img_file) {
+        formdata.append(_img, this.img_file[_img]);
+      }
+      this.$axios({
+        method: "post",
+        url: "/uplodimg",
+        data: formdata,
+        headers: { "Content-Type": "multipart/form-data" }
+      }).then(res => {
+        for (var i in res.data.result.picDelObj) {
+          this.picDelObj.push(res.data.result.picDelObj[i]);
         }
-      }).then(res=>{
-        this.details = res.data.data
-      })
+        this.picList = res.data.result.picList;
+        this.firstPic = res.data.result.picList[0][1];
+        console.log(res.data.result.picList[0][1]);
+
+        //批量修改图片名称
+        this.$refs.mavonEditor.$imglst2Url(res.data.result.picList);
+        this.img_file = [];
+        //单个修改图片名称
+        // this.$refs.mavonEdit.$img2Url(pos, res.data.result.picList[0][1]);
+      });
+    },
+    // 删除上传的图片
+    deleteImg(pos) {
+      this.$axios({
+        method: "post",
+        url: "/deleteimg",
+        data: {
+          deletePath: this.picDelObj[pos].deletePath
+        },
+        headers: { "Content-type": "application/json; charset=utf-8" }
+      }).then(res => {
+        // console.log(res.data)
+        // console.log(this.picObj[pos].deletPath)
+      });
+    },
+    // 如果时编辑博客，则根据_id获取博客信息
+    _initEditData() {
+      this.type = this.$route.params.type;
+      this.id = this.$route.params.id;
+      if (this.type === "edit") {
+        this.$axios({
+          method: "post",
+          url: "/getblogdetils",
+          data: {
+            id: this.id
+          }
+        }).then(res => {
+          this.details = res.data.data;
+          this.title = this.details.title;
+          this.preface = this.details.preface;
+          this.checkedList = this.details.tag;
+          this.picList = this.details.picList;
+          this.firstPic = this.details.firstPic;
+          this.$refs.mavonEditor.d_value = this.details.content;
+        });
       }
     },
     // 初始化标签信息
-     _initTagData(){
+    _initTagData() {
       this.$axios({
-        method:'get',
-        url:'/gettag',
-        params:{
-          name: 'all'
+        method: "get",
+        url: "/gettag",
+        params: {
+          name: "all"
         }
-      }).then(res=>{
-        this.tags = res.data.data
-      })
+      }).then(res => {
+        this.tags = res.data.data;
+      });
     },
     _checked(value) {
       var index = this.checkedList.indexOf(value);
@@ -98,10 +178,11 @@ export default {
       this.disabled = false;
       this.editable = true;
     },
+    // 发布博客
     _saveBlog(state) {
       if (
         this.title === "" ||
-        this.$refs.mavonedit.value === "" ||
+        this.value === "" ||
         this.preface === "" ||
         this.checkedList.length === 0
       ) {
@@ -110,8 +191,8 @@ export default {
       } else {
         this.disabled = true;
         this.editable = false;
-        this.$Notice._loading("Saveing...", this);
-        this.content = this.$refs.mavonedit.value;
+        this.$Notice._loading("保存中...", this);
+        this.content = this.value;
         let blog = {};
         let myDate = new Date();
         let year = myDate.getFullYear();
@@ -127,14 +208,16 @@ export default {
         let start = document.cookie.indexOf("userName");
         let end = document.cookie.indexOf(";", start);
         let userName = document.cookie.slice(start + 9);
+        blog.id = this.id;
+        blog.type = this.type;
         blog.author = userName;
         blog.title = this.title;
         blog.state = state;
         blog.preface = this.preface;
         blog.tag = this.checkedList;
-        blog.content = this.$refs.mavonedit.value;
-        blog.picDelObj = this.$refs.mavonedit.picDelObj;
-        blog.firstPic = this.$refs.mavonedit.firstPic;
+        blog.content = this.value;
+        blog.picDelObj = this.picDelObj;
+        blog.firstPic = this.firstPic;
         blog.creationTime = creationTime;
 
         this.$axios({
@@ -146,9 +229,9 @@ export default {
         })
           .then(res => {
             if (res.data.status == "0") {
-              this._destroy(0, "Save Success 😊");
+              this._destroy(0, res.data.msg + "😊");
             } else if (res.data.status == "1") {
-              this._destroy(1, "Save Fail 🙁");
+              this._destroy(1, "保存失败 🙁");
             }
           })
           .catch(error => {
@@ -169,7 +252,8 @@ export default {
     }
   },
   components: {
-    MavonEdit
+    MavonEdit,
+    mavonEditor
   }
 };
 </script>
@@ -260,10 +344,9 @@ $button-width: 50px;
       padding: 1px;
       text-align: right;
       line-height: 28px;
-      .iview-icon{
+      .iview-icon {
         font-size: 18px;
         line-height: 28px;
-        
       }
       .btn-hover {
         &:hover {
@@ -272,7 +355,6 @@ $button-width: 50px;
         }
       }
       .release {
-        
         border-radius: 2px;
         display: inline-block;
         width: 80px;

@@ -289,8 +289,6 @@ $blog-item-h: 150px;
     background: #474b51;
     box-sizing: border-box;
     .bar {
-      // width: 202px;
-      // background: blue;
       height: 30px;
       margin-bottom: 14px;
       display: flex;
@@ -301,7 +299,6 @@ $blog-item-h: 150px;
       .icon {
         font-size: 13px;
         margin-right: 10px;
-        // transition: transform 0.5s linear;
       }
       .one {
         user-select: none;
@@ -314,16 +311,11 @@ $blog-item-h: 150px;
         opacity: 0.9;
         .one_active {
           background: #393d41 !important;
-          // border-left: $border!important;
-          // border-right: $border!important;
         }
         .click {
           &:active {
             background: #0088f5;
           }
-          // &:hover .icon{
-          //   transform: rotate(360deg);
-          // }
         }
         div {
           &:hover {
@@ -360,10 +352,8 @@ $blog-item-h: 150px;
         z-index: 2;
 
         .search-input {
-          // border-radius: 2px;
           width: 300px;
           height: 100%;
-          // padding: 0 !important;
           background-color: hsla(0, 0%, 57%, 0.1);
           outline-color: rgba(255, 255, 255, 0);
           padding-left: 10px;
@@ -415,13 +405,11 @@ $blog-item-h: 150px;
           .span {
             &:after {
               content: url(../../assets/down_up.svg);
-              // margin-top: -10px;
               vertical-align: middle;
               display: inline-block;
               margin-top: -1px;
               line-height: 12px;
               color: white;
-              // margin-right: 23px;
             }
           }
           .item {
@@ -446,7 +434,6 @@ $blog-item-h: 150px;
     line-height: 30px;
     color: white;
     background: #393d41;
-    // position: fixed;
     padding-right: 4px;
   }
   .blog-state {
@@ -462,7 +449,6 @@ $blog-item-h: 150px;
   }
   .blog-tag {
     flex: 1;
-    // text-align: left;
     .tag {
       display: table;
       height: 100%;
@@ -517,7 +503,6 @@ $blog-item-h: 150px;
         cursor: pointer;
       }
       &:active {
-        // background: black!important;
         opacity: 0.7 !important;
       }
       &:nth-child(1) {
@@ -539,7 +524,6 @@ $blog-item-h: 150px;
     overflow-x: hidden;
     height: calc(100vh - 176px);
     .blog-item {
-      // width: 100%;
       width: calc(100vw - 214px) !important;
       height: $blog-item-h;
       background: #3f4347;
