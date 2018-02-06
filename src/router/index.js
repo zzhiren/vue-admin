@@ -56,7 +56,7 @@ const router = new Router({
           ]
         },
         {
-          path: 'writeblog',
+          path: 'writeblog/:type',
           name: 'writeblog',
           component: WriteBlog,
           meta: {

@@ -18,9 +18,9 @@
         input.input.perface(v-model="preface" v-bind:disabled="disabled" placeholder="输入前言...")
       div.tags
         span 文章标签  
-        div.tag(v-bind:class="{tag_active: checkedId.indexOf(index) >= 0}" v-for="(item,index) in tags" @click="_checked(item.aliasName,index)" v-bind:key="index") {{item.aliasName}}
+        div.tag(v-bind:class="{tag_active: checkedList.indexOf(item.aliasName) >= 0}" v-for="(item,index) in tags" @click="_checked(item.aliasName)" v-bind:key="index") {{item.aliasName}}
       div.mark-down
-        mavon-edit(ref="mavonedit" :editable="editable")
+        mavon-edit(ref="mavonedit" :editable="editable" :content="details.content" v-if="details.content")
 </template>
 <script>
 import MavonEdit from "../common/vue/MavonEdit";
@@ -36,7 +36,7 @@ export default {
       editable: true,
       tags: [],
       checkedList: [],
-      checkedId: []
+      details:{}
     };
   },
   mounted() {
@@ -44,9 +44,27 @@ export default {
       top: 50,
       duration: 3
     });
-    this._initTagData()
+    this._initTagData();
+    this._initEditData();
   },
   methods: {
+    // 如果时编辑博客，则根据_id获取博客信息
+    _initEditData(){
+      let type = this.$route.params.type;
+      let id = this.$route.params.id;
+      if(type === 'edit'){
+        this.$axios({
+        method:'post',
+        url:'/getblogdetils',
+        data:{
+          id: id
+        }
+      }).then(res=>{
+        this.details = res.data.data
+      })
+      }
+    },
+    // 初始化标签信息
      _initTagData(){
       this.$axios({
         method:'get',
@@ -58,14 +76,12 @@ export default {
         this.tags = res.data.data
       })
     },
-    _checked(value, id) {
+    _checked(value) {
       var index = this.checkedList.indexOf(value);
       if (index >= 0) {
         this.checkedList.splice(index, 1);
-        this.checkedId.splice(index, 1);
       } else {
         this.checkedList.push(value);
-        this.checkedId.push(id);
       }
     },
     _destroy(state, value) {

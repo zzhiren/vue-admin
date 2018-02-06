@@ -9,37 +9,42 @@ import "mavon-editor/dist/css/index.css";
 import axios from "axios";
 export default {
   props: {
-    editable:{
+    editable: {
       type: Boolean,
-      default : true
+      default: true
+    },
+    content: {
+      type: String,
+      default: ""
     }
   },
   data() {
     return {
       img_file: {},
       picDelObj: [],
-      picList:[],
-      value: '',
-      firstPic: ''
+      picList: [],
+      value: "",
+      firstPic: ""
     };
   },
   components: {
     mavonEditor
   },
+
   mounted() {
-    this.init();
+    this._initContent();
   },
   methods: {
-    init() {
-      // 设置mavonedit控件高度
-      // this.$refs.mavonedit.style.height = 780 + 'px';
-      // // 设置mavonedit控件高度
-      // this.$refs.mavonEditor.style.height =
-      //   innerHeight - 60 - 7 - 4 - 40 - 8 - 4 - 7 - 33 - 4 - 4 + - 33 +"px";
+    // 如果是编辑状态，就初始化文章内容
+    _initContent() {
+      if (this.$route.params.type === "edit") {
+        this.$refs.mavonEditor.d_value = this.content;
+        console.log(1111)
+      }
     },
-    $change(value,render){
+    $change(value, render) {
       // console.log('render',render)
-      this.value = value
+      this.value = value;
     },
     // 添加图片
     $imgAdd(pos, $file) {
@@ -50,7 +55,7 @@ export default {
     },
     // 删除图片
     $imgDel(pos) {
-      console.log('pos',pos);
+      console.log("pos", pos);
       delete this.img_file[pos];
       this.$refs.mavonEditor.d_history = [];
       var deletPath = this.picDelObj[pos].deletePath;
@@ -70,16 +75,16 @@ export default {
         data: formdata,
         headers: { "Content-Type": "multipart/form-data" }
       }).then(res => {
-        for(var i in res.data.result.picDelObj){
-          this.picDelObj.push(res.data.result.picDelObj[i])
+        for (var i in res.data.result.picDelObj) {
+          this.picDelObj.push(res.data.result.picDelObj[i]);
         }
-        this.picList = res.data.result.picList
-        this.firstPic = res.data.result.picList[0][1]
-        console.log( res.data.result.picList[0][1])
+        this.picList = res.data.result.picList;
+        this.firstPic = res.data.result.picList[0][1];
+        console.log(res.data.result.picList[0][1]);
 
         //批量修改图片名称
-        this.$refs.mavonEditor.$imglst2Url(res.data.result.picList)
-        this.img_file = []
+        this.$refs.mavonEditor.$imglst2Url(res.data.result.picList);
+        this.img_file = [];
         //单个修改图片名称
         // this.$refs.mavonEdit.$img2Url(pos, res.data.result.picList[0][1]);
       });
@@ -90,13 +95,13 @@ export default {
         method: "post",
         url: "/deleteimg",
         data: {
-          deletePath:this.picDelObj[pos].deletePath
+          deletePath: this.picDelObj[pos].deletePath
         },
-        headers:{"Content-type":"application/json; charset=utf-8"}
-      }).then(res =>{
+        headers: { "Content-type": "application/json; charset=utf-8" }
+      }).then(res => {
         // console.log(res.data)
         // console.log(this.picObj[pos].deletPath)
-      })
+      });
     }
   }
 };

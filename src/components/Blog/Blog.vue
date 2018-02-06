@@ -6,7 +6,7 @@
       div.back(v-if="state === 1" @click="changeState(0)")
         Icon.back-icon(type="ios-arrow-back")
       div.other
-      router-link.write-blog(tag="div"  to="/home/writeblog" @click.native="changeState(1)")
+      router-link.write-blog(tag="div"  to="/home/writeblog/create" @click.native="changeState(1)")
         Icon.icon(type="edit")
     div.content
       router-view

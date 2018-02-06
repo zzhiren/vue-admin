@@ -101,6 +101,13 @@ module.exports = {
           pathRewrite: {
             '^/gettag': '/gettag'
           }
+      },
+      '/getblogdetils':{
+          target:'http://127.0.0.1:30003',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/getblogdetils': '/getblogdetils'
+          }
       }
     },
 

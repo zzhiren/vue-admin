@@ -74,7 +74,7 @@
               span 发布文章
             div.operation(@click="_changeBlogState(item._id,'1')")
               span 移到草稿
-            div.operation
+            div.operation(@click="_toWriteBlog('edit',item._id)")
               span 编辑文章
             div.operation(@click="_deleteBlog(item._id)" v-if="deleting !== item._id")
               span 删除文章
@@ -116,6 +116,13 @@ export default {
       this._getDraftBlogs();
       this._refreshList(this.state);
     },
+    // 点击编辑按钮，跳转到编辑博客窗口
+    _toWriteBlog(type, value) {
+      this.$router.push({
+        name: "writeblog",
+        params: { type: type, id: value }
+      });
+    },
     // 翻页
     _pageOnChange(page) {
       this.page = page;
@@ -126,7 +133,7 @@ export default {
       } else if (this.state == "1") {
         this._getDraftBlogs();
       }
-      this.$refs.scroll.scrollTop = 0
+      this.$refs.scroll.scrollTop = 0;
     },
     // 刷新列表
     _refreshList(state) {
