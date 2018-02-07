@@ -108,6 +108,13 @@ module.exports = {
           pathRewrite: {
             '^/getblogdetils': '/getblogdetils'
           }
+      },
+      '/savetag':{
+          target:'http://127.0.0.1:30003',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/savetag': '/savetag'
+          }
       }
     },
 

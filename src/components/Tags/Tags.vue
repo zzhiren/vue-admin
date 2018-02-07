@@ -17,7 +17,7 @@
           textarea.textarea.scroll(v-model="dsc" placeholder="描述标签")
         div.footer
           button.button(@click="_resetData()") 重置
-          button.button(v-on:click="_addGitHubProject()") 保存
+          button.button(v-on:click="_saveTag()") 保存
       div.tags-list
         div.title
         div.bar
@@ -101,6 +101,40 @@ export default {
       this.svg = "";
       this.dsc = "";
     },
+    // 保存标签
+    _saveTag() {
+      if (this.name === " " || this.aliasName === " " || this.dsc === " ") {
+        let nodesc = "标签名称 && 别名 && 描述 !== ' '";
+        this.$Notice._warning(nodesc, this);
+      } else {
+        if (this.icon === "" && this.svg === "") {
+          let nodesc = "Icon图标 || Svg图标 !== ' '";
+          this.$Notice._warning(nodesc, this);
+        } else {
+          this.$axios({
+            method: "post",
+            url: "/savetag",
+            data: {
+              id: this.id,
+              name: this.name,
+              aliasName: this.aliasName,
+              icon: this.icon,
+              svg: this.svg,
+              dsc: this.dsc
+            }
+          }).then(res => {
+            if (res.data.status === "1") {
+              let nodesc = "保存失败😭！";
+              this.$Notice._warning(nodesc, this);
+            }else if(res.data.status === '0'){
+              let nodesc = "保存成功😁！";
+              this.$Notice._success(nodesc, this);
+              this._resetData()
+            }
+          });
+        }
+      }
+    },
     // 编辑标签
     _editTag(value) {
       this.id = value._id;
@@ -175,11 +209,6 @@ export default {
   .content {
     height: calc(100vh - 115px);
     min-height: 634px;
-    // background: $three-bg;
-    // padding-top: 14px;
-    // padding-bottom: 14px;
-    // padding-right: 14px;
-    // padding-left: 14px;
     display: flex;
     .create-tag {
       width: 350px;
