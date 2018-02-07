@@ -1,22 +1,22 @@
 <template lang="pug">
   div.tags
-    div.header 标签管理
+    //- div.header 标签管理
     div.content
       div.create-tag
         div.title 添加标签
         div.main
           p.name 标签名称
-          input.input(placeholder="标签的名称，英文，用来在url中显示使用")
+          input.input(v-model="name" placeholder="标签的名称，英文，用来在url中显示使用")
           p.name 别名
-          input.input(placeholder="标签的别名，中文、英文都可，用来展示")
-          p.name Icon
-          input.input(placeholder="标签的图标，icon为iview中的图标")
-          p.name Svg
-          input.input(placeholder="标签的图标，svg为上传的svg图标")
+          input.input(v-model="aliasName" placeholder="标签的别名，中文、英文都可，用来展示")
+          p.name Icon图标
+          input.input(v-model="icon" placeholder="标签的图标，icon为iview中的图标")
+          p.name Svg图标
+          input.input(v-model="svg" placeholder="标签的图标，svg为上传的svg图标")
           p.name 描述
-          textarea.textarea.scroll(placeholder="描述标签")
+          textarea.textarea.scroll(v-model="dsc" placeholder="描述标签")
         div.footer
-          button.button 编辑
+          button.button(@click="_resetData()") 重置
           button.button(v-on:click="_addGitHubProject()") 保存
       div.tags-list
         div.title
@@ -35,19 +35,83 @@
           div.three.one
             input.search-input(v-model="condition" placeholder="文章标题、描述...")
             button.search-btn 搜索
-        div.tags
-
+        div.items
+          div.items-header
+            div.id ID
+            div.column-name 名称
+            div.column-name 别名
+            div.dsc 描述
+            div.item-icon ICON
+            div.item-icon SVG
+            div.operation 操作
+          div.main.scroll
+            div.item(v-for="(item,index) in tags" v-bind:key="index")
+              div.id ID
+              div.column-name {{item.name}}
+              div.column-name {{item.aliasName}}
+              div.dsc {{item.dsc}}
+              div.item-icon 
+                span(v-if="item.icon !== ''") {{item.icon}}
+                span(v-if="item.icon === ''") --
+              div.item-icon 
+                span(v-if="item.svg !== ''") {{item.svg}}
+                span(v-if="item.svg === ''") --
+              div.operation
+                div.box.bg-green(@click="_editTag(item)") 编辑标签
+                div.box.bg-red(@click="_deleteTag()") 删除标签
 </template>
 <script>
 export default {
   data() {
     return {
+      id: "",
       name: "",
       aliasName: "",
       icon: "",
       dsc: "",
-      svg: ""
+      svg: "",
+      tags: []
     };
+  },
+  mounted() {
+    this._getTagsData();
+  },
+  methods: {
+    // 获取标签数据
+    _getTagsData() {
+      let date = new Date();
+      let timer = date.getTime().toString();
+      this.$axios({
+        method: "get",
+        url: "/gettag",
+        params: {
+          name: "all",
+          t: timer
+        }
+      }).then(res => {
+        this.tags = res.data.data;
+      });
+    },
+    // 清空编辑区域内容
+    _resetData() {
+      this.id = "";
+      this.name = "";
+      this.aliasName = "";
+      this.icon = "";
+      this.svg = "";
+      this.dsc = "";
+    },
+    // 编辑标签
+    _editTag(value) {
+      this.id = value._id;
+      this.name = value.name;
+      this.aliasName = value.aliasName;
+      this.icon = value.icon;
+      this.svg = value.svg;
+      this.dsc = value.dsc;
+    },
+    // 删除标签
+    _deleteTag() {}
   }
 };
 </script>
@@ -57,23 +121,14 @@ export default {
 .tags {
   $height: 30px;
   $font-color: rgba(255, 255, 255, 0.8);
-  .header {
-    height: $height;
-    display: flex;
-    background: $main-bg;
-    width: 100%;
-    font-size: 15px;
-    line-height: $height;
-    padding-left: 10px;
-    color: $font-color;
-  }
+  $input-bg: hsla(0, 0%, 57%, 0.2);
   .input {
     width: 100%;
     border-radius: 2px;
     margin-top: 8px;
     margin-bottom: 40px;
-    height: 28px;
-    background-color: hsla(0, 0%, 57%, 0.2);
+    height: 30px;
+    background-color: $input-bg;
     outline-color: rgba(255, 255, 255, 0);
     padding-left: 10px;
     padding-right: 10px;
@@ -99,7 +154,7 @@ export default {
     width: 100% !important;
     border-radius: 2px;
     resize: none;
-    background-color: hsla(0, 0%, 57%, 0.2);
+    background-color: $input-bg;
     outline-color: rgba(255, 255, 255, 0);
     padding: 10px;
     // margin-right: 30px;
@@ -118,24 +173,24 @@ export default {
     }
   }
   .content {
-    height: calc(100vh - 80px);
-    min-height: 650px;
-    background: $three-bg;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    padding-right: 14px;
-    padding-left: 14px;
+    height: calc(100vh - 115px);
+    min-height: 634px;
+    // background: $three-bg;
+    // padding-top: 14px;
+    // padding-bottom: 14px;
+    // padding-right: 14px;
+    // padding-left: 14px;
     display: flex;
     .create-tag {
       width: 350px;
-      height: 650px;
-      background: $vice-bg;
-      margin-right: 14px;
+      height: 634px;
+      background: $three-bg;
+      margin-right: 20px;
       .main {
         padding: 20px;
       }
       .name {
-        font-size: 14px;
+        font-size: 12px;
         color: $font-color;
         margin-left: 4px;
       }
@@ -147,7 +202,8 @@ export default {
         padding-right: 30px;
         .button {
           flex: 1;
-          background: rgba(0, 0, 0, 0.4);
+          background: black;
+          // background: rgba(0, 0, 0, 0.4);
           border-radius: 3px;
           font-size: 16px;
           line-height: 34px;
@@ -155,11 +211,15 @@ export default {
           border: 0;
           color: white;
           outline-color: $main-bg;
+          opacity: 0.7;
+          transition: all 0.1s linear;
           &:hover {
             cursor: pointer;
+            // opacity: 1;
           }
           &:active {
-            background: #0088f5;
+            // background: black;
+            opacity: 1;
           }
           &:nth-child(1) {
             margin-right: 20px;
@@ -169,10 +229,10 @@ export default {
     }
     .tags-list {
       flex: 1;
-      background: $vice-bg;
+      background: $three-bg;
       .bar {
         color: $font-color;
-        $height: 24px;
+        $height: 30px;
         $padding-l: 3px 0 0 3px;
         $padding-r: 0 3px 3px 0;
         $border: 1px solid rgba(0, 0, 0, 0.65);
@@ -180,7 +240,7 @@ export default {
         margin-top: 14px;
         height: $height;
         margin-bottom: 14px;
-        margin-right: 14px;
+        padding-right: 20px;
         display: flex;
 
         .icon {
@@ -192,7 +252,7 @@ export default {
           border: $border;
           border-radius: 3px;
           display: flex;
-          line-height: 18px;
+          line-height: 24px;
           font-size: 10px;
           opacity: 0.9;
           .one_active {
@@ -200,7 +260,7 @@ export default {
           }
           .click {
             &:active {
-              background: #0088f5;
+              background: black;
             }
           }
           div {
@@ -212,7 +272,7 @@ export default {
             padding: $padding;
             box-sizing: border-box;
             background: $main-bg;
-            height: 22px;
+            height: 28px;
             float: left;
             vertical-align: middle;
             &:nth-child(1) {
@@ -274,7 +334,7 @@ export default {
               cursor: pointer;
             }
             &:active {
-              background: #0088f5;
+              background: black;
             }
           }
 
@@ -309,6 +369,87 @@ export default {
           }
         }
       }
+      .items {
+        width: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+        overflow: hidden;
+        .items-header {
+          width: 100%;
+          height: 30px;
+          line-height: 30px;
+          background: #393d41;
+          display: flex;
+          padding-right: 6px;
+        }
+        .main {
+          overflow: auto;
+          height: calc(100vh - 235px);
+        }
+        .item {
+          display: flex;
+          background: #3f4347;
+          height: 60px;
+          line-height: 60px;
+          &:nth-child(2n) {
+            background: #393d41;
+          }
+        }
+        .column-name {
+          flex: 1;
+          text-align: left;
+          color: $font-color;
+        }
+        .id {
+          text-align: left;
+          color: $font-color;
+          width: 100px;
+          padding-left: 20px;
+        }
+        .item-icon {
+          text-align: left;
+          color: $font-color;
+          width: 200px;
+        }
+        .dsc {
+          text-align: left;
+          color: $font-color;
+          width: 300px;
+          margin-right: 15px;
+        }
+        .operation {
+          text-align: center;
+          color: $font-color;
+          width: 180px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          .box {
+            height: 30px;
+            line-height: 30px;
+            width: 70px;
+            opacity: 0.8;
+            transition: opacity 0.5s linear;
+            user-select: none;
+            &:nth-child(1) {
+              border-top-left-radius: 4px;
+              border-bottom-left-radius: 4px;
+            }
+            &:nth-child(2) {
+              border-top-right-radius: 4px;
+              border-bottom-right-radius: 4px;
+            }
+            &:hover {
+              cursor: pointer;
+              opacity: 1;
+            }
+            &:active {
+              opacity: 0.7 !important;
+            }
+          }
+        }
+      }
     }
     .title {
       width: 100%;
@@ -317,6 +458,7 @@ export default {
       background: $main-bg;
       padding-left: 10px;
       color: $font-color;
+      font-size: 14px;
     }
   }
 }

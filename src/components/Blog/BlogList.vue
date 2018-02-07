@@ -6,7 +6,6 @@
           div.common(@click="_screening('all')" v-bind:class="{one_active: state == 'all'}") 全部[{{allTotal}}]
           div.common(@click="_screening('0')" v-bind:class="{one_active: state == '0'}") 已发布[{{postTotal}}]
           div.common(@click="_screening('1')" v-bind:class="{one_active: state == '1'}") 草稿[{{draftTotal}}]
-          
         div.two.one
           div.common.click(@click="_refreshList(state)" v-model="state")
             Icon.icon(type="android-refresh")
@@ -21,12 +20,10 @@
         div.three.one
           div.common.all-types
             span.span 所有分类
-              //- img(src="../../../assets/down_up.svg" height="22")
             div.item
           div.common.all-types
             span.span 所有标签
             div.item
-          //- div.common 
           input.search-input(v-model="condition" placeholder="文章标题、描述...")
           button.search-btn 搜索
       div.list-header
@@ -38,7 +35,6 @@
         div.blog-comment 评论
         div.blog-love 喜欢
         div.blog-love 状态
-        //- div.blog-state 状态
         div.blog-operation 操作
       div.blogs.scroll(ref='scroll')
         div.blog-item(v-for="(item,index) in blogs" v-bind:key="item")
@@ -191,8 +187,8 @@ export default {
     },
     // 获取发布博客
     _getPostedBlogs() {
-      var date = new Date();
-      var timer = date.getTime().toString();
+      let date = new Date();
+      let timer = date.getTime().toString();
       this.$axios({
         method: "get",
         url: "/getpostedblogs",
@@ -211,8 +207,8 @@ export default {
     },
     // 获取草稿博客
     _getDraftBlogs() {
-      var date = new Date();
-      var timer = date.getTime().toString();
+      let date = new Date();
+      let timer = date.getTime().toString();
       this.$axios({
         method: "get",
         url: "/getdraftblogs",
@@ -255,11 +251,11 @@ export default {
         }
       }).then(res => {
         if (res.data.status == "0") {
-          var nodesc = "删除成功=￣ω￣=!";
+          let nodesc = "删除成功=￣ω￣=!";
           this.init();
           this.success(nodesc);
         } else if (res.data.status == "1") {
-          var nodesc = "删除失败(⊙o⊙)？!";
+          let nodesc = "删除失败(⊙o⊙)？!";
           this.error(nodesc);
         }
       });
@@ -495,11 +491,12 @@ $blog-item-h: 150px;
       margin-bottom: 6px;
       line-height: 28.5px;
       color: white;
-      opacity: 0.95;
+      opacity: 0.8;
       width: 65px;
       font-size: 12px;
+      transition: opacity .5s linear;
       &:hover {
-        opacity: 1 !important;
+        opacity: 1;
         cursor: pointer;
       }
       &:active {
@@ -522,14 +519,14 @@ $blog-item-h: 150px;
   .blogs {
     overflow-y: auto;
     overflow-x: hidden;
-    height: calc(100vh - 176px);
+    height: calc(100vh - 233px);
     .blog-item {
-      width: calc(100vw - 214px) !important;
+      // width: calc(100vw - 214px) !important;
       height: $blog-item-h;
       background: #3f4347;
       display: flex;
       box-sizing: border-box;
-      -webkit-transition: $hover-bg;
+      // -webkit-transition: $hover-bg;
       // transition: $hover-bg;
       // transition: all 1s;
       overflow-x: hidden;

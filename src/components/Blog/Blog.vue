@@ -39,15 +39,15 @@ export default {
   flex-direction: column;
   box-sizing: border-box;
   .header {
-    height: 40px;
+    height: 35px;
     display: flex;
-    background: $main-bg;
+    // background: $main-bg;
     width: 100%;
     .earth {
-      width: 40px;
+      width: 35px;
       background: $main-bg;
       font-size: 24px;
-      line-height: 40px;
+      line-height: 35px;
       text-align: center;
       color: white;
       &:hover {
@@ -87,7 +87,7 @@ export default {
       background: $main-bg;
     }
     .write-blog {
-      width: 40px;
+      width: 35px;
       // background: red;
       text-align: center;
       transition: $transition;
@@ -97,8 +97,8 @@ export default {
         cursor: pointer;
       }
       .icon {
-        line-height: 40px;
-        font-size: 24px;
+        line-height: 35px;
+        font-size: 20px;
         color: white;
       }
     }

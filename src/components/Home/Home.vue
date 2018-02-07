@@ -26,6 +26,9 @@
             div.icon-name
               span 项目管理
       div.content
+        div.bar
+          span 标签管理
+          div.nav 31313
         div.main
           router-view
 </template>
@@ -173,8 +176,26 @@ $item-height: 34px;
       display: flex;
       flex-direction: column;
       background: $vice-bg;
-      padding: 14px;
+      padding-top: 14px;
+      padding-left: 25px;
+      padding-right: 25px;
       padding-bottom: 0 !important;
+      .bar{
+        line-height: 40px;
+        width: 1005;
+        height: 40px;
+        margin-bottom: 20px;
+        padding-left: 1;
+        padding-right: 20px;
+        font-size: 18px;
+        color:white;
+        .nav{
+          width: 80%;
+          height: 40px;
+          float: right;
+          text-align: right;
+        }
+      }
       .main {
         flex: 1;
         width: 100%;

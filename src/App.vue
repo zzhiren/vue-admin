@@ -200,7 +200,7 @@ color: white!important;
   height: 100%!important;
 }
 .v-note-wrapper{
-  height:calc(100vh - 239px)!important;
+  height:calc(100vh - 230px)!important;
 }
 
 .op-icon.selected{

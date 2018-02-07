@@ -1,7 +1,7 @@
 <template lang="pug">
   div.write-blog
-    div.header.new
-        span 撰写新文章
+    //- div.header.new
+    //-     span 撰写新文章
     div.content
       div.header.blog-title
         span 文章标题
@@ -18,13 +18,12 @@
         input.input.perface(v-model="preface" v-bind:disabled="disabled" placeholder="输入前言...")
       div.tags
         span 文章标签  
-        div.tag(v-bind:class="{tag_active: checkedList.indexOf(item.aliasName) >= 0}" v-for="(item,index) in tags" @click="_checked(item.aliasName)" v-bind:key="index") {{item.aliasName}}
+        div.tag(v-bind:class="{tag_active: checkedList.indexOf(item.name) >= 0}" v-for="(item,index) in tags" @click="_checked(item.name)" v-bind:key="index") {{item.name}}
       div.mark-down
         //- mavon-edit(ref="mavonedit" :editable="editable" :content="details.content" v-if="details.content")
         mavon-editor(ref="mavonEditor" :editable="editable" :ishljs="false" @imgAdd="$imgAdd" @imgDel="$imgDel" @change="$change")
 </template>
 <script>
-import MavonEdit from "../common/vue/MavonEdit";
 import axios from "axios";
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
@@ -252,7 +251,6 @@ export default {
     }
   },
   components: {
-    MavonEdit,
     mavonEditor
   }
 };
@@ -416,13 +414,13 @@ $button-width: 50px;
   }
   .content {
     width: 100%;
-    padding: 14px;
+    // padding: 14px;
     background: #3f4347;
   }
   .title {
     width: 100%;
     display: flex;
-    margin-bottom: 7px;
+    // margin-bottom: 7px;
     .input {
       flex: 1;
     }
@@ -436,7 +434,7 @@ $button-width: 50px;
   }
   .mark-down {
     flex: 1;
-    margin-top: 7px;
+    // margin-top: 7px;
   }
 }
 </style>
