@@ -1,8 +1,6 @@
 <template lang="pug">
   div.user
     alert(ref="alert" @closeAlert="_showUploadDiv" @_setHeadPortrait="_setHeadPortrait")
-    div.bar
-      p 全局设置
     div.main(ref="content")
       div.base-set
         div.bar
@@ -194,8 +192,8 @@ export default {
     color: rgba(255, 255, 255, 0.5);
   }
   .main {
-    background: $three-bg;
-    padding: 14px;
+    background: $vice-bg;
+    // padding: 14px;
     display: flex;
     height: 100%;
     .bar {

@@ -14,7 +14,7 @@ export default {
 
   // 警告提示
   _warning(value, $vm) {
-    $vm.$Message.$Message.warning({
+    $vm.$Message.warning({
       content: value,
       duration: 4
     });

@@ -115,6 +115,13 @@ module.exports = {
           pathRewrite: {
             '^/savetag': '/savetag'
           }
+      },
+      '/deletetag':{
+          target:'http://127.0.0.1:30003',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/deletetag': '/deletetag'
+          }
       }
     },
 

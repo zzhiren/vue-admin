@@ -1,8 +1,7 @@
 <template lang="pug">
   div.tags
-    //- div.header 标签管理
     div.content
-      div.create-tag
+      div.create-tag.zoomIn
         div.title 添加标签
         div.main
           p.name 标签名称
@@ -18,11 +17,11 @@
         div.footer
           button.button(@click="_resetData()") 重置
           button.button(v-on:click="_saveTag()") 保存
-      div.tags-list
-        div.title
+      div.tags-list.zoomIn
+        div.title 标签列表
         div.bar
           div.two.one
-            div.common.click(@click="_refreshList(state)" v-model="state")
+            div.common.click(@click="")
               Icon.icon(type="android-refresh")
               span 刷新
             div.common.click 
@@ -33,9 +32,10 @@
               span 批量操作
           div.other
           div.three.one
-            input.search-input(v-model="condition" placeholder="文章标题、描述...")
+            input.search-input( placeholder="文章标题、描述...")
             button.search-btn 搜索
         div.items
+          confirm(:show="show" @_confirmDialog="_confirmDialog" @_deleteTag="_deleteTag")
           div.items-header
             div.id ID
             div.column-name 名称
@@ -58,9 +58,11 @@
                 span(v-if="item.svg === ''") --
               div.operation
                 div.box.bg-green(@click="_editTag(item)") 编辑标签
-                div.box.bg-red(@click="_deleteTag()") 删除标签
+                div.box.bg-red(@click="_confirmDialog('alert-show', item._id)") 删除标签
 </template>
 <script>
+import Confirm from "../common/vue/Confirm";
+
 export default {
   data() {
     return {
@@ -70,8 +72,13 @@ export default {
       icon: "",
       dsc: "",
       svg: "",
-      tags: []
+      tags: [],
+      show: "",
+      id: ""
     };
+  },
+  components: {
+    Confirm
   },
   mounted() {
     this._getTagsData();
@@ -126,10 +133,10 @@ export default {
             if (res.data.status === "1") {
               let nodesc = "保存失败😭！";
               this.$Notice._warning(nodesc, this);
-            }else if(res.data.status === '0'){
+            } else if (res.data.status === "0") {
               let nodesc = "保存成功😁！";
               this.$Notice._success(nodesc, this);
-              this._resetData()
+              this._resetData();
             }
           });
         }
@@ -144,13 +151,43 @@ export default {
       this.svg = value.svg;
       this.dsc = value.dsc;
     },
+    // 显示确认窗口
+    _confirmDialog(value, id) {
+      this.show = value;
+      if (value === "alert-close") {
+        this.id = "";
+      } else if (value === "alert-show") {
+        this.id = id;
+      }
+    },
     // 删除标签
-    _deleteTag() {}
+    _deleteTag() {
+      this.show = "alert-close";
+      this.$axios({
+        method: "get",
+        url: "/deletetag",
+        params: {
+          id: this.id
+        }
+      }).then(res => {
+        if (res.data.status === "0") {
+          let nodesc = "删除成功😁！";
+          this.$Notice._success(nodesc, this);
+          this.id = "";
+          this._getTagsData();
+        } else if (res.data.status === "1") {
+          let nodesc = "删除失败😭！";
+          this.$Notice._error(nodesc, this);
+        }
+      });
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "src/components/common/scss/base.scss";
+
+
 
 .tags {
   $height: 30px;
@@ -211,6 +248,7 @@ export default {
     min-height: 634px;
     display: flex;
     .create-tag {
+
       width: 350px;
       height: 634px;
       background: $three-bg;
@@ -259,6 +297,7 @@ export default {
     .tags-list {
       flex: 1;
       background: $three-bg;
+
       .bar {
         color: $font-color;
         $height: 30px;
@@ -403,6 +442,7 @@ export default {
         padding-right: 20px;
         padding-left: 20px;
         overflow: hidden;
+        position: relative;
         .items-header {
           width: 100%;
           height: 30px;
@@ -455,8 +495,8 @@ export default {
           justify-content: center;
           align-items: center;
           .box {
-            height: 30px;
-            line-height: 30px;
+            height: 26px;
+            line-height: 26px;
             width: 70px;
             opacity: 0.8;
             transition: opacity 0.5s linear;

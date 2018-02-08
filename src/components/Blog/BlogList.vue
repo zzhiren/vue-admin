@@ -37,7 +37,7 @@
         div.blog-love 状态
         div.blog-operation 操作
       div.blogs.scroll(ref='scroll')
-        div.blog-item(v-for="(item,index) in blogs" v-bind:key="item")
+        div.blog-item(v-for="(item,index) in blogs" v-bind:key="index")
           div.blog-id 
             span.span ID
           div.blog-title.item-title

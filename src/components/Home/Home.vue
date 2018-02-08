@@ -44,11 +44,10 @@ export default {
   },
   methods: {
     init() {
-      console.log(this.$refs.slide.style.height);
+      // console.log(this.$refs.slide.style.height);
     },
     _checked(state) {
       this.active = state;
-      console.log(this.active);
     }
   }
 };
@@ -57,6 +56,7 @@ export default {
 @import "src/components/common/scss/base.scss";
 $item-height: 34px;
 .home {
+  overflow: hidden;
   width: 100%;
   display: flex;
   flex-direction: column;

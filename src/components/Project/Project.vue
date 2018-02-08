@@ -2,7 +2,7 @@
   div.project
     //- div.header
     div.content
-      div.create-project
+      div.create-project.zoomIn
         div.title 添加项目
         div.main
           p.project-name 项目名称
@@ -18,7 +18,7 @@
         div.footer
           button.button 编辑
           button.button(v-on:click="_addGitHubProject()") 保存
-      div.project-list
+      div.project-list.zoomIn
         div.title 项目列表
         div.bar
           div.two.one
@@ -91,9 +91,6 @@ $font-color: rgba(255, 255, 255, 0.8);
   .content {
     display: flex;
     height: calc(100vh - 115px);
-    // padding-top: 14px;
-    // padding-left: 14px;
-    // padding-right: 14px;
     .input {
       border-radius: 2px;
       background-color: hsla(0, 0%, 57%, 0.2);

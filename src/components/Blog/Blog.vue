@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.blog
+  div.blog.fadeInRight
     div.header
       div.earth(v-if="state === 0")
         Icon.earth-icon(type="earth")
