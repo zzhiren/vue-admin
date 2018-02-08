@@ -2,7 +2,7 @@
   div.user
     alert(ref="alert" @closeAlert="_showUploadDiv" @_setHeadPortrait="_setHeadPortrait")
     div.main(ref="content")
-      div.base-set
+      div.base-set.zoomIn
         div.bar
           p 基础设置
         div.settings
@@ -27,7 +27,7 @@
         div.footer
           button.button 编辑
           button.button 保存
-      div.personal-set
+      div.personal-set.zoomIn
         div.bar
           p 个人设置
         div.settings(spellcheck="false")
@@ -173,7 +173,7 @@ export default {
     border: 1px solid hsla(0, 0%, 57%, 0.2) !important;
     transition: background-color 0.25s linear;
     caret-color: red;
-    color: rgba(255, 255, 255, 0.5);
+    color: $font-color;
     font-size: 14px;
     &:hover {
       background-color: hsla(0, 0%, 57%, 0.2);
@@ -184,27 +184,28 @@ export default {
   }
   .bar {
     width: 100%;
-    height: 40px;
+    height: 30px;
     background: $main-bg;
-    line-height: 40px;
-    font-size: 17px;
+    line-height: 30px;
+    font-size: 14px;
     padding-left: 15px;
-    color: rgba(255, 255, 255, 0.5);
+    color: $font-color;
+    margin-bottom: 18px;
   }
   .main {
     background: $vice-bg;
     // padding: 14px;
     display: flex;
     height: 100%;
-    .bar {
-      height: 34px;
-      font-size: 14px;
-      line-height: 34px;
-      margin-bottom: 18px;
-    }
+    // .bar {
+    //   height: 30px;
+    //   font-size: 14px;
+    //   line-height: 30px;
+    //   margin-bottom: 18px;
+    // }
     .base-set {
       flex: 1;
-      background: $vice-bg;
+      background: $three-bg;
       margin-right: 14px;
       display: flex;
       flex-direction: column;
@@ -220,7 +221,7 @@ export default {
       }
       .item {
         margin-bottom: 20px;
-        color: white;
+        color: $font-color;
         display: flex;
         position: relative;
         .title {
@@ -246,7 +247,7 @@ export default {
           margin-right: 30px;
           transition: background-color 0.25s linear;
           caret-color: red;
-          color: rgba(255, 255, 255, 0.5);
+          color: $font-color;
           font-size: 14px;
           &:hover {
             background-color: hsla(0, 0%, 57%, 0.2);
@@ -271,13 +272,14 @@ export default {
         line-height: 34px;
         text-align: center;
         border: 0;
-        color: white;
+        color: $font-color;
         outline-color: $main-bg;
+        letter-spacing: 10px;
         &:hover {
           cursor: pointer;
         }
         &:active {
-          background: #0088f5;
+          background: black;
         }
         &:nth-child(1) {
           margin-right: 20px;
@@ -288,13 +290,13 @@ export default {
       flex: 1;
       display: flex;
       flex-direction: column;
-      background: $vice-bg;
+      background: $three-bg;
       .me {
         display: flex;
         height: 74px;
         margin-left: 30px;
         font-size: 14px;
-        color: white;
+        color:  $font-color;
         margin-bottom: 45px;
         .me-span {
           flex: 0.15;

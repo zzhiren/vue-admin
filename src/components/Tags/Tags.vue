@@ -186,12 +186,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "src/components/common/scss/base.scss";
-
-
-
 .tags {
   $height: 30px;
-  $font-color: rgba(255, 255, 255, 0.8);
   $input-bg: hsla(0, 0%, 57%, 0.2);
   .input {
     width: 100%;
@@ -248,9 +244,9 @@ export default {
     min-height: 634px;
     display: flex;
     .create-tag {
-
       width: 350px;
       height: 634px;
+      min-width: 250px;
       background: $three-bg;
       margin-right: 20px;
       .main {
@@ -297,7 +293,6 @@ export default {
     .tags-list {
       flex: 1;
       background: $three-bg;
-
       .bar {
         color: $font-color;
         $height: 30px;
@@ -310,7 +305,6 @@ export default {
         margin-bottom: 14px;
         padding-right: 20px;
         display: flex;
-
         .icon {
           font-size: 13px;
           margin-right: 10px;
@@ -364,7 +358,6 @@ export default {
           float: right;
           border: 0 !important;
           z-index: 2;
-
           .search-input {
             width: 300px;
             height: 100%;
@@ -452,16 +445,24 @@ export default {
           padding-right: 6px;
         }
         .main {
-          overflow: auto;
+          overflow: hidder!important;
           height: calc(100vh - 235px);
         }
         .item {
           display: flex;
           background: #3f4347;
           height: 60px;
-          line-height: 60px;
+          line-height: 60px;       
+          &:nth-child(1n) {
+            backface-visibility: visible !important;
+            animation-duration: 1s;
+            animation-name: fadeInLeft;
+          }
           &:nth-child(2n) {
             background: #393d41;
+            backface-visibility: visible !important;
+            animation-duration: 1s;
+            animation-name: fadeInRight;
           }
         }
         .column-name {
@@ -484,7 +485,7 @@ export default {
           text-align: left;
           color: $font-color;
           width: 300px;
-          margin-right: 15px;
+          // margin-right: 15px;
         }
         .operation {
           text-align: center;

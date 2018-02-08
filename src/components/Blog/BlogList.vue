@@ -2,11 +2,11 @@
   div.blog-list(ref="bloglistH")
     div.main
       div.bar
-        div.one
+        div.one.fadeInLeft
           div.common(@click="_screening('all')" v-bind:class="{one_active: state == 'all'}") 全部[{{allTotal}}]
           div.common(@click="_screening('0')" v-bind:class="{one_active: state == '0'}") 已发布[{{postTotal}}]
           div.common(@click="_screening('1')" v-bind:class="{one_active: state == '1'}") 草稿[{{draftTotal}}]
-        div.two.one
+        div.two.one.fadeInLeft
           div.common.click(@click="_refreshList(state)" v-model="state")
             Icon.icon(type="android-refresh")
             span 刷新
@@ -17,7 +17,7 @@
             Icon.icon(type="ios-list")
             span 批量操作
         div.other
-        div.three.one
+        div.three.one.fadeInRight
           div.common.all-types
             span.span 所有分类
             div.item
@@ -152,15 +152,24 @@ export default {
       this.page = 1;
       if (value == "all") {
         this._getAllBlogs();
-        this.blogs = this.allBlogs;
+        this.blogs = [];
+        setTimeout(() => {
+          this.blogs = this.allBlogs;
+        }, 1);
         this.total = this.allTotal;
       } else if (value == "0") {
         this._getPostedBlogs();
-        this.blogs = this.postedBlogs;
+        this.blogs = [];
+        setTimeout(() => {
+          this.blogs = this.postedBlogs;
+        }, 1);
         this.total = this.postTotal;
       } else if (value == "1") {
         this._getDraftBlogs();
-        this.blogs = this.draftBlogs;
+        this.blogs = [];
+        setTimeout(() => {
+          this.blogs = this.draftBlogs;
+        }, 1);
         this.total = this.draftTotal;
       }
     },
@@ -220,7 +229,6 @@ export default {
         this.draftBlogs = res.data.data;
         if (this.state == "1") {
           this.blogs = this.draftBlogs;
-          // this.draftTotal = res.data.total;
         }
         this.draftTotal = res.data.total;
       });
@@ -278,12 +286,13 @@ $blog-item-h: 150px;
   transition: transform 1s;
 }
 .blog-list {
-  overflow: auto;
+  overflow-x: hidden;
   height: 100%;
   .main {
     padding: 14px 20px 0 20px;
     background: #474b51;
     box-sizing: border-box;
+    min-width: 1180px;
     .bar {
       height: 30px;
       margin-bottom: 14px;
@@ -494,7 +503,7 @@ $blog-item-h: 150px;
       opacity: 0.8;
       width: 65px;
       font-size: 12px;
-      transition: opacity .5s linear;
+      transition: opacity 0.5s linear;
       &:hover {
         opacity: 1;
         cursor: pointer;
@@ -517,21 +526,24 @@ $blog-item-h: 150px;
     }
   }
   .blogs {
-    overflow-y: auto;
-    overflow-x: hidden;
+    
     height: calc(100vh - 233px);
     .blog-item {
-      // width: calc(100vw - 214px) !important;
       height: $blog-item-h;
       background: #3f4347;
       display: flex;
       box-sizing: border-box;
-      // -webkit-transition: $hover-bg;
-      // transition: $hover-bg;
-      // transition: all 1s;
       overflow-x: hidden;
+      &:nth-child(1n) {
+        backface-visibility: visible !important;
+        animation-duration: 1s;
+        animation-name: fadeInLeft;
+      }
       &:nth-child(2n) {
         background: #393d41;
+        backface-visibility: visible !important;
+        animation-duration: 1s;
+        animation-name: fadeInRight;
       }
       &:hover #img {
         transform: translateX(-10px);

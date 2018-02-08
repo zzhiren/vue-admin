@@ -29,7 +29,7 @@
         div.bar
           span 标签管理
           div.nav 31313
-        div.main
+        div.main.scroll
           router-view
 </template>
 <script>
@@ -200,6 +200,8 @@ $item-height: 34px;
         flex: 1;
         width: 100%;
         box-sizing: border-box;
+        overflow-x: auto;
+        overflow-y: hidden;
       }
     }
   }

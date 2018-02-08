@@ -1,6 +1,6 @@
 <template lang="pug">
-  div.blog.fadeInRight
-    div.header
+  div.blog
+    div.header.fadeInLeft
       div.earth(v-if="state === 0")
         Icon.earth-icon(type="earth")
       div.back(v-if="state === 1" @click="changeState(0)")
@@ -105,6 +105,7 @@ export default {
   }
   .content {
     flex: 1;
+    overflow: hidden;
   }
 }
 </style>

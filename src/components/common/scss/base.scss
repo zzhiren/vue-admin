@@ -23,6 +23,7 @@ $bg-dark-one: #282c34;
 $color-green: #42b983;
 $translateY-40:translateY(-40px);
 $blue: #0088f5;
+$font-color: rgba(255, 255, 255, 0.8);
 .red{
   color: #e64c3c;
 }
@@ -58,7 +59,7 @@ $blue: #0088f5;
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 6px;
-    height: 16px;
+    height: 6px;
     background-color: #393d41;
     opacity: 1;
   }
@@ -95,23 +96,6 @@ $blue: #0088f5;
   animation-duration: 1s;
 }
 
-@keyframes slideInRight {
-  from {
-    transform: translate3d(100%, 0, 0);
-    visibility: visible;
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.slideInRight {
-  animation-name: slideInRight;
-  backface-visibility: visible !important;
-  animation-duration: 1s;
-}
-
 @keyframes fadeInRight {
   from {
     opacity: 0;
@@ -128,4 +112,40 @@ $blue: #0088f5;
   backface-visibility: visible !important;
   animation-duration: 1s;
   animation-name: fadeInRight;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInLeft {
+  animation-name: fadeInLeft;
+  backface-visibility: visible !important;
+  animation-duration: 1s;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+  backface-visibility: visible !important;
+  animation-duration: 1s;
 }

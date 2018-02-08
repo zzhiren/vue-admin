@@ -13,13 +13,14 @@ export default {
 </script>
 
 <style lang="scss">
+@import "src/components/common/scss/base.scss";
 #app {
+  color: $font-color;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   background-color: #282c34;
-  overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 5px;
     height: 16px;
