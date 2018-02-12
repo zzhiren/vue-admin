@@ -4,22 +4,22 @@
     //-     span 撰写新文章
     div.content
       div.header.blog-title
-        span 文章标题
+        span.fadeInLeft 文章标题
         input.input.title-input(v-model="title" v-bind:disabled="disabled" placeholder="输入标题...")
-        div.button
+        div.button.fadeInRight
           div.release.btn-hover.green(@click="_editBlog()") 编辑文章
             //- Icon.iview-icon(type="ios-compose")
           div.release.btn-hover.blue(@click="_saveBlog(0)") 发布文章
             //- Icon.iview-icon(type="ios-paperplane")
           div.save.btn-hover.red(@click="_saveBlog(1)") 移至草稿
             //- Icon.iview-icon(type="ios-box")
-      div.header
+      div.header.fadeInLeft
         span 文章前言
         input.input.perface(v-model="preface" v-bind:disabled="disabled" placeholder="输入前言...")
       div.tags
-        span 文章标签  
-        div.tag(v-bind:class="{tag_active: checkedList.indexOf(item.name) >= 0}" v-for="(item,index) in tags" @click="_checked(item.name)" v-bind:key="index") {{item.name}}
-      div.mark-down
+        span.fadeInLeft 文章标签  
+        div.tag.fadeInRight(v-bind:class="{tag_active: checkedList.indexOf(item.name) >= 0}" v-for="(item,index) in tags" @click="_checked(item.name)" v-bind:key="index") {{item.name}}
+      div.mark-down.fadeInUp
         //- mavon-edit(ref="mavonedit" :editable="editable" :content="details.content" v-if="details.content")
         mavon-editor(ref="mavonEditor" :editable="editable" :ishljs="false" @imgAdd="$imgAdd" @imgDel="$imgDel" @change="$change")
 </template>

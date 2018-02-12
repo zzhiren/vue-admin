@@ -5,6 +5,7 @@ import axios from 'axios'
 import iView from 'iview'
 import store from './store/'
 import './components/common/css/iview.css';
+import './components/common/css/animate.css';
 import Notice from "./utils/Notice.js"
 Vue.use(iView)
 

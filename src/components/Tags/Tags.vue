@@ -110,7 +110,7 @@ export default {
     },
     // 保存标签
     _saveTag() {
-      if (this.name === " " || this.aliasName === " " || this.dsc === " ") {
+      if (this.name === "" || this.aliasName === "" || this.dsc === "") {
         let nodesc = "标签名称 && 别名 && 描述 !== ' '";
         this.$Notice._warning(nodesc, this);
       } else {

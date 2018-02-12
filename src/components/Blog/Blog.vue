@@ -1,11 +1,12 @@
 <template lang="pug">
   div.blog
-    div.header.fadeInLeft
-      div.earth(v-if="state === 0")
-        Icon.earth-icon(type="earth")
-      div.back(v-if="state === 1" @click="changeState(0)")
-        Icon.back-icon(type="ios-arrow-back")
-      div.other
+    div.header.fadeInLeft 
+      //- div.earth(v-if="state === 0")
+      //-   Icon.earth-icon(type="android-home")
+      //- div.back(v-if="state === 1" @click="changeState(0)")
+      //-   Icon.back-icon(type="ios-arrow-back")
+      //- div.other
+      span 博客列表
       router-link.write-blog(tag="div"  to="/home/writeblog/create" @click.native="changeState(1)")
         Icon.icon(type="edit")
     div.content
@@ -38,68 +39,35 @@ export default {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow: hidden;
   .header {
-    height: 35px;
-    display: flex;
-    // background: $main-bg;
+    height: 30px;
+    // display: flex;
     width: 100%;
-    .earth {
-      width: 35px;
-      background: $main-bg;
-      font-size: 24px;
-      line-height: 35px;
-      text-align: center;
-      color: white;
-      &:hover {
-        cursor: pointer;
-      }
-      .earth-icon {
-        transition: transform 1s linear;
-      }
-      &:hover .earth-icon {
-        cursor: pointer;
-        transform: rotateY(360deg);
-      }
-    }
-    .back {
-      width: 40px;
-      border-right: 1px solid black;
-      width: 40px;
-      // background: black;
-      font-size: 24px;
-      line-height: 40px;
-      text-align: center;
-      color: white;
-      &:hover {
-        cursor: pointer;
-      }
-      &:hover .back-icon {
-        cursor: pointer;
-        transform: rotateX(360deg);
-      }
-      .back-icon {
-        color: white;
-        transition: transform 1s linear;
-      }
-    }
-    .other {
-      flex: 1;
-      background: $main-bg;
-    }
+    background: $main-bg;
+    font-size: 14px;
+    color: $font-color;
+    line-height: 30px;
+    padding-left: 10px;
     .write-blog {
-      width: 35px;
-      // background: red;
+      width: 30px;
+      float: right;
       text-align: center;
       transition: $transition;
       background-color: rgba(0, 0, 0, 0.9);
+      z-index: 999;
       &:hover {
-        transform: $transform-360;
         cursor: pointer;
       }
       .icon {
-        line-height: 35px;
-        font-size: 20px;
+        line-height: 30px;
+        font-size: 18px;
         color: white;
+        transition: $transition;
+        &:hover {
+          transform: $transform-360;
+          cursor: pointer;
+        }
       }
     }
   }
