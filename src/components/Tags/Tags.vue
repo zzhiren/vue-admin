@@ -33,7 +33,7 @@
           div.other
           div.three.one
             input.search-input( placeholder="文章标题、描述...")
-            button.search-btn 搜索
+            div.search-btn 搜索
         div.items
           confirm(:show="show" @_confirmDialog="_confirmDialog" @_deleteTag="_deleteTag")
           div.items-header
@@ -74,7 +74,6 @@ export default {
       svg: "",
       tags: [],
       show: "",
-      id: ""
     };
   },
   components: {
@@ -320,11 +319,7 @@ export default {
           .one_active {
             background: #393d41 !important;
           }
-          .click {
-            &:active {
-              background: black;
-            }
-          }
+          
           div {
             &:hover {
               cursor: pointer;
@@ -379,26 +374,6 @@ export default {
               background-color: hsla(0, 0%, 57%, 0.1);
             }
           }
-          .search-btn {
-            width: 80px;
-            border: $border;
-            border-left: 0 !important;
-            padding-left: 10px;
-            padding-right: 10px;
-            font-size: 12px;
-            background: $main-bg;
-            color: white;
-            border-top-right-radius: 2px;
-            border-bottom-right-radius: 2px;
-            outline-color: $main-bg;
-            &:hover {
-              cursor: pointer;
-            }
-            &:active {
-              background: black;
-            }
-          }
-
           .all-types {
             height: 30px !important;
             padding-left: 13px;

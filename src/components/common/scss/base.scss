@@ -78,4 +78,30 @@ $font-color: rgba(255, 255, 255, 0.8);
     }
   }
 }
+.click {
+  &:active {
+    background: black!important;
+  }
+}
 
+.search-btn {
+  width: 80px;
+  border: 1px solid rgba(0, 0, 0, 0.65);
+  border-left: 0 !important;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  background: $main-bg;
+  color: white;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  text-align: center;
+  line-height: 28px;
+  // letter-spacing: 4px;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    background: black!important;
+  }
+}

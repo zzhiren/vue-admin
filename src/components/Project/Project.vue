@@ -22,7 +22,7 @@
         div.title 项目列表
         div.bar
           div.two.one
-            div.common.click(@click="_refreshList(state)" v-model="state")
+            div.common(@click="_refreshList(state)" v-model="state")
               Icon.icon(type="android-refresh")
               span 刷新
             div.common.click 
@@ -34,20 +34,61 @@
           div.other
           div.three.one
             input.search-input(v-model="condition" placeholder="文章标题、描述...")
-            button.search-btn 搜索
-        div.tags
+            div.search-btn 搜索
+        div.items
+          confirm(:show="show" :title="confirm_title" @_confirmDialog="_confirmDialog" @_deleteTag="_deleteTag")
+          div.items-header
+            div.id ID
+            div.column-name 名称
+            div.dsc 描述
+            div.count Star
+            div.count Fork
+            div.count Issue
+            div.operation 操作
+          div.main.scroll
+            div.item(v-for="(item,index) in projects" v-bind:key="index")
+              div.id ID
+              div.column-name {{item.name}}
+              div.dsc {{item.description}}
+              div.count {{item.stargazers_count}}
+              div.count {{item.forks_count}}
+              div.count {{item.open_issues}}
+              div.operation
+                div.box.bg-green(@click="") 编辑标签
+                div.box.bg-red(@click="_confirmDialog('alert-show', item._id)") 删除标签
 </template>
 <script>
+import Confirm from "../common/vue/Confirm";
+
 export default {
   data() {
     return {
       projectName: "",
       projectUrl: "",
       projectDsc: "",
-      projectIcon: ""
+      projectIcon: "",
+      projects: [],
+      show: "",
+      confirm_title:""
     };
   },
+  components: {
+    Confirm
+  },
+  mounted() {
+    this._getGitHubProject();
+  },
   methods: {
+    // 获取GitHub项目数据
+    _getGitHubProject() {
+      this.$axios({
+        method: "get",
+        url: "/getgithubproject"
+      }).then(res => {
+        this.projects = res.data.data;
+      });
+    },
+    // 添加GitHub项目
     _addGitHubProject() {
       if (this.projectName == "") {
         let nodesc = "项目名称 !== ''🙂";
@@ -72,7 +113,16 @@ export default {
           }
         });
       }
-    }
+    },
+    // 显示确认窗口
+    _confirmDialog(value, id) {
+      this.show = value;
+      if (value === "alert-close") {
+        this.id = "";
+      } else if (value === "alert-show") {
+        this.id = id;
+      }
+    },
   }
 };
 </script>
@@ -150,7 +200,7 @@ $font-color: rgba(255, 255, 255, 0.8);
       .main {
         width: 100%;
         padding: 20px;
-        
+
         .project-name {
           margin-bottom: 7px;
           font-size: 12px;
@@ -278,25 +328,6 @@ $font-color: rgba(255, 255, 255, 0.8);
               background-color: hsla(0, 0%, 57%, 0.1);
             }
           }
-          .search-btn {
-            width: 80px;
-            border: $border;
-            border-left: 0 !important;
-            padding-left: 10px;
-            padding-right: 10px;
-            font-size: 12px;
-            background: $main-bg;
-            color: white;
-            border-top-right-radius: 2px;
-            border-bottom-right-radius: 2px;
-            outline-color: $main-bg;
-            &:hover {
-              cursor: pointer;
-            }
-            &:active {
-              background: #0088f5;
-            }
-          }
 
           .all-types {
             height: 30px !important;
@@ -325,6 +356,104 @@ $font-color: rgba(255, 255, 255, 0.8);
               position: fixed;
               background: $main-bg;
               transition: height 0.25s linear;
+            }
+          }
+        }
+      }
+      .items {
+        width: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+        overflow: hidden;
+        position: relative;
+        .items-header {
+          width: 100%;
+          height: 30px;
+          line-height: 30px;
+          background: #393d41;
+          display: flex;
+          padding-right: 6px;
+        }
+        .main {
+          overflow: hidder !important;
+          height: calc(100vh - 235px);
+        }
+        .item {
+          display: flex;
+          background: #3f4347;
+          height: 60px;
+          line-height: 60px;
+          &:nth-child(1n) {
+            backface-visibility: visible !important;
+            animation-duration: 1s;
+            animation-name: fadeInLeft;
+          }
+          &:nth-child(2n) {
+            background: #393d41;
+            backface-visibility: visible !important;
+            animation-duration: 1s;
+            animation-name: fadeInRight;
+          }
+        }
+        .column-name {
+          // flex: 1;
+          width: 200px;
+          text-align: left;
+          color: $font-color;
+        }
+        .count {
+          // width: 150px;
+          flex: 1;
+          text-align: center;
+          color: $font-color;
+        }
+        .id {
+          text-align: left;
+          color: $font-color;
+          width: 100px;
+          padding-left: 20px;
+        }
+        .item-icon {
+          text-align: left;
+          color: $font-color;
+          width: 200px;
+        }
+        .dsc {
+          text-align: left;
+          color: $font-color;
+          width: 350px;
+          // flex: 1;
+          // margin-right: 15px;
+        }
+        .operation {
+          text-align: center;
+          color: $font-color;
+          width: 180px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          .box {
+            height: 26px;
+            line-height: 26px;
+            width: 70px;
+            opacity: 0.8;
+            transition: opacity 0.5s linear;
+            user-select: none;
+            &:nth-child(1) {
+              border-top-left-radius: 4px;
+              border-bottom-left-radius: 4px;
+            }
+            &:nth-child(2) {
+              border-top-right-radius: 4px;
+              border-bottom-right-radius: 4px;
+            }
+            &:hover {
+              cursor: pointer;
+              opacity: 1;
+            }
+            &:active {
+              opacity: 0.7 !important;
             }
           }
         }

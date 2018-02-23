@@ -4,7 +4,7 @@ div
   div.confirm(v-bind:class="[show]")
     div.data
       Icon.icon(type="alert")
-      span 确认删除该内容吗？
+      span 确认删除{{title}}吗？
     div.button(@click="_confirmDel()") 确认
       //- Icon.icon(type="checkmark")
 </template>
@@ -12,6 +12,10 @@ div
 export default {
   props: {
     show: {
+      type: String,
+      default: ""
+    },
+    title: {
       type: String,
       default: ""
     }

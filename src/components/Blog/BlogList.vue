@@ -25,7 +25,7 @@
             span.span 所有标签
             div.item
           input.search-input(v-model="condition" placeholder="文章标题、描述...")
-          button.search-btn 搜索
+          div.search-btn 搜索
       div.list-header
         div.blog-id ID
         div.blog-title 文章
@@ -377,25 +377,25 @@ $blog-item-h: 150px;
             background-color: hsla(0, 0%, 57%, 0.1);
           }
         }
-        .search-btn {
-          width: 80px;
-          border: $border;
-          border-left: 0 !important;
-          padding-left: 10px;
-          padding-right: 10px;
-          font-size: 14px;
-          background: $main-bg;
-          color: white;
-          border-top-right-radius: 2px;
-          border-bottom-right-radius: 2px;
-          outline-color: $main-bg;
-          &:hover {
-            cursor: pointer;
-          }
-          &:active {
-            background: #0088f5;
-          }
-        }
+        // .search-btn {
+        //   width: 80px;
+        //   border: $border;
+        //   border-left: 0 !important;
+        //   padding-left: 10px;
+        //   padding-right: 10px;
+        //   font-size: 14px;
+        //   background: $main-bg;
+        //   color: white;
+        //   border-top-right-radius: 2px;
+        //   border-bottom-right-radius: 2px;
+        //   outline-color: $main-bg;
+        //   &:hover {
+        //     cursor: pointer;
+        //   }
+        //   &:active {
+        //     background: #0088f5;
+        //   }
+        // }
 
         .all-types {
           height: 30px !important;
