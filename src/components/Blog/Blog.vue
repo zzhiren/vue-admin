@@ -51,6 +51,7 @@ export default {
     padding-left: 10px;
     .write-blog {
       width: 30px;
+      height: 100%;
       float: right;
       text-align: center;
       transition: $transition;

@@ -3,8 +3,10 @@ div
   div.mask(v-if="show === 'alert-show'" @click="_closeDialog('alert-close')")
   div.confirm(v-bind:class="[show]")
     div.data
-      Icon.icon(type="alert")
-      span 确认删除{{title}}吗？
+      //- Icon.icon(type="alert")
+      span 确认删除
+      span {{title}}
+      span 吗？
     div.button(@click="_confirmDel()") 确认
       //- Icon.icon(type="checkmark")
 </template>
@@ -25,7 +27,7 @@ export default {
       this.$emit("_confirmDialog", value);
     },
     _confirmDel(){
-      this.$emit("_deleteTag")
+      this.$emit("_confirmDel")
     }
   }
 };
@@ -34,7 +36,8 @@ export default {
 @import "src/components/common/scss/base.scss";
 
 .confirm {
-  width: 300px;
+  min-width: 280px;
+  max-width: 400px;
   height: 80px;
   background: rgba(35, 40, 46, 0.95);
   position: absolute;
@@ -51,12 +54,14 @@ export default {
     user-select: none;
   
   .icon {
-    color: red;
+    // color: red;
     margin-right: 20px;
     font-size: 20px;
   }
   .data {
     flex: 1;
+    // padding-left: 20px;
+    // padding-right: 20px;
     text-align: center;
     line-height: 100%;
     font-size: 17px;
@@ -67,7 +72,7 @@ export default {
     align-items: center;
   }
   .button {
-    width: 100%;
+    // width: 100%;
     height: 30px;
     line-height: 30px;
     text-align: center;

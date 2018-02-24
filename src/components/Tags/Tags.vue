@@ -35,7 +35,7 @@
             input.search-input( placeholder="文章标题、描述...")
             div.search-btn 搜索
         div.items
-          confirm(:show="show" @_confirmDialog="_confirmDialog" @_deleteTag="_deleteTag")
+          confirm(:show="show" :title="confirm_title" @_confirmDialog="_confirmDialog" @_confirmDel="_confirmDel")
           div.items-header
             div.id ID
             div.column-name 名称
@@ -58,7 +58,7 @@
                 span(v-if="item.svg === ''") --
               div.operation
                 div.box.bg-green(@click="_editTag(item)") 编辑标签
-                div.box.bg-red(@click="_confirmDialog('alert-show', item._id)") 删除标签
+                div.box.bg-red(@click="_confirmDialog('alert-show', item._id,item.name)") 删除标签
 </template>
 <script>
 import Confirm from "../common/vue/Confirm";
@@ -74,6 +74,7 @@ export default {
       svg: "",
       tags: [],
       show: "",
+      confirm_title:""
     };
   },
   components: {
@@ -151,16 +152,17 @@ export default {
       this.dsc = value.dsc;
     },
     // 显示确认窗口
-    _confirmDialog(value, id) {
+    _confirmDialog(value, id,name) {
       this.show = value;
       if (value === "alert-close") {
         this.id = "";
       } else if (value === "alert-show") {
         this.id = id;
+        this.confirm_title = "'"+name+"'标签";
       }
     },
     // 删除标签
-    _deleteTag() {
+    _confirmDel() {
       this.show = "alert-close";
       this.$axios({
         method: "get",
@@ -319,7 +321,7 @@ export default {
           .one_active {
             background: #393d41 !important;
           }
-          
+
           div {
             &:hover {
               cursor: pointer;
@@ -420,14 +422,14 @@ export default {
           padding-right: 6px;
         }
         .main {
-          overflow: hidder!important;
+          overflow: hidder !important;
           height: calc(100vh - 235px);
         }
         .item {
           display: flex;
           background: #3f4347;
           height: 60px;
-          line-height: 60px;       
+          line-height: 60px;
           &:nth-child(1n) {
             backface-visibility: visible !important;
             animation-duration: 1s;

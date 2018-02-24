@@ -32,7 +32,8 @@ const router = new Router({
       redirect: '/home/blog',
       component: Home,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        name:"首页"
       },
       children: [
         {
@@ -41,7 +42,8 @@ const router = new Router({
           redirect: '/home/blog/bloglist',
           component: Blog,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            name:"博客管理"
           },
           children: [
             {
@@ -49,10 +51,10 @@ const router = new Router({
               name: 'bloglist',
               component: BlogList,
               meta: {
-                requiresAuth: true
+                requiresAuth: true,
+                name:"博客管理"
               },
             },
-
           ]
         },
         {
@@ -60,36 +62,40 @@ const router = new Router({
           name: 'writeblog',
           component: WriteBlog,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            name: '创建博客'
           },
         },
         {
-          path: '/user',
+          path: 'user',
           name: 'User',
           component: User,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            name:"用户管理"
           },
         },
         {
-          path: '/project',
+          path: 'project',
           name: 'Project',
           component: Project,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            name:"项目管理"
           },
         },
         {
-          path: '/tags',
+          path: 'tags',
           name: 'Tags',
           component: Tags,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            name:"标签管理"
           },
         }
       ]
     },
-    
+
 
   ]
 });
@@ -97,9 +103,21 @@ const router = new Router({
 // 注册全局钩子用来拦截导航
 router.beforeEach((to, from, next) => {
   // 获取store里面的token
+  let routeList = []
   let token = store.state.token
   if (to.meta.requiresAuth) {
     if (token) {
+      let index = routeList.indexOf(to.name)
+      if (index !== -1) {
+        //如果存在路由列表，则把之后的路由都删掉
+        routeList.splice(index + 1, routeList.length - index - 1)
+      } else {
+        let params = {};
+        params.route_link = to.name;
+        params.name = to.meta.name;
+        routeList.push(params)
+      }
+      to.meta.routeList = routeList
       next();
     } else {
       next({
@@ -110,6 +128,13 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-})
+});
+
+// router.beforeEach((to, from, next) => {
+//   next(vm => {
+//     vm.routeList = to.meta.routeList;
+//     console.log(vm.routeList);
+//   });
+// })
 
 export default router;

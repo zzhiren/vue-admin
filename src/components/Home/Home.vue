@@ -1,9 +1,18 @@
 <template lang="pug">
   div.home
     div.top-header
+      div.website Zzhiren.xyz
+      div.search
+      div.notice
+        Badge.badge(dot count="1")
+          Icon.chat(type="chatbox")
+        Badge.badge(dot count="1")
+          Icon.heart(type="android-favorite")
+        div.user
+          img(src="../../assets/me960x960.jpg")
     div.container
       div.slide(ref="slide")
-        router-link.user(tag="div" to="/user" @click.native="_checked('user')" v-bind:class="{active: active === 'user'}")
+        router-link.user(tag="div" to="/home/user" @click.native="_checked('user')" v-bind:class="{active: active === 'user'}")
           div.me-pic
             img(src="../../assets/me960x960.jpg")
           p.name Zzhiren
@@ -15,20 +24,22 @@
               Icon.icon(type="ios-compose")        
             div.icon-name
               span 博客管理
-          router-link.nav-item(to="/tags" tag="div" @click.native="_checked('tags')" v-bind:class="{active: active === 'tags'}")
+          router-link.nav-item(to="/home/tags" tag="div" @click.native="_checked('tags')" v-bind:class="{active: active === 'tags'}")
             div.icon
               Icon.icon(type="ios-pricetags")        
             div.icon-name
               span 标签管理
-          router-link.nav-item(to="/project" tag="div" @click.native="_checked('project')" v-bind:class="{active: active === 'project'}")
+          router-link.nav-item(to="/home/project" tag="div" @click.native="_checked('project')" v-bind:class="{active: active === 'project'}")
             div.icon
               Icon.icon(type="folder")         
             div.icon-name
               span 项目管理
       div.content
         div.bar
-          span 标签管理
-          div.nav 31313
+          span {{title}}
+          span
+            router-link.nav(:to="item.route_link" tag="span" @click.native="_checked('blog')" v-for="(item,index) in routeList") {{item.name}} 
+            router-link.nav(to="/home" tag="span" @click.native="_checked('blog')" ) / 首页
         div.main.scroll
           router-view
 </template>
@@ -36,15 +47,27 @@
 export default {
   data() {
     return {
-      active: "blog"
+      active: "blog",
+      routeList: [],
+      title: ""
     };
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.routeList = to.meta.routeList;
+    next();
+    this.title = this.$route.meta.name;
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.routeList = to.meta.routeList;
+    });
   },
   mounted() {
     this.init();
   },
   methods: {
     init() {
-      // console.log(this.$refs.slide.style.height);
+      this.title = this.$route.meta.name;
     },
     _checked(state) {
       this.active = state;
@@ -65,10 +88,50 @@ $item-height: 34px;
   .top-header {
     width: 100%;
     height: $item-height;
+    line-height: $item-height;
     background: $main-bg;
     box-shadow: $box-bottom-shadow;
     z-index: 9999;
     position: fixed;
+    display: flex;
+    .website {
+      width: 140px;
+      text-align: center;
+      font-size: 16px;
+      color: white;
+      font-family: 'Aldrich', sans-serif;
+    }
+    .search {
+      flex: 1;
+    }
+    .notice {
+      // width: 150px;
+      .badge {
+        margin-right: 25px;
+        font-size: 15px;
+        color: $font-color;
+        cursor: pointer;
+        .heart {
+          color: $color-green;
+        }
+        .chat {
+          color: $blue;
+        }
+      }
+      .user {
+        float: right;
+        cursor: pointer;
+        margin-right: 25px;
+        width: 34px;
+        height: 34px;
+        padding: 3px;
+        img {
+          width: 28px;
+          height: 28px;
+          border-radius: 14px;
+        }
+      }
+    }
   }
   .container {
     width: 100%;
@@ -124,6 +187,7 @@ $item-height: 34px;
           font-size: 16px;
           font-weight: bold;
           color: white;
+          font-family: 'Aldrich', sans-serif;
         }
         .motto {
           color: white;
@@ -131,6 +195,7 @@ $item-height: 34px;
           margin-top: 8px;
           padding-left: 5px;
           padding-right: 5px;
+          font-family: 'Aldrich', sans-serif;
         }
       }
       .nav-list {
@@ -152,7 +217,7 @@ $item-height: 34px;
             background: rgba(100, 100, 100, 0.2);
           }
           .icon {
-            font-size: 14px!important;
+            font-size: 14px !important;
             color: #cccdd3;
             line-height: $item-height;
             margin-right: 8px;
@@ -180,20 +245,31 @@ $item-height: 34px;
       padding-left: 25px;
       padding-right: 25px;
       padding-bottom: 0 !important;
-      .bar{
+      .bar {
         line-height: 40px;
         width: 1005;
         height: 40px;
         margin-bottom: 20px;
-        padding-left: 1;
+        padding-left: 20px;
         padding-right: 20px;
-        font-size: 18px;
-        color:white;
-        .nav{
-          width: 80%;
+        font-size: 20px;
+        color: $font-color;
+        text-align: right;
+        display: flex;
+        span {
+          flex: 1;
+          letter-spacing: 2px;
+          cursor: pointer;
+          &:nth-child(1) {
+            text-align: left;
+          }
+        }
+        .nav {
           height: 40px;
-          float: right;
-          text-align: right;
+          text-align: left;
+          &:nth-child(1) {
+            color: $blue;
+          }
         }
       }
       .main {

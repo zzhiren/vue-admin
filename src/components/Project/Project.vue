@@ -22,7 +22,7 @@
         div.title 项目列表
         div.bar
           div.two.one
-            div.common(@click="_refreshList(state)" v-model="state")
+            div.common.click(@click="_refreshList()")
               Icon.icon(type="android-refresh")
               span 刷新
             div.common.click 
@@ -36,7 +36,7 @@
             input.search-input(v-model="condition" placeholder="文章标题、描述...")
             div.search-btn 搜索
         div.items
-          confirm(:show="show" :title="confirm_title" @_confirmDialog="_confirmDialog" @_deleteTag="_deleteTag")
+          confirm(:show="show" :title="confirm_title" @_confirmDialog="_confirmDialog" @_confirmDel="_confirmDel")
           div.items-header
             div.id ID
             div.column-name 名称
@@ -54,8 +54,9 @@
               div.count {{item.forks_count}}
               div.count {{item.open_issues}}
               div.operation
-                div.box.bg-green(@click="") 编辑标签
-                div.box.bg-red(@click="_confirmDialog('alert-show', item._id)") 删除标签
+                div.box.bg-green
+                  a(target="_blank" v-bind:href="item.html_url") 查看项目
+                div.box.bg-red(@click="_confirmDialog('alert-show', item._id,item.name)") 删除项目
 </template>
 <script>
 import Confirm from "../common/vue/Confirm";
@@ -69,7 +70,11 @@ export default {
       projectIcon: "",
       projects: [],
       show: "",
-      confirm_title:""
+      confirm_title: "",
+      name: "",
+      _id: "",
+      condition: "",
+      routeList:[],
     };
   },
   components: {
@@ -77,8 +82,14 @@ export default {
   },
   mounted() {
     this._getGitHubProject();
+    console.log(this.routeList)
   },
   methods: {
+    // 刷新列表
+    _refreshList() {
+      this.projects = [];
+      this._getGitHubProject();
+    },
     // 获取GitHub项目数据
     _getGitHubProject() {
       this.$axios({
@@ -88,6 +99,7 @@ export default {
         this.projects = res.data.data;
       });
     },
+
     // 添加GitHub项目
     _addGitHubProject() {
       if (this.projectName == "") {
@@ -110,19 +122,47 @@ export default {
             this.projectUrl = "";
             this.projectDsc = "";
             this.projectIcon = "";
+            this.projects = [];
+            this._getGitHubProject();
           }
         });
       }
     },
+
+    // 删除GitHub项目
+    _confirmDel() {
+      this.show = "alert-close";
+      this.$axios({
+        method: "get",
+        url: "/deletegithubproject",
+        params: {
+          // _id: this._id,
+          name: this.name
+        }
+      }).then(res => {
+        if (res.data.status === "0") {
+          let nodesc = "删除成功😁！";
+          this.$Notice._success(nodesc, this);
+          this.name = "";
+          this._getGitHubProject();
+        } else if (res.data.status === "1") {
+          let nodesc = "删除失败😭！";
+          this.$Notice._error(nodesc, this);
+        }
+      });
+    },
+
     // 显示确认窗口
-    _confirmDialog(value, id) {
+    _confirmDialog(value, _id, name) {
       this.show = value;
       if (value === "alert-close") {
-        this.id = "";
+        this.name = "";
       } else if (value === "alert-show") {
-        this.id = id;
+        // this._id = _id;
+        this.name = name;
+        this.confirm_title = "'" + name + "'项目";
       }
-    },
+    }
   }
 };
 </script>
@@ -440,6 +480,9 @@ $font-color: rgba(255, 255, 255, 0.8);
             opacity: 0.8;
             transition: opacity 0.5s linear;
             user-select: none;
+            a {
+              color: $font-color;
+            }
             &:nth-child(1) {
               border-top-left-radius: 4px;
               border-bottom-left-radius: 4px;

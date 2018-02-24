@@ -56,6 +56,7 @@ export default {
     this._initEditData();
     this._initContent();
   },
+  
   methods: {
     // 如果是编辑状态，就初始化文章内容
     _initContent() {
