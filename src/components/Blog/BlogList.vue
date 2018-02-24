@@ -1,6 +1,7 @@
 <template lang="pug">
   div.blog-list(ref="bloglistH")
     div.main
+      confirm(:show="show" :title="confirm_title" @_confirmDialog="_confirmDialog" @_confirmDel="_confirmDel")
       div.bar
         div.one.fadeInLeft
           div.common(@click="_screening('all')" v-bind:class="{one_active: state == 'all'}") 全部[{{allTotal}}]
@@ -35,7 +36,7 @@
         div.blog-comment 评论
         div.blog-love 喜欢
         div.blog-love 状态
-        div.blog-operation 操作
+        div.blog-operation 操作      
       div.blogs.scroll(ref='scroll')
         div.blog-item(v-for="(item,index) in blogs" v-bind:key="index")
           div.blog-id 
@@ -72,7 +73,8 @@
               span 移到草稿
             div.operation(@click="_toWriteBlog('edit',item._id)")
               span 编辑文章
-            div.operation(@click="_deleteBlog(item._id)" v-if="deleting !== item._id")
+            //- div.operation(@click="_deleteBlog(item._id)" v-if="deleting !== item._id")
+            div.operation(@click="_confirmDialog('alert-show', item._id,item.name)")
               span 删除文章
             div.operation(v-if="deleting === item._id")
               span 删除中...
@@ -81,6 +83,7 @@
 <script>
 import axios from "axios";
 import Page from "../common/vue/Page";
+import Confirm from "../common/vue/Confirm";
 
 export default {
   data() {
@@ -96,11 +99,14 @@ export default {
       allTotal: 0,
       postTotal: 0,
       draftTotal: 0,
-      deleting: ""
+      deleting: "",
+      show: "",
+      confirm_title: ""
     };
   },
   components: {
-    Page
+    Page,
+    Confirm
   },
   mounted() {
     this.init();
@@ -111,6 +117,17 @@ export default {
       this._getPostedBlogs();
       this._getDraftBlogs();
       this._refreshList(this.state);
+    },
+    // 显示确认窗口
+    _confirmDialog(value, _id, name) {
+      this.show = value;
+      if (value === "alert-close") {
+        this.name = "";
+      } else if (value === "alert-show") {
+        // this._id = _id;
+        this.name = name;
+        this.confirm_title = "'" + name + "'项目";
+      }
     },
     // 点击编辑按钮，跳转到编辑博客窗口
     _toWriteBlog(type, value) {
@@ -526,7 +543,6 @@ $blog-item-h: 150px;
     }
   }
   .blogs {
-    
     height: calc(100vh - 233px);
     .blog-item {
       height: $blog-item-h;

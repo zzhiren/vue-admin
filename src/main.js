@@ -8,7 +8,6 @@ import './components/common/css/iview.css';
 import './components/common/css/animate.css';
 import Notice from "./utils/Notice.js"
 Vue.use(iView)
-
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.prototype.$Notice = Notice
@@ -16,22 +15,22 @@ Vue.prototype.$Notice = Notice
 
 // const instance = axios.create();
 axios.interceptors.request.use(
-  config => {
-      //每次发送请求之前检测都vuex存有token,那么都要放在请求头发送给服务器
-      if(store.state.token){
-          config.headers.Authorization =store.state.token;
-      }
-      return config;
-  },
-  err => {
-      return Promise.reject(err);
-  }
+    config => {
+        //每次发送请求之前检测都vuex存有token,那么都要放在请求头发送给服务器
+        if (store.state.token) {
+            config.headers.Authorization = store.state.token;
+        }
+        return config;
+    },
+    err => {
+        return Promise.reject(err);
+    }
 );
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
 })

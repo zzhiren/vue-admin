@@ -38,7 +38,7 @@
         div.bar
           span {{title}}
           span
-            router-link.nav(:to="item.route_link" tag="span" @click.native="_checked('blog')" v-for="(item,index) in routeList") {{item.name}} 
+            router-link.nav(:to="item.route_link" tag="span" @click.native="_checked('blog')" v-for="(item,index) in routeList" v-bind:key="index") {{item.name}} 
             router-link.nav(to="/home" tag="span" @click.native="_checked('blog')" ) / 首页
         div.main.scroll
           router-view
