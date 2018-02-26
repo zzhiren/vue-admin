@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.blog-list(ref="bloglistH")
+  div.blog-list.scroll(ref="bloglistH")
     div.main
       div.bar
         div.one.fadeInLeft
@@ -26,7 +26,6 @@
             div.item
           input.search-input(v-model="condition" placeholder="文章标题、描述...")
           div.search-btn 搜索
-      
       div.items
         confirm(:show="show" :title="confirm_title" @_confirmDialog="_confirmDialog" @_confirmDel="_confirmDel")
         div.list-header
@@ -76,7 +75,7 @@
               div.operation(@click="_toWriteBlog('edit',item._id)")
                 span 编辑文章
               //- div.operation(@click="_deleteBlog(item._id)" v-if="deleting !== item._id")
-              div.operation(@click="_confirmDialog('alert-show', item._id,item.name)")
+              div.operation(v-if="deleting === ''" @click="_confirmDialog('alert-show', item._id,item.title)")
                 span 删除文章
               div.operation(v-if="deleting === item._id")
                 span 删除中...
@@ -103,7 +102,9 @@ export default {
       draftTotal: 0,
       deleting: "",
       show: "",
-      confirm_title: ""
+      confirm_title: "",
+      show: "",
+      id: ""
     };
   },
   components: {
@@ -122,14 +123,40 @@ export default {
     },
     // 显示确认窗口
     _confirmDialog(value, _id, name) {
+      this.id = _id;
       this.show = value;
       if (value === "alert-close") {
         this.name = "";
       } else if (value === "alert-show") {
         // this._id = _id;
         this.name = name;
-        this.confirm_title = "'" + name + "'项目";
+        this.confirm_title = "'" + name + "'文章";
       }
+    },
+    // 删除博客
+    _confirmDel() {
+      this.show = "alert-close";
+      this.deleting = this.id;
+      this.$axios({
+        method: "post",
+        url: "/deleteblog",
+        data: {
+          id: this.id
+        }
+      }).then(res => {
+        if (res.data.status == "0") {
+          let nodesc = "删除成功😊!";
+          this.init();
+          this.$Notice._success(nodesc, this);
+          this.id = "";
+          this.deleting = "";
+        } else if (res.data.status == "1") {
+          let nodesc = "删除失败😞!";
+          this.id = "";
+          this.$Notice._error(nodesc, this);
+          this.deleting = "";
+        }
+      });
     },
     // 点击编辑按钮，跳转到编辑博客窗口
     _toWriteBlog(type, value) {
@@ -266,26 +293,6 @@ export default {
           this.init();
         }
       });
-    },
-    // 删除博客
-    _deleteBlog(id) {
-      this.deleting = id;
-      this.$axios({
-        method: "post",
-        url: "/deleteblog",
-        data: {
-          id: id
-        }
-      }).then(res => {
-        if (res.data.status == "0") {
-          let nodesc = "删除成功=￣ω￣=!";
-          this.init();
-          this.success(nodesc);
-        } else if (res.data.status == "1") {
-          let nodesc = "删除失败(⊙o⊙)？!";
-          this.error(nodesc);
-        }
-      });
     }
   }
 };
@@ -305,7 +312,7 @@ $blog-item-h: 150px;
   transition: transform 1s;
 }
 .blog-list {
-  overflow-x: hidden;
+  overflow-x: auto;
   height: 100%;
   .main {
     padding: 14px 20px 0 20px;
