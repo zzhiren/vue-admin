@@ -1,7 +1,6 @@
 <template lang="pug">
   div.blog-list(ref="bloglistH")
     div.main
-      confirm(:show="show" :title="confirm_title" @_confirmDialog="_confirmDialog" @_confirmDel="_confirmDel")
       div.bar
         div.one.fadeInLeft
           div.common(@click="_screening('all')" v-bind:class="{one_active: state == 'all'}") 全部[{{allTotal}}]
@@ -27,57 +26,60 @@
             div.item
           input.search-input(v-model="condition" placeholder="文章标题、描述...")
           div.search-btn 搜索
-      div.list-header
-        div.blog-id ID
-        div.blog-title 文章
-        div.blog-tag 标签
-        div.blog-date 日期
-        div.blog-read 阅读
-        div.blog-comment 评论
-        div.blog-love 喜欢
-        div.blog-love 状态
-        div.blog-operation 操作      
-      div.blogs.scroll(ref='scroll')
-        div.blog-item(v-for="(item,index) in blogs" v-bind:key="index")
-          div.blog-id 
-            span.span ID
-          div.blog-title.item-title
-            div#font-family.content(v-bind:style="'background-image:url('+item.firstPic+');'")
-              div.desc 
-                p.title
-                  span(v-html="item.title")
-                  Icon.icon-font.green(v-if="item.state == 0" type="checkmark-round")
-                  Icon.icon-font.yellow(v-if="item.state == 1" type="android-close")
-                p.preface(v-html="item.preface")
-          div.blog-tag.center-color
-            div.tag
-              ul
-                li(v-for="(tag,index) in item.tag")
-                  Icon.tag-icon(type="ios-pricetag")
-                  span {{tag}}
-          div.blog-date.center-color 
-            span.span {{item.creationTime}}
-          div.blog-read.center-color 
-            span.span {{item.eyes}}人阅读
-          div.blog-comment.center-color 
-            span.span {{item.comment}}人评论
-          div.blog-love.center-color 
-            span.span {{item.love}}人喜欢
-          div.blog-love.center-color 
-            span.span(v-if="item.state == 0") 已发布
-            span.span(v-if="item.state == 1") 未发布
-          div.blog-operation.operation-div 
-            div.operation(@click="_changeBlogState(item._id,'0')")
-              span 发布文章
-            div.operation(@click="_changeBlogState(item._id,'1')")
-              span 移到草稿
-            div.operation(@click="_toWriteBlog('edit',item._id)")
-              span 编辑文章
-            //- div.operation(@click="_deleteBlog(item._id)" v-if="deleting !== item._id")
-            div.operation(@click="_confirmDialog('alert-show', item._id,item.name)")
-              span 删除文章
-            div.operation(v-if="deleting === item._id")
-              span 删除中...
+      
+      div.items
+        confirm(:show="show" :title="confirm_title" @_confirmDialog="_confirmDialog" @_confirmDel="_confirmDel")
+        div.list-header
+          div.blog-id ID
+          div.blog-title 文章
+          div.blog-tag 标签
+          div.blog-date 日期
+          div.blog-read 阅读
+          div.blog-comment 评论
+          div.blog-love 喜欢
+          div.blog-love 状态
+          div.blog-operation 操作      
+        div.blogs.scroll(ref='scroll')
+          div.blog-item(v-for="(item,index) in blogs" v-bind:key="index")
+            div.blog-id 
+              span.span ID
+            div.blog-title.item-title
+              div#font-family.content(v-bind:style="'background-image:url('+item.firstPic+');'")
+                div.desc 
+                  p.title
+                    span(v-html="item.title")
+                    Icon.icon-font.green(v-if="item.state == 0" type="checkmark-round")
+                    Icon.icon-font.yellow(v-if="item.state == 1" type="android-close")
+                  p.preface(v-html="item.preface")
+            div.blog-tag.center-color
+              div.tag
+                ul
+                  li(v-for="(tag,index) in item.tag")
+                    Icon.tag-icon(type="ios-pricetag")
+                    span {{tag}}
+            div.blog-date.center-color 
+              span.span {{item.creationTime}}
+            div.blog-read.center-color 
+              span.span {{item.eyes}}人阅读
+            div.blog-comment.center-color 
+              span.span {{item.comment}}人评论
+            div.blog-love.center-color 
+              span.span {{item.love}}人喜欢
+            div.blog-love.center-color 
+              span.span(v-if="item.state == 0") 已发布
+              span.span(v-if="item.state == 1") 未发布
+            div.blog-operation.operation-div 
+              div.operation(@click="_changeBlogState(item._id,'0')")
+                span 发布文章
+              div.operation(@click="_changeBlogState(item._id,'1')")
+                span 移到草稿
+              div.operation(@click="_toWriteBlog('edit',item._id)")
+                span 编辑文章
+              //- div.operation(@click="_deleteBlog(item._id)" v-if="deleting !== item._id")
+              div.operation(@click="_confirmDialog('alert-show', item._id,item.name)")
+                span 删除文章
+              div.operation(v-if="deleting === item._id")
+                span 删除中...
       page(ref="page" @_pageOnChange="_pageOnChange" :total="total" :page="page")
 </template>
 <script>
@@ -447,7 +449,11 @@ $blog-item-h: 150px;
       }
     }
   }
-
+  .items {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
   .list-header {
     width: 100%;
     height: 30px;
@@ -457,6 +463,7 @@ $blog-item-h: 150px;
     color: white;
     background: #393d41;
     padding-right: 4px;
+    position: relative;
   }
   .blog-state {
     width: 40px;
@@ -544,9 +551,11 @@ $blog-item-h: 150px;
   }
   .blogs {
     height: calc(100vh - 233px);
+    position: relative;
+    z-index: 1;
     .blog-item {
       height: $blog-item-h;
-      background: #3f4347;
+      background: $list-bg-a;
       display: flex;
       box-sizing: border-box;
       overflow-x: hidden;
@@ -556,7 +565,7 @@ $blog-item-h: 150px;
         animation-name: fadeInLeft;
       }
       &:nth-child(2n) {
-        background: #393d41;
+        background: $list-bg-b;
         backface-visibility: visible !important;
         animation-duration: 1s;
         animation-name: fadeInRight;
