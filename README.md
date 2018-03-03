@@ -8,9 +8,9 @@
 #### 编辑博客
 ![image](https://raw.githubusercontent.com/Zzhiren/vue-admin/master/src/assets/admin-editblog.png)
 #### 标签管理
-![image](https://raw.githubusercontent.com/Zzhiren/vue-admin/master/src/assets/admin-editblog.png)
+![image](https://raw.githubusercontent.com/Zzhiren/vue-admin/master/src/assets/admin-tag.png)
 #### 项目管理
-![image](https://raw.githubusercontent.com/Zzhiren/vue-admin/master/src/assets/admin-editblog.png)
+![image](https://raw.githubusercontent.com/Zzhiren/vue-admin/master/src/assets/admin-project.png)
 
 # 程序结构
 - vue.js组件化开发
